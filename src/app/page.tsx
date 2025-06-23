@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <main>
-      <header className={`lab-header ${scrolled ? 'scrolled' : ''}`}>
+      <header className={`lab-header ${scrolled ? 'scrolled' : ''}`} style={{ marginTop: 0 }}>
         <div className="nav-container">
           <div className="nav-logo-wrapper">
             
@@ -30,38 +30,40 @@ export default function Home() {
             <a href="#contact">Contact</a>
             
           </nav>
-          <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-            <span className="bar"></span>
-            <span className="bar"></span>
-            <span className="bar"></span>
+          <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+            {menuOpen ? (
+              <span className="hamburger-close">✕</span>
+            ) : (
+              <>
+                <span className="bar"></span>
+                <span className="bar"></span>
+                <span className="bar"></span>
+              </>
+            )}
           </button>
         </div>
       </header>
 
       <div>
-        <div className="hero">
+        <section className="hero">
           <img
             src="/assets/scientist-lab.jpg"
             alt="Scientist in lab using pipette – GLP compliance work"
             loading="eager"
           />
-          <div className="hero-text hero-left">
+          <section className='section'>
+          <div className="hero-text">
             <h1>Empowering Labs to Meet Regulatory Excellence</h1>
-            <p>Specialized quality and compliance solutions for GLP/GMP environments in biotech, pharma, and research.</p>
+            <p>Your partner in GLP/GMP compliance, quality systems, and regulatory readiness for biotech and pharmaceutical success.</p>
           </div>
           <div className="hero-fade"></div>
-        </div>
-        
-        <section id="mission-statement" className='section'>
-          <div className='mission-section'>          
-            <h3>Advance your laboratory with confidence. Partner with a trusted expert in GLP/GMP compliance and quality systems for biotech and pharmaceutical success.</h3>
-          </div>
+          </section>
         </section>
 
         <section id="services" className="section">
           <div className="section-content">
             <div className="section-image">
-              <img src="/assets/lab-notebook.jpg" alt="Compliance consulting" />
+              <img src="/assets/lab-notebook.jpg" alt="Compliance consulting" style={{ width: '600px', height: 'auto' }} />
             </div>
             <div className="section-text">
               <h2>Our Services</h2>
@@ -72,14 +74,15 @@ export default function Home() {
                 <li>QA/QC Process Optimization</li>
                 <li>Mock Inspections & Gap Analysis</li>
               </ul>
+              <hr className="section-hr" />
             </div>
           </div>
         </section>
 
-        <section id="about" className="section">
-          <div className="section-content reverse">
+        <section id="about" className="section reverse">
+          <div className="section-content">
             <div className="section-image">
-              <img src="/assets/scientist-woman.jpg" alt="About Lab Integrity Pro" />
+              <img src="/assets/scientist-woman.jpg" alt="About Lab Integrity Pro" style={{ width: '600px', height: 'auto' }} />
             </div>
             <div className="section-text">
               <h2>About Us</h2>
@@ -88,6 +91,7 @@ export default function Home() {
                 laboratory data review, and regulatory readiness for pharma and biotech clients. We help labs build reliable
                 systems that pass inspections and protect scientific integrity.
               </p>
+              <hr className="section-hr" />
             </div>
           </div>
         </section>
@@ -95,7 +99,7 @@ export default function Home() {
         <section id="contact" className="section">
           <div className="section-content">
             <div className="section-image">
-              <img src="/assets/smiling-scientist.jpg" alt="Contact Lab Integrity Pro" />
+              <img src="/assets/smiling-scientist.jpg" alt="Contact Lab Integrity Pro" style={{ width: '600px', height: 'auto' }} />
             </div>
             <div className="section-text">
               <h2>Get in Touch</h2>
