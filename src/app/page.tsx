@@ -28,7 +28,6 @@ export default function Home() {
             <a href="#services">Services</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
-            
           </nav>
           <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
             {menuOpen ? (
@@ -45,36 +44,44 @@ export default function Home() {
       </header>
 
       <div>
-        <section className="hero">
+        <div className="hero">
           <img
             src="/assets/scientist-lab.jpg"
             alt="Scientist in lab using pipette – GLP compliance work"
             loading="eager"
           />
-          <section className='section'>
           <div className="hero-text">
-            <h1>Empowering Labs to Meet Regulatory Excellence</h1>
-            <p>Your partner in GLP/GMP compliance, quality systems, and regulatory readiness for biotech and pharmaceutical success.</p>
+            <h1>Advance Your Lab with Confidence</h1>
+            <p>
+              Expert GLP/GMP solutions to strengthen your lab’s regulatory readiness and data integrity.
+            </p>
+            <a href="#services" className="hero-cta">Learn more about our services ›</a>
           </div>
           <div className="hero-fade"></div>
-          </section>
+        </div>
+
+        <section id="main-header" className="section">
+          <div className="section-content">
+            <h3> Improve data integrity, simplify SOP development, and ensure audit readiness with expert-led quality system support.
+            </h3>
+          </div>
         </section>
 
         <section id="services" className="section">
           <div className="section-content">
             <div className="section-image">
-              <img src="/assets/lab-notebook.jpg" alt="Compliance consulting" style={{ width: '600px', height: 'auto' }} />
+              <img src="/assets/team-of-scientists.jpg" alt="Compliance consulting" className="responsive-image" />
             </div>
-            <div className="section-text">
-              <h2>Our Services</h2>
-              <ul>
-                <li>GLP/GMP Audit Readiness Assessments</li>
-                <li>SOP Development & Review</li>
-                <li>Data Integrity Compliance</li>
-                <li>QA/QC Process Optimization</li>
-                <li>Mock Inspections & Gap Analysis</li>
-              </ul>
-              <hr className="section-hr" />
+            <div className="section-text styled-section-text">
+              <h4 className="section-subtitle">End-to-End Quality Support</h4>
+              <h2 className="section-title">Quality Strategies That Grow With Your Lab</h2>
+              <p>
+                Improve data integrity, simplify SOP development, and ensure audit readiness with expert-led quality system support.
+              </p>
+              <hr className="section-divider" />
+              <a href="#contact" className="section-link">
+                Let's Optimize Your Systems ›
+              </a>
             </div>
           </div>
         </section>
@@ -82,28 +89,37 @@ export default function Home() {
         <section id="about" className="section reverse">
           <div className="section-content">
             <div className="section-image">
-              <img src="/assets/scientist-woman.jpg" alt="About Lab Integrity Pro" style={{ width: '600px', height: 'auto' }} />
+              <img src="/assets/lab-notebook2.jpg" alt="About Lab Integrity Pro" className="responsive-image" />
             </div>
-            <div className="section-text">
-              <h2>About Us</h2>
+            <div className="section-text styled-section-text">
+              <h4 className="section-subtitle">Data Integrity Consulting</h4>
+              <h2 className="section-title">Audit-Ready Data Review for Pharma and Biotech</h2>
               <p>
-                Lab Integrity Pro is led by a seasoned Quality Control professional with over 10 years of experience in GLP compliance,
-                laboratory data review, and regulatory readiness for pharma and biotech clients. We help labs build reliable
-                systems that pass inspections and protect scientific integrity.
+                Ensure your lab’s data stands up to regulatory scrutiny. With deep experience in GLP/GMP environments, we provide thorough, inspection-ready reviews that identify gaps, enhance traceability, and uphold scientific integrity.
               </p>
-              <hr className="section-hr" />
+              <hr className="section-divider" />
+              <a href="#contact" className="section-link">
+                Schedule a Data Review ›
+              </a>
             </div>
           </div>
         </section>
 
-        <section id="contact" className="section">
+          <section id="contact" className="section">
           <div className="section-content">
             <div className="section-image">
-              <img src="/assets/smiling-scientist.jpg" alt="Contact Lab Integrity Pro" style={{ width: '600px', height: 'auto' }} />
+              <img src="/assets/lab-inspection.jpg" alt="Contact Lab Integrity Pro" className="responsive-image" />
             </div>
-            <div className="section-text">
-              <h2>Get in Touch</h2>
-              <p>Email us at <a href="mailto:info@labintegritypro.com">info@labintegritypro.com</a></p>
+            <div className="section-text styled-section-text">
+              <h4 className="section-subtitle">Regulatory Expertise</h4>
+              <h2 className="section-title">GLP and GMP Compliance Without the Guesswork</h2>
+              <p>
+                We simplify complex regulations into clear, actionable steps. From SOPs to audit prep, our expertise helps your lab stay compliant and inspection-ready with confidence.
+              </p>
+              <hr className="section-divider" />
+              <a href="#contact" className="section-link">
+                Prepare for Your Next Inspection ›
+              </a>
             </div>
           </div>
         </section>
