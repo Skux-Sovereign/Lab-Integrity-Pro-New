@@ -53,9 +53,9 @@ export default function Home() {
           <div className="hero-text">
             <h1>Advance Your Lab with Confidence</h1>
             <p>
-              Expert GLP/GMP solutions to strengthen your lab’s regulatory readiness and data integrity.
+              Expert GLP/GMP solutions to strengthen your lab&rsquo;ss regulatory readiness and data integrity.
             </p>
-            <a href="#services" className="hero-cta">Learn more about our services ›</a>
+            <a href="#services" className="hero-cta">Learn more about our services &gt;</a>
           </div>
           <div className="hero-fade"></div>
         </div>
@@ -80,7 +80,7 @@ export default function Home() {
               </p>
               <hr className="section-divider" />
               <a href="#contact" className="section-link">
-                Let's Optimize Your Systems ›
+                Let's Optimize Your Systems &gt;
               </a>
             </div>
           </div>
@@ -95,11 +95,11 @@ export default function Home() {
               <h4 className="section-subtitle">Data Integrity Consulting</h4>
               <h2 className="section-title">Audit-Ready Data Review for Pharma and Biotech</h2>
               <p>
-                Ensure your lab’s data stands up to regulatory scrutiny. With deep experience in GLP/GMP environments, we provide thorough, inspection-ready reviews that identify gaps, enhance traceability, and uphold scientific integrity.
+                Ensure your lab&rsquo;s data stands up to regulatory scrutiny. With deep experience in GLP/GMP environments, we provide thorough, inspection-ready reviews that identify gaps, enhance traceability, and uphold scientific integrity.
               </p>
               <hr className="section-divider" />
               <a href="#contact" className="section-link">
-                Schedule a Data Review ›
+                Schedule a Data Review &gt;
               </a>
             </div>
           </div>
@@ -118,7 +118,7 @@ export default function Home() {
               </p>
               <hr className="section-divider" />
               <a href="#contact" className="section-link">
-                Prepare for Your Next Inspection ›
+                Prepare for Your Next Inspection &gt;
               </a>
             </div>
           </div>
