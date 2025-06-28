@@ -80,7 +80,7 @@ export default function Home() {
               </p>
               <hr className="section-divider" />
               <a href="#contact" className="section-link">
-                Let's Optimize Your Systems &gt;
+                Let&rsquo;s Optimize Your Systems &gt;
               </a>
             </div>
           </div>
