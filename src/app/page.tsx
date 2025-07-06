@@ -53,9 +53,9 @@ export default function Home() {
           <div className="hero-text">
             <h1>Advance Your Lab with Confidence</h1>
             <p>
-              Expert GLP/GMP solutions to strengthen your lab&rsquo;ss regulatory readiness and data integrity.
+              Expert GLP/GMP solutions to strengthen your lab&rsquo;s regulatory readiness and data integrity.
             </p>
-            <a href="#services" className="hero-cta">Learn more about our services &gt;</a>
+            <Link href="/products" className="cta-button-gradient">Talk to a Pro</Link>
           </div>
           <div className="hero-fade"></div>
         </div>
@@ -121,6 +121,37 @@ export default function Home() {
                 Prepare for Your Next Inspection &gt;
               </a>
             </div>
+          </div>
+        </section>
+
+        <section className="tile-grid section">
+          <div
+            className="tile"
+            style={{ backgroundImage: "url('/assets/sop-template.jpg')" }}
+          >
+            <h3>Template Packages</h3>
+            <p>Ready-to-use SOP templates for immediate compliance support.</p>
+          </div>
+          <div
+            className="tile"
+            style={{ backgroundImage: "url('/assets/inspection.jpg')" }}
+          >
+            <h3>Inspection Readiness</h3>
+            <p>Checklists and gap analysis to help pass audits confidently.</p>
+          </div>
+          <div
+            className="tile"
+            style={{ backgroundImage: "url('/assets/data-review.jpg')" }}
+          >
+            <h3>Data Review</h3>
+            <p>Ensure traceability and accuracy in your scientific records.</p>
+          </div>
+          <div
+            className="tile"
+            style={{ backgroundImage: "url('/assets/training.jpg')" }}
+          >
+            <h3>Quality Training</h3>
+            <p>Workshops and guidance on GLP/GMP best practices.</p>
           </div>
         </section>
 
