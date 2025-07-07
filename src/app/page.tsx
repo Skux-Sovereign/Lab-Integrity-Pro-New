@@ -61,7 +61,8 @@ export default function Home() {
         showArrows={false}
         interval={6000}
         transitionTime={700}
-        swipeable
+        swipeable={false}
+        emulateTouch={false}
         renderIndicator={(onClickHandler, isSelected, index, label) => {
           return (
             <li
