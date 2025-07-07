@@ -338,6 +338,11 @@ p, a, ul {
   margin-top: 0.5rem;
 }
 
+.carousel .slide {
+  touch-action: pan-y; /* Allow vertical scroll even inside horizontal swipe area */
+}
+
+
 /* Section Styling */
 .section {
   padding: 6rem 2rem;

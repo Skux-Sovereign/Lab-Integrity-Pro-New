@@ -46,7 +46,7 @@ export default function Products() {
         </div>
       </header>
 
-      <section className="section" style={{ paddingTop: '18em' }}>
+      <section className="section" style={{ paddingTop: '16em' }}>
         <div className="section-content" style={{ flexDirection: 'column' }}>
           <h1>Purchase SOP Templates</h1>
           <p style={{ marginBottom: '2rem', textAlign: 'center' }}>
