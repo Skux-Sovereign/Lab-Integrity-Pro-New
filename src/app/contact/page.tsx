@@ -92,7 +92,7 @@ export default function Contact() {
 
             <div className="recaptcha-wrapper">
               <label>
-                <input type="checkbox" required /> I'm not a robot
+                <input type="checkbox" required /> I&rsquo;m not a robot
               </label>
             </div>
 
