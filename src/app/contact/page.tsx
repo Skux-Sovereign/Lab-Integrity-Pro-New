@@ -27,8 +27,8 @@ export default function Contact() {
           </div>
           <nav className="nav-menu">
             <Link href="/">Home</Link>
-            <Link href="/#services">Services</Link>
-            <Link href="/products">Products</Link>
+            <Link href="/products">Services</Link>
+            <Link href="/#about">About</Link>
           </nav>
         </div>
       </header>

@@ -85,7 +85,7 @@ export default function Products() {
           <nav className="nav-menu">
             <Link href="/">Home</Link>
             <Link href="/#services">Services</Link>
-            <Link href="/#contact">Contact</Link>
+            <Link href="/contact">Contact</Link>
           </nav>
         </div>
       </header>
