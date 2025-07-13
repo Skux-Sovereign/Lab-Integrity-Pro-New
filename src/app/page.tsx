@@ -5,6 +5,23 @@ import { useEffect, useState } from 'react';
 import './globals.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // import styles
 import { Carousel } from 'react-responsive-carousel';
+import Image from 'next/image';
+
+// Static imports for hero carousel images (assuming /src/app/assets/)
+import scientistBench from './assets/scientist-at-bench.jpg';
+import smilingScientists from './assets/smiling-scientists.jpg';
+import labInspection from './assets/lab-inspection.jpg';
+
+// Static imports for section images
+import teamScientists from './assets/team-of-scientists.jpg';
+import labNotebook from './assets/lab-notebook2.jpg';
+import scientistLab from './assets/scientist-lab.jpg';
+
+// Static imports for tile background images
+import sopTemplate from './assets/sop-template.jpg';
+import inspection from './assets/inspection.jpg';
+import dataReview from './assets/data-review.jpg';
+import training from './assets/training.jpg';
 
 
 export default function Home() {
@@ -29,7 +46,20 @@ export default function Home() {
         <div className="nav-container">
           <div className="nav-logo-wrapper">
             
-            <Link href="/" className="nav-logo-text"><img src="/assets/logo.png" alt="Lab Integrity Pro Logo" className="nav-logo-img" /></Link>
+            <Link href="/" className="nav-logo-text">
+              <Image 
+                src="/assets/logo.png" 
+                alt="Lab Integrity Pro Logo" 
+                className="nav-logo-img" 
+                width={150} 
+                height={150} 
+                priority 
+                quality={100} 
+                sizes="(max-width: 768px) 100px, 150px" 
+                style={{ height: 'auto' }} // Ensures aspect ratio is maintained
+                
+              />
+            </Link>
           </div>
           <nav className={`nav-menu ${menuOpen ? 'active' : ''}`}>
             <a href="/products">Services</a>
@@ -76,11 +106,11 @@ export default function Home() {
         }}
       >
         <div className="hero-slide">
-          <img src="/assets/scientist-at-bench.jpg" alt="Smiling laboratory scientist in GLP-compliant lab using microscope with access badge, representing data integrity and regulatory compliance services" />
+          <Image src={scientistBench} alt="Smiling laboratory scientist in GLP-compliant lab using microscope with access badge, representing data integrity and regulatory compliance services" fill style={{ objectFit: 'cover' }} quality={90} priority placeholder="blur" />
           <div className="hero-text">
             <h1>Advance Your Lab with Confidence</h1>
             <p>
-              Expert GLP/GMP solutions to strengthen your lab&rsquo;s regulatory readiness and data integrity.
+              Expert GLP/GMP solutions to strengthen your lab’s regulatory readiness and data integrity.
             </p>
             <Link href="/products" className="cta-button-gradient">Talk to a Pro</Link>
             <div className="custom-indicator-wrapper">
@@ -98,7 +128,7 @@ export default function Home() {
         </div>
 
         <div className="hero-slide">
-          <img src="/assets/smiling-scientists.jpg" alt="Two scientists reviewing data on a tablet in a modern GMP laboratory, preparing for regulatory audit with Lab Integrity Pro's compliance consulting services" />
+          <Image src={smilingScientists} alt="Two scientists reviewing data on a tablet in a modern GMP laboratory, preparing for regulatory audit with Lab Integrity Pro's compliance consulting services" fill style={{ objectFit: 'cover' }} quality={90} priority placeholder="blur" />
           <div className="hero-text">
             <h1>Built for Audit-Ready Results</h1>
             <p>
@@ -120,7 +150,7 @@ export default function Home() {
         </div>
 
         <div className="hero-slide">
-          <img src="/assets/lab-inspection.jpg" alt="Lab inspector reviewing records – compliance inspection" />
+          <Image src={labInspection} alt="Lab inspector reviewing records – compliance inspection" fill style={{ objectFit: 'cover' }} quality={90} priority placeholder="blur" />
           <div className="hero-text">
             <h1>Simplify Your Compliance Strategy</h1>
             <p>
@@ -153,7 +183,7 @@ export default function Home() {
         <section id="services" className="section">
           <div className="section-content">
             <div className="section-image">
-              <img src="/assets/team-of-scientists.jpg" alt="Compliance consulting" className="responsive-image" />
+              <Image src={teamScientists} alt="Compliance consulting" className="responsive-image" quality={90} sizes="(max-width: 768px) 100vw, 500px" loading="lazy" placeholder="blur" unoptimized={true} />
             </div>
             <div className="section-text styled-section-text">
               <h4 className="section-subtitle">End-to-End Quality Support</h4>
@@ -163,7 +193,7 @@ export default function Home() {
               </p>
               <hr className="section-divider" />
               <a href="/products" className="section-link">
-                Let&rsquo;s Optimize Your Systems &gt;
+                Let’s Optimize Your Systems 
               </a>
             </div>
           </div>
@@ -172,17 +202,17 @@ export default function Home() {
         <section id="about" className="section reverse">
           <div className="section-content">
             <div className="section-image">
-              <img src="/assets/lab-notebook2.jpg" alt="About Lab Integrity Pro" className="responsive-image" />
+              <Image src={labNotebook} alt="About Lab Integrity Pro" className="responsive-image" quality={90} sizes="(max-width: 768px) 100vw, 500px" loading="lazy" placeholder="blur" unoptimized={true} />
             </div>
             <div className="section-text styled-section-text">
               <h4 className="section-subtitle">Data Integrity Consulting</h4>
               <h2 className="section-title">Audit-Ready Data Review for Pharma and Biotech</h2>
               <p>
-                Ensure your lab&rsquo;s data stands up to regulatory scrutiny. With deep experience in GLP/GMP environments, we provide thorough, inspection-ready reviews that identify gaps, enhance traceability, and uphold scientific integrity.
+                Ensure your lab’s data stands up to regulatory scrutiny. With deep experience in GLP/GMP environments, we provide thorough, inspection-ready reviews that identify gaps, enhance traceability, and uphold scientific integrity.
               </p>
               <hr className="section-divider" />
               <a href="/contact" className="section-link">
-                Schedule a Data Review &gt;
+                Schedule a Data Review 
               </a>
             </div>
           </div>
@@ -191,7 +221,7 @@ export default function Home() {
           <section id="contact" className="section">
           <div className="section-content">
             <div className="section-image">
-              <img src="/assets/scientist-lab.jpg" alt="Contact Lab Integrity Pro" className="responsive-image" />
+              <Image src={scientistLab} alt="Contact Lab Integrity Pro" className="responsive-image" quality={90} sizes="(max-width: 768px) 100vw, 500px" loading="lazy" placeholder="blur" unoptimized={true} />
             </div>
             <div className="section-text styled-section-text">
               <h4 className="section-subtitle">Regulatory Expertise</h4>
@@ -201,7 +231,7 @@ export default function Home() {
               </p>
               <hr className="section-divider" />
               <a href="/products" className="section-link">
-                Prepare for Your Next Inspection &gt;
+                Prepare for Your Next Inspection 
               </a>
             </div>
           </div>
@@ -209,7 +239,8 @@ export default function Home() {
 
         <section className="tile-grid">
           <Link href="/products" className="tile-link">
-            <div className="tile" style={{ backgroundImage: "url('/assets/sop-template.jpg')" }}>
+            <div className="tile">
+              <Image src={sopTemplate} alt="SOP Template Packages" fill style={{ objectFit: 'cover' }} quality={90} loading="lazy" placeholder="blur" />
               <div className="tile-content">
                 <h3>Template Packages</h3>
                 <p>Ready-to-use SOP templates for immediate compliance support.</p>
@@ -218,7 +249,8 @@ export default function Home() {
           </Link>
 
           <Link href="/products" className="tile-link">
-            <div className="tile" style={{ backgroundImage: "url('/assets/inspection.jpg')" }}>
+            <div className="tile">
+              <Image src={inspection} alt="Inspection Readiness Services" fill style={{ objectFit: 'cover' }} quality={90} loading="lazy" placeholder="blur" />
               <div className="tile-content">
                 <h3>Inspection Readiness</h3>
                 <p>Checklists and gap analysis to help pass audits confidently.</p>
@@ -227,7 +259,8 @@ export default function Home() {
           </Link>
 
           <Link href="/products" className="tile-link">
-            <div className="tile" style={{ backgroundImage: "url('/assets/data-review.jpg')" }}>
+            <div className="tile">
+              <Image src={dataReview} alt="Data Review Services" fill style={{ objectFit: 'cover' }} quality={90} loading="lazy" placeholder="blur" />
               <div className="tile-content">
                 <h3>Data Review</h3>
                 <p>Ensure traceability and accuracy in your scientific records.</p>
@@ -236,7 +269,8 @@ export default function Home() {
           </Link>
 
           <Link href="/products" className="tile-link">
-            <div className="tile" style={{ backgroundImage: "url('/assets/training.jpg')" }}>
+            <div className="tile">
+              <Image src={training} alt="Quality Training Services" fill style={{ objectFit: 'cover' }} quality={90} loading="lazy" placeholder="blur" />
               <div className="tile-content">
                 <h3>Quality Training</h3>
                 <p>Workshops and guidance on GLP/GMP best practices.</p>
@@ -247,7 +281,7 @@ export default function Home() {
 
 
         <footer>
-          &copy; {new Date().getFullYear()} Lab Integrity Pro. All rights reserved.
+          © {new Date().getFullYear()} Lab Integrity Pro. All rights reserved.
         </footer>
       </div>
     </main>

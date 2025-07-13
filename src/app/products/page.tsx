@@ -1,7 +1,25 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
 import '../globals.css';
+
+// Static imports for product grid images (relative path from /src/app/products/page.tsx)
+import monoclonal from '../assets/monoclonal-antibody.jpg';
+import gmpPharma from '../assets/gmp-pharmaceuticals.jpg';
+import auditReadiness from '../assets/audit-readiness.jpg';
+
+// Static imports for detail section images
+import glpSopPackage from '../assets/glp-sop-package.jpg';
+import gmpSopPackage from '../assets/gmp-sop-package.jpg';
+import auditToolkit from '../assets/audit-readiness-toolkit.jpg';
+
+// Static imports for icons (assuming /src/app/assets/icons/ subfolder)
+import glpIcon from '../assets/icons/icon-glp-hex.png';
+import gmpIcon from '../assets/icons/icon-gmp-hex.png';
+import auditIcon from '../assets/icons/icon-audit-hex.png';
 
 export default function Products() {
   const products = [
@@ -10,33 +28,59 @@ export default function Products() {
       title: 'GLP SOP Template Package',
       description: 'Comprehensive SOP templates tailored for GLP-compliant labs.',
       price: '$149',
-      image: '/assets/monoclonal-antibody.jpg',
-      icon: '/assets/icons/icon-glp-hex.png',
+      image: monoclonal, // Static import
+      icon: glpIcon, // Now a static import
     },
     {
       id: 2,
       title: 'GMP SOP Template Package',
       description: 'GMP-focused templates to support manufacturing compliance.',
       price: '$169',
-      image: '/assets/gmp-pharmaceuticals.jpg',
-      icon: '/assets/icons/icon-gmp-hex.png',
+      image: gmpPharma, // Static import
+      icon: gmpIcon, // Static import
     },
     {
       id: 3,
       title: 'Audit Readiness Toolkit',
       description: 'Checklists, logs, and prep materials to help pass regulatory audits.',
       price: '$89',
-      image: '/assets/audit-readiness.jpg',
-      icon: '/assets/icons/icon-audit-hex.png',
+      image: auditReadiness, // Static import
+      icon: auditIcon, // Static import
     },
   ];
 
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <main className="product-page">
-      <header className="lab-header scrolled">
+      <Head>
+        <title>Buy SOP Templates & Toolkits | Lab Integrity Pro</title>
+        <meta name="description" content="Downloadable GLP/GMP SOP templates and audit readiness tools for pharmaceutical and biotech labs." />
+      </Head>
+
+      <header className={`lab-header ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <Link href="/" className="nav-logo-text">
-            <img src="/assets/logo.png" alt="Lab Integrity Pro Logo" className="nav-logo-img" />
+            <Image 
+              src="/assets/logo.png" 
+              alt="Lab Integrity Pro Logo" 
+              className="nav-logo-img" 
+              width={150} 
+              height={150} 
+              priority 
+              quality={100} 
+              sizes="(max-width: 768px) 100px, 150px" 
+              style={{ height: 'auto' }} // Ensures aspect ratio is maintained
+              
+            />
           </Link>
           <nav className="nav-menu">
             <Link href="/">Home</Link>
@@ -46,7 +90,7 @@ export default function Products() {
         </div>
       </header>
 
-      <section className="section" style={{ paddingTop: '16em' }}>
+      <section className="section" style={{ paddingTop: '8rem' }}>
         <div className="section-content" style={{ flexDirection: 'column' }}>
           <h1>Purchase SOP Templates</h1>
           <p style={{ marginBottom: '2rem', textAlign: 'center' }}>
@@ -57,22 +101,33 @@ export default function Products() {
             {products.map((product) => (
               <div key={product.id} className="product-card">
                 <div className="product-icon-floating">
-                  <img 
-                    src={product.icon} alt={product.title + ' icon'} />
+                  <Image 
+                    src={product.icon} 
+                    alt={`${product.title} icon`} 
+                    width={80} 
+                    height={80} 
+                    quality={90} 
+                    loading="lazy" 
+                  />
                 </div>
-                <img 
-                  src={product.image} alt={`Product preview for ${product.title} – ${product.description}`} className="product-image"
-                   />
+                  <Image 
+                    src={product.image} 
+                    alt={`Product preview for ${product.title} – ${product.description}`} 
+                    className="product-image" 
+                    quality={90} 
+                    sizes="(max-width: 768px) 100vw, 320px" 
+                    loading="lazy" 
+                    placeholder="blur" // Auto-works now
+                  />
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
-              <div className="product-footer">
-                <span className="product-price">{product.price}</span>
-                <Link href="/" className="buy-now-button">Buy Now</Link>
-                <Link href={`#product-${product.id}`} className="whats-included-link">
-                  What’s Included?
-                </Link>
-              </div>
-
+                <div className="product-footer">
+                  <span className="product-price">{product.price}</span>
+                  <Link href={`/checkout/${product.id}`} className="buy-now-button">Buy Now</Link>
+                  <Link href={`#product-${product.id}`} className="whats-included-link">
+                    What’s Included?
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -93,18 +148,24 @@ export default function Products() {
               <li>Deviation Management SOP</li>
               <li>Download in Word format (.docx)</li>
             </ul>
-            <Link href="/" className="buy-now-button">Buy Now</Link>
+            <Link href={`/checkout/1`} className="buy-now-button">Buy Now</Link>
           </div>
           <div className="product-detail-image">
-            <img src="/assets/glp-sop-package.jpg" alt="GLP SOP Template Package preview" />
+            <Image 
+              src={glpSopPackage} 
+              alt="GLP SOP Template Package preview" 
+              quality={90} 
+              sizes="(max-width: 768px) 100vw, 500px" 
+              loading="lazy" 
+              placeholder="blur"
+            />
           </div>
         </div>
 
-        {/* Full-width gray background with centered content inside */}
         <div className="full-width-gray">
           <div className="section">
-            <div className="product-detail-block reverse">
-              <div className="product-detail-text" id="product-2">
+            <div className="product-detail-block reverse" id="product-2">
+              <div className="product-detail-text">
                 <h2>GMP SOP Template Package</h2>
                 <p>
                   Designed for manufacturing operations, this package helps you build a robust, compliant GMP foundation.
@@ -116,19 +177,24 @@ export default function Products() {
                   <li>Quality Risk Management SOP</li>
                   <li>Download in Word format (.docx)</li>
                 </ul>
-                <Link href="/" className="buy-now-button">Buy Now</Link>
+                <Link href={`/checkout/2`} className="buy-now-button">Buy Now</Link>
               </div>
               <div className="product-detail-image">
-                <img src="/assets/gmp-sop-package.jpg" alt="GMP SOP Template Package preview" />
+                <Image 
+                  src={gmpSopPackage} 
+                  alt="GMP SOP Template Package preview" 
+                  quality={90} 
+                  sizes="(max-width: 768px) 100vw, 500px" 
+                  loading="lazy" 
+                  placeholder="blur"
+                />
               </div>
             </div>
           </div>
         </div>
 
-
-
-        <div className="product-detail-block">
-          <div className="product-detail-text" id="product-3">
+        <div className="product-detail-block" id="product-3">
+          <div className="product-detail-text">
             <h2>Audit Readiness Toolkit</h2>
             <p>
               A practical kit for preparing your team, documents, and lab space for regulatory inspections.
@@ -140,10 +206,17 @@ export default function Products() {
               <li>Document Control Flowchart</li>
               <li>Printable and digital formats included</li>
             </ul>
-            <Link href="/" className="buy-now-button">Buy Now</Link>
+            <Link href={`/checkout/3`} className="buy-now-button">Buy Now</Link>
           </div>
           <div className="product-detail-image">
-            <img src="/assets/audit-readiness-toolkit.jpg" alt="Audit Toolkit preview" />
+            <Image 
+              src={auditToolkit} 
+              alt="Audit Toolkit preview" 
+              quality={90} 
+              sizes="(max-width: 768px) 100vw, 500px" 
+              loading="lazy" 
+              placeholder="blur"
+            />
           </div>
         </div>
       </section>
@@ -160,9 +233,8 @@ export default function Products() {
         </div>
       </section>
 
-
       <footer>
-        &copy; {new Date().getFullYear()} Lab Integrity Pro. All rights reserved.
+        © {new Date().getFullYear()} Lab Integrity Pro. All rights reserved.
       </footer>
     </main>
   );

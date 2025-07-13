@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import "../globals.css";
 
 export default function Contact() {
@@ -10,10 +11,17 @@ export default function Contact() {
         <div className="nav-container">
           <div className="nav-logo-wrapper">
             <Link href="/" className="nav-logo-text">
-              <img
-                src="/assets/logo.png"
-                alt="Lab Integrity Pro Logo"
-                className="nav-logo-img"
+              <Image 
+                src="/assets/logo.png" 
+                alt="Lab Integrity Pro Logo" 
+                className="nav-logo-img" 
+                width={150} 
+                height={150} 
+                priority 
+                quality={100} 
+                sizes="(max-width: 768px) 100px, 150px" 
+                style={{ height: 'auto' }} // Ensures aspect ratio is maintained
+                
               />
             </Link>
           </div>
