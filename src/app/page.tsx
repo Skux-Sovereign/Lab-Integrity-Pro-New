@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 // Static imports for hero carousel images (assuming /src/app/assets/)
 import scientistBench from './assets/scientist-at-bench.jpg';
-import smilingScientists from './assets/smiling-scientists.jpg';
+import smilingProfessionals from './assets/business-professionals.jpg';
 import labInspection from './assets/lab-inspection.jpg';
 
 // Static imports for section images
@@ -128,7 +128,7 @@ export default function Home() {
         </div>
 
         <div className="hero-slide">
-          <Image src={smilingScientists} alt="Two scientists reviewing data on a tablet in a modern GMP laboratory, preparing for regulatory audit with Lab Integrity Pro's compliance consulting services" fill style={{ objectFit: 'cover' }} quality={90} priority placeholder="blur" />
+          <Image src={smilingProfessionals} alt="Two business professionals reviewing data on a tablet in a modern GMP laboratory, preparing for regulatory audit with Lab Integrity Pro's compliance consulting services" fill style={{ objectFit: 'cover' }} quality={90} priority placeholder="blur" />
           <div className="hero-text">
             <h1>Built for Audit-Ready Results</h1>
             <p>
