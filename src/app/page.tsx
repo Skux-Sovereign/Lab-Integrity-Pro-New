@@ -36,10 +36,11 @@ export default function Home() {
         <div className="nav-container">
           <a href="#home" className="logo">Lab Integrity Pro</a>
           <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/#services">Services</Link></li>
+            <li><Link href="/products">Products</Link></li>
+            <li><Link href="/about">About</Link></li>
+            <li><Link href="/contact">Contact</Link></li>
           </ul>
           <div className="mobile-menu" onClick={toggleMobileMenu}>
             <span></span>
@@ -207,9 +208,9 @@ export default function Home() {
         <div className="footer-content">
           <ul className="footer-links">
             <li><a href="#services">Services</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+            <li><Link href="/about">About</Link></li>
+            <li><Link href="/#contact">Contact</Link></li>
+            <li><Link href="#">Privacy Policy</Link></li>
           </ul>
           <p>&copy; 2024 Lab Integrity Pro. All rights reserved.</p>
         </div>
