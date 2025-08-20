@@ -3,10 +3,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import Head from 'next/head';
-import '../globals.css';
+import '../page.css'; // Use the main page styles
+import './products.css'; // Additional products-specific styles
 
-// Static imports for product grid images (relative path from /src/app/products/page.tsx)
+// Static imports for product grid images
 import monoclonal from '../assets/monoclonal-antibody.jpg';
 import gmpPharma from '../assets/gmp-pharmaceuticals.jpg';
 import auditReadiness from '../assets/audit-readiness.jpg';
@@ -16,7 +16,7 @@ import glpSopPackage from '../assets/glp-sop-package.jpg';
 import gmpSopPackage from '../assets/gmp-sop-package.jpg';
 import auditToolkit from '../assets/audit-readiness-toolkit.jpg';
 
-// Static imports for icons (assuming /src/app/assets/icons/ subfolder)
+// Static imports for icons
 import glpIcon from '../assets/icons/icon-glp-hex.png';
 import gmpIcon from '../assets/icons/icon-gmp-hex.png';
 import auditIcon from '../assets/icons/icon-audit-hex.png';
@@ -28,214 +28,245 @@ export default function Products() {
       title: 'GLP SOP Template Package',
       description: 'Comprehensive SOP templates tailored for GLP-compliant labs.',
       price: '$149',
-      image: monoclonal, // Static import
-      icon: glpIcon, // Now a static import
+      image: monoclonal,
+      icon: glpIcon,
+      features: [
+        'General GLP SOP Framework',
+        'Data Integrity Policy',
+        'Equipment Calibration SOP',
+        'Deviation Management SOP',
+        'Download in Word format (.docx)'
+      ]
     },
     {
       id: 2,
       title: 'GMP SOP Template Package',
       description: 'GMP-focused templates to support manufacturing compliance.',
       price: '$169',
-      image: gmpPharma, // Static import
-      icon: gmpIcon, // Static import
+      image: gmpPharma,
+      icon: gmpIcon,
+      features: [
+        'Batch Record SOP',
+        'Change Control SOP',
+        'GMP Training SOP',
+        'Quality Risk Management SOP',
+        'Download in Word format (.docx)'
+      ]
     },
     {
       id: 3,
       title: 'Audit Readiness Toolkit',
       description: 'Checklists, logs, and prep materials to help pass regulatory audits.',
       price: '$89',
-      image: auditReadiness, // Static import
-      icon: auditIcon, // Static import
+      image: auditReadiness,
+      icon: auditIcon,
+      features: [
+        'Audit Checklist (FDA/EMA)',
+        'Inspection Log Template',
+        'CAPA Tracking Sheet',
+        'Document Control Flowchart',
+        'Printable and digital formats included'
+      ]
     },
   ];
 
-  const [scrolled, setScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
-    <main className="product-page">
-      <Head>
-        <title>Buy SOP Templates & Toolkits | Lab Integrity Pro</title>
-        <meta name="description" content="Downloadable GLP/GMP SOP templates and audit readiness tools for pharmaceutical and biotech labs." />
-      </Head>
-
-      <header className={`lab-header ${scrolled ? 'scrolled' : ''}`}>
+    <>
+      {/* Navigation - matching main site */}
+      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
-          <Link href="/" className="nav-logo-text">
-            <Image 
-              src="/assets/logo.png" 
-              alt="Lab Integrity Pro Logo" 
-              className="nav-logo-img" 
-              width={150} 
-              height={150} 
-              priority 
-              quality={100} 
-              sizes="(max-width: 768px) 100px, 150px" 
-              style={{ height: 'auto' }} // Ensures aspect ratio is maintained
-              
-            />
-          </Link>
-          <nav className="nav-menu">
-            <Link href="/">Home</Link>
-            <Link href="/#services">Services</Link>
-            <Link href="/contact">Contact</Link>
-          </nav>
+          <Link href="/" className="logo">Lab Integrity Pro</Link>
+          <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/#services">Services</Link></li>
+            <li><Link href="/products" className="active">Products</Link></li>
+            <li><Link href="/#about">About</Link></li>
+            <li><Link href="/#contact">Contact</Link></li>
+          </ul>
+          <div className="mobile-menu" onClick={toggleMobileMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
-      </header>
+      </nav>
 
-      <section className="section" style={{ paddingTop: '8rem' }}>
-        <div className="section-content" style={{ flexDirection: 'column' }}>
-          <h1>Purchase SOP Templates</h1>
-          <p style={{ marginBottom: '2rem', textAlign: 'center' }}>
-            Instantly downloadable SOP packages for GLP and GMP labs.
-          </p>
+      {/* Hero Section for Products */}
+      <section className="products-hero">
+        <div className="hero-overlay"></div>
+        <div className="products-hero-content">
+          <h1>SOP Templates & Compliance Tools</h1>
+          <p>Instantly downloadable templates and toolkits designed by industry experts</p>
+        </div>
+      </section>
 
-          <div className="product-grid">
-            {products.map((product) => (
-              <div key={product.id} className="product-card">
-                <div className="product-icon-floating">
-                  <Image 
-                    src={product.icon} 
-                    alt={`${product.title} icon`} 
-                    width={80} 
-                    height={80} 
-                    quality={90} 
-                    loading="lazy" 
-                  />
-                </div>
-                  <Image 
-                    src={product.image} 
-                    alt={`Product preview for ${product.title} – ${product.description}`} 
-                    className="product-image" 
-                    quality={90} 
-                    sizes="(max-width: 768px) 100vw, 320px" 
-                    loading="lazy" 
-                    placeholder="blur" // Auto-works now
-                  />
+      {/* Products Grid Section */}
+      <section className="products-section">
+        <div className="section-header">
+          <h2>Choose Your Package</h2>
+          <p>Professional templates that save you time and ensure compliance</p>
+        </div>
+        
+        <div className="products-grid">
+          {products.map((product, index) => (
+            <div key={product.id} className="product-card enhanced" style={{animationDelay: `${index * 0.1}s`}}>
+              <div className="product-badge">
+                {product.id === 1 && <span className="badge-popular">Most Popular</span>}
+                {product.id === 2 && <span className="badge-premium">Premium</span>}
+                {product.id === 3 && <span className="badge-essential">Essential</span>}
+              </div>
+              
+              <div className="product-icon-wrapper">
+                <Image 
+                  src={product.icon} 
+                  alt={`${product.title} icon`} 
+                  width={60} 
+                  height={60} 
+                  quality={90} 
+                />
+              </div>
+              
+              <div className="product-image-wrapper">
+                <Image 
+                  src={product.image} 
+                  alt={product.title} 
+                  className="product-image" 
+                  quality={90} 
+                  sizes="(max-width: 768px) 100vw, 320px" 
+                  placeholder="blur"
+                />
+                <div className="product-image-overlay"></div>
+              </div>
+              
+              <div className="product-content">
                 <h3>{product.title}</h3>
-                <p>{product.description}</p>
-                <div className="product-footer">
+                <p className="product-description">{product.description}</p>
+                
+                <div className="product-price-section">
                   <span className="product-price">{product.price}</span>
-                  <Link href={`/checkout/${product.id}`} className="buy-now-button">Buy Now</Link>
-                  <Link href={`#product-${product.id}`} className="whats-included-link">
-                    What’s Included?
+                  <span className="price-label">one-time purchase</span>
+                </div>
+                
+                <div className="product-actions">
+                  <Link href={`/checkout/${product.id}`} className="btn-product-primary">
+                    Buy Now
+                  </Link>
+                  <Link href={`#product-detail-${product.id}`} className="btn-product-secondary">
+                    View Details
                   </Link>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="product-details section">
-        <div className="product-detail-block" id="product-1">
-          <div className="product-detail-text">
-            <h2>GLP SOP Template Package</h2>
-            <p>
-              This downloadable package includes all the SOPs you need to ensure GLP compliance from day one.
-            </p>
-            <ul className="checklist">
-              <li>General GLP SOP Framework</li>
-              <li>Data Integrity Policy</li>
-              <li>Equipment Calibration SOP</li>
-              <li>Deviation Management SOP</li>
-              <li>Download in Word format (.docx)</li>
-            </ul>
-            <Link href={`/checkout/1`} className="buy-now-button">Buy Now</Link>
-          </div>
-          <div className="product-detail-image">
-            <Image 
-              src={glpSopPackage} 
-              alt="GLP SOP Template Package preview" 
-              quality={90} 
-              sizes="(max-width: 768px) 100vw, 500px" 
-              loading="lazy" 
-              placeholder="blur"
-            />
-          </div>
-        </div>
-
-        <div className="full-width-gray">
-          <div className="section">
-            <div className="product-detail-block reverse" id="product-2">
-              <div className="product-detail-text">
-                <h2>GMP SOP Template Package</h2>
-                <p>
-                  Designed for manufacturing operations, this package helps you build a robust, compliant GMP foundation.
-                </p>
-                <ul className="checklist">
-                  <li>Batch Record SOP</li>
-                  <li>Change Control SOP</li>
-                  <li>GMP Training SOP</li>
-                  <li>Quality Risk Management SOP</li>
-                  <li>Download in Word format (.docx)</li>
-                </ul>
-                <Link href={`/checkout/2`} className="buy-now-button">Buy Now</Link>
-              </div>
-              <div className="product-detail-image">
-                <Image 
-                  src={gmpSopPackage} 
-                  alt="GMP SOP Template Package preview" 
-                  quality={90} 
-                  sizes="(max-width: 768px) 100vw, 500px" 
-                  loading="lazy" 
-                  placeholder="blur"
-                />
+      {/* Detailed Product Information */}
+      <section className="product-details-section">
+        {products.map((product, index) => (
+          <div 
+            key={product.id} 
+            id={`product-detail-${product.id}`}
+            className={`product-detail-wrapper ${index % 2 === 1 ? 'reverse' : ''} ${index % 2 === 1 ? 'gray-bg' : ''}`}
+          >
+            <div className="product-detail-container">
+              <div className="product-detail-content">
+                <div className="product-detail-text">
+                  <span className="detail-label">Package Details</span>
+                  <h2>{product.title}</h2>
+                  <p className="detail-description">
+                    {product.id === 1 && 'This downloadable package includes all the SOPs you need to ensure GLP compliance from day one.'}
+                    {product.id === 2 && 'Designed for manufacturing operations, this package helps you build a robust, compliant GMP foundation.'}
+                    {product.id === 3 && 'A practical kit for preparing your team, documents, and lab space for regulatory inspections.'}
+                  </p>
+                  
+                  <div className="features-list">
+                    <h4>What's Included:</h4>
+                    <ul>
+                      {product.features.map((feature, idx) => (
+                        <li key={idx}>
+                          <svg className="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div className="detail-actions">
+                    <Link href={`/checkout/${product.id}`} className="btn-gradient">
+                      Purchase Now - {product.price}
+                    </Link>
+                    <div className="guarantee">
+                      <svg className="guarantee-icon" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      30-Day Money Back Guarantee
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="product-detail-image">
+                  <Image 
+                    src={
+                      product.id === 1 ? glpSopPackage :
+                      product.id === 2 ? gmpSopPackage :
+                      auditToolkit
+                    }
+                    alt={`${product.title} preview`} 
+                    quality={90} 
+                    sizes="(max-width: 768px) 100vw, 500px" 
+                    placeholder="blur"
+                    className="detail-image"
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ))}
+      </section>
 
-        <div className="product-detail-block" id="product-3">
-          <div className="product-detail-text">
-            <h2>Audit Readiness Toolkit</h2>
-            <p>
-              A practical kit for preparing your team, documents, and lab space for regulatory inspections.
-            </p>
-            <ul className="checklist">
-              <li>Audit Checklist (FDA/EMA)</li>
-              <li>Inspection Log Template</li>
-              <li>CAPA Tracking Sheet</li>
-              <li>Document Control Flowchart</li>
-              <li>Printable and digital formats included</li>
-            </ul>
-            <Link href={`/checkout/3`} className="buy-now-button">Buy Now</Link>
-          </div>
-          <div className="product-detail-image">
-            <Image 
-              src={auditToolkit} 
-              alt="Audit Toolkit preview" 
-              quality={90} 
-              sizes="(max-width: 768px) 100vw, 500px" 
-              loading="lazy" 
-              placeholder="blur"
-            />
+      {/* CTA Section */}
+      <section className="products-cta">
+        <div className="cta-content">
+          <h2>Need Custom Solutions?</h2>
+          <p>Looking for tailored SOPs, compliance consulting, or bespoke solutions for your laboratory?</p>
+          <div className="cta-buttons">
+            <Link href="/contact" className="btn btn-primary">Get Custom Quote</Link>
+            <Link href="/#services" className="btn btn-secondary">View Services</Link>
           </div>
         </div>
       </section>
 
-      <section className="more-info-section">
-        <div className="more-info-content">
-          <h2>Need Something More?</h2>
-          <p>
-            Looking for custom SOPs, compliance consulting, or tailored solutions? We’re here to help.
-          </p>
-          <Link href="/contact" className="cta-button-gradient">
-            Contact Us
-          </Link>
-        </div>
-      </section>
-
+      {/* Footer */}
       <footer>
-        © {new Date().getFullYear()} Lab Integrity Pro. All rights reserved.
+        <div className="footer-content">
+          <ul className="footer-links">
+            <li><Link href="/#services">Services</Link></li>
+            <li><Link href="/products">Products</Link></li>
+            <li><Link href="/#about">About</Link></li>
+            <li><Link href="/#contact">Contact</Link></li>
+            <li><Link href="#">Privacy Policy</Link></li>
+          </ul>
+          <p>&copy; {new Date().getFullYear()} Lab Integrity Pro. All rights reserved.</p>
+        </div>
       </footer>
-    </main>
+    </>
   );
 }

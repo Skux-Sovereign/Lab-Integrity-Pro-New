@@ -1,22 +1,18 @@
-import { Montserrat } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next'
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-  display: "swap", // optional but recommended
-});
+export const metadata: Metadata = {
+  title: 'Lab Integrity Pro - GLP/GMP Laboratory Consulting',
+  description: 'Expert consulting services for bioanalytical laboratories. Data integrity, regulatory compliance, and operational excellence.',
+}
 
 export default function RootLayout({
-  children
+  children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
-      <body className={montserrat.variable}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
-  );
+  )
 }
