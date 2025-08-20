@@ -347,7 +347,7 @@ export default function About() {
       <section className="about-cta">
         <div className="container">
           <div className="cta-content">
-            <h2>Ready to Elevate Your Laboratory's Compliance?</h2>
+            <h2>Ready to Elevate Your Laboratory&apos;s Compliance?</h2>
             <p>Discover how Lab Integrity Pro can help you achieve excellence in data integrity and regulatory compliance</p>
             <div className="cta-buttons">
               <Link href="/products" className="btn btn-primary">Explore Our Solutions</Link>
