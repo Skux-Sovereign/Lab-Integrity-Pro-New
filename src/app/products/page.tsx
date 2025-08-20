@@ -1,234 +1,38 @@
-"use client";
+'use client'
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import '../page.css'; // Use the main page styles
-import './products.css'; // Additional products-specific styles
-
-// Static imports for product grid images
-import monoclonal from '../assets/monoclonal-antibody.jpg';
-import gmpPharma from '../assets/gmp-pharmaceuticals.jpg';
-import auditReadiness from '../assets/audit-readiness.jpg';
-
-// Static imports for detail section images
-import glpSopPackage from '../assets/glp-sop-package.jpg';
-import gmpSopPackage from '../assets/gmp-sop-package.jpg';
-import auditToolkit from '../assets/audit-readiness-toolkit.jpg';
-
-// Static imports for icons
-import glpIcon from '../assets/icons/icon-glp-hex.png';
-import gmpIcon from '../assets/icons/icon-gmp-hex.png';
-import auditIcon from '../assets/icons/icon-audit-hex.png';
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import './products.css'
 
 export default function Products() {
-  const products = [
-    {
-      id: 1,
-      title: 'GLP SOP Template Package',
-      description: 'Comprehensive SOP templates tailored for GLP-compliant labs.',
-      price: '$149',
-      image: monoclonal,
-      icon: glpIcon,
-      features: [
-        'General GLP SOP Framework',
-        'Data Integrity Policy',
-        'Equipment Calibration SOP',
-        'Deviation Management SOP',
-        'Download in Word format (.docx)'
-      ]
-    },
-    {
-      id: 2,
-      title: 'GMP SOP Template Package',
-      description: 'GMP-focused templates to support manufacturing compliance.',
-      price: '$169',
-      image: gmpPharma,
-      icon: gmpIcon,
-      features: [
-        'Batch Record SOP',
-        'Change Control SOP',
-        'GMP Training SOP',
-        'Quality Risk Management SOP',
-        'Download in Word format (.docx)'
-      ]
-    },
-    {
-      id: 3,
-      title: 'Audit Readiness Toolkit',
-      description: 'Checklists, logs, and prep materials to help pass regulatory audits.',
-      price: '$89',
-      image: auditReadiness,
-      icon: auditIcon,
-      features: [
-        'Audit Checklist (FDA/EMA)',
-        'Inspection Log Template',
-        'CAPA Tracking Sheet',
-        'Document Control Flowchart',
-        'Printable and digital formats included'
-      ]
-    },
-  ];
-
-  const consultingServices = [
-    {
-      id: 'essential',
-      title: 'Essential Consulting Package',
-      subtitle: 'Templates + Expert Guidance',
-      description: 'Perfect for small labs needing templates with professional consultation',
-      price: '$1,299',
-      originalPrice: '$1,498',
-      savings: 'Save $199',
-      duration: '2-week delivery',
-      popular: false,
-      features: [
-        'Choice of ONE template package (GLP, GMP, or Audit)',
-        '2 hours of 1-on-1 consultation calls',
-        'Custom template modifications (up to 3 SOPs)',
-        'Email support for 30 days',
-        'Implementation roadmap document',
-        'Basic compliance checklist review',
-        'Raw data review (up to 5 studies)'
-      ],
-      included: 'Templates + Consultation + Data Review',
-      badge: 'Great Value'
-    },
-    {
-      id: 'professional',
-      title: 'Professional Consulting Package',
-      subtitle: 'Complete Solution + Training',
-      description: 'Comprehensive package for mid-size labs requiring full compliance setup',
-      price: '$2,899',
-      originalPrice: '$3,297',
-      savings: 'Save $398',
-      duration: '4-week delivery',
-      popular: true,
-      features: [
-        'ALL three template packages included',
-        '6 hours of expert consultation calls',
-        'Complete SOP customization (up to 10 SOPs)',
-        'Team training session (up to 6 people)',
-        'Compliance gap analysis report',
-        '60 days of email and phone support',
-        'Mock audit preparation session',
-        'Regulatory updates for 6 months',
-        'Comprehensive raw data review (up to 15 studies)',
-        'Data integrity assessment and recommendations'
-      ],
-      included: 'All Templates + Training + Support + Data Review',
-      badge: 'Most Popular'
-    },
-    {
-      id: 'enterprise',
-      title: 'Enterprise Consulting Package',
-      subtitle: 'Full Implementation + Ongoing Support',
-      description: 'Complete turnkey solution for large organizations and complex operations',
-      price: '$5,499',
-      originalPrice: '$6,294',
-      savings: 'Save $795',
-      duration: '6-week delivery',
-      popular: false,
-      features: [
-        'ALL template packages + unlimited customization',
-        '15 hours of senior consultant time',
-        'On-site visit option (travel costs separate)',
-        'Complete quality management system setup',
-        'Staff training for unlimited employees',
-        'Detailed compliance audit and recommendations',
-        '6 months of ongoing support and updates',
-        'Quarterly compliance check-ins',
-        'Priority response (24-hour turnaround)',
-        'Custom additional SOPs as needed',
-        'Unlimited raw data review during engagement',
-        'Complete data integrity overhaul and validation',
-        'Electronic records and signatures review'
-      ],
-      included: 'Everything + On-site Support + Unlimited Data Review',
-      badge: 'Complete Solution'
-    }
-  ];
-
-  const rawDataServices = [
-    {
-      id: 'basic-review',
-      title: 'Basic Raw Data Review',
-      description: 'Essential data integrity check for individual studies',
-      price: '$299',
-      duration: '3-5 business days',
-      studies: 'Up to 3 studies',
-      features: [
-        'Data completeness verification',
-        'Basic data integrity assessment',
-        'Compliance with original protocol',
-        'Documentation review checklist',
-        'Summary report with findings',
-        'Basic recommendations for improvement'
-      ]
-    },
-    {
-      id: 'comprehensive-review',
-      title: 'Comprehensive Data Review',
-      description: 'Thorough analysis with detailed compliance assessment',
-      price: '$699',
-      duration: '7-10 business days',
-      studies: 'Up to 8 studies',
-      popular: true,
-      features: [
-        'Complete data integrity audit',
-        'ALCOA+ compliance verification',
-        'Electronic records validation',
-        'Audit trail analysis',
-        'Data reconstruction testing',
-        'Detailed compliance report',
-        'Corrective action recommendations',
-        '1-hour consultation call included'
-      ]
-    },
-    {
-      id: 'ongoing-review',
-      title: 'Ongoing Data Review Service',
-      description: 'Monthly data review service for continuous compliance',
-      price: '$1,299',
-      duration: 'Monthly service',
-      studies: 'Up to 20 studies/month',
-      features: [
-        'Monthly comprehensive data review',
-        'Trending and pattern analysis',
-        'Proactive compliance monitoring',
-        'Quarterly detailed reports',
-        'Priority email and phone support',
-        'Data management training materials',
-        'Annual compliance assessment',
-        'Unlimited consultation calls'
-      ]
-    }
-  ];
-
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [activeMethodTab, setActiveMethodTab] = useState('general')
+  const [activeRawDataTab, setActiveRawDataTab] = useState('chromatography')
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
 
   return (
     <>
-      {/* Navigation - matching main site */}
+      {/* Navigation */}
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <Link href="/" className="logo">Lab Integrity Pro</Link>
           <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
             <li><Link href="/">Home</Link></li>
             <li><Link href="/#services">Services</Link></li>
-            <li><Link href="/products" className="active">Products</Link></li>
+            <li><Link href="/products">Products</Link></li>
             <li><Link href="/about">About</Link></li>
             <li><Link href="/contact">Contact</Link></li>
           </ul>
@@ -240,332 +44,570 @@ export default function Products() {
         </div>
       </nav>
 
-      {/* Hero Section for Products */}
+      {/* Hero Section */}
       <section className="products-hero">
-        <div className="hero-overlay"></div>
-        <div className="products-hero-content">
-          <h1>SOP Templates & Compliance Solutions</h1>
-          <p>Instantly downloadable templates and expert consulting services designed by industry professionals</p>
+        <div className="hero-content">
+          <h1>Our Services & Solutions</h1>
+          <p>Comprehensive laboratory compliance and validation services tailored to your needs</p>
         </div>
       </section>
 
-      {/* Products Grid Section */}
-      <section className="products-section">
+      {/* Method Validation Services */}
+      <section className="services">
         <div className="section-header">
-          <h2>Template Packages</h2>
-          <p>Professional templates that save you time and ensure compliance</p>
+          <h2>Method Validation Services</h2>
+          <p>Comprehensive validation services ensuring your analytical methods meet regulatory requirements</p>
         </div>
         
-        <div className="products-grid">
-          {products.map((product, index) => (
-            <div key={product.id} className="product-card enhanced" style={{animationDelay: `${index * 0.1}s`}}>
-              <div className="product-badge">
-                {product.id === 1 && <span className="badge-popular">Most Popular</span>}
-                {product.id === 2 && <span className="badge-premium">Premium</span>}
-                {product.id === 3 && <span className="badge-essential">Essential</span>}
-              </div>
-              
-              <div className="product-icon-wrapper">
-                <Image 
-                  src={product.icon} 
-                  alt={`${product.title} icon`} 
-                  width={60} 
-                  height={60} 
-                  quality={90} 
-                />
-              </div>
-              
-              <div className="product-image-wrapper">
-                <Image 
-                  src={product.image} 
-                  alt={product.title} 
-                  className="product-image" 
-                  quality={90} 
-                  sizes="(max-width: 768px) 100vw, 320px" 
-                  placeholder="blur"
-                />
-                <div className="product-image-overlay"></div>
-              </div>
-              
-              <div className="product-content">
-                <h3>{product.title}</h3>
-                <p className="product-description">{product.description}</p>
-                
-                <div className="product-price-section">
-                  <span className="product-price">{product.price}</span>
-                  <span className="price-label">one-time purchase</span>
-                </div>
-                
-                <div className="product-actions">
-                  <Link href={`/checkout/${product.id}`} className="btn-product-primary">
-                    Buy Now
-                  </Link>
-                  <Link href={`#product-detail-${product.id}`} className="btn-product-secondary">
-                    View Details
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+        <div className="tab-section">
+          <div className="tab-nav">
+            <button 
+              className={`tab-button ${activeMethodTab === 'general' ? 'active' : ''}`}
+              onClick={() => setActiveMethodTab('general')}
+            >
+              General Methods
+            </button>
+            <button 
+              className={`tab-button ${activeMethodTab === 'compendial' ? 'active' : ''}`}
+              onClick={() => setActiveMethodTab('compendial')}
+            >
+              Compendial Methods
+            </button>
+            <button 
+              className={`tab-button ${activeMethodTab === 'cleaning' ? 'active' : ''}`}
+              onClick={() => setActiveMethodTab('cleaning')}
+            >
+              Cleaning Validation
+            </button>
+          </div>
 
-      {/* Premium Consulting Services Section */}
-      <section className="consulting-section">
-        <div className="section-header">
-          <span className="section-badge">Premium Services</span>
-          <h2>Expert Consulting + Templates</h2>
-          <p>Get templates plus professional guidance to ensure perfect implementation and compliance</p>
-        </div>
-        
-        <div className="consulting-grid">
-          {consultingServices.map((service, index) => (
-            <div key={service.id} className={`consulting-card ${service.popular ? 'popular' : ''}`} style={{animationDelay: `${index * 0.1}s`}}>
-              {service.popular && (
-                <div className="popular-ribbon">
-                  <span>Most Popular</span>
+          <div className="tab-content">
+            {activeMethodTab === 'general' && (
+              <div className="services-grid">
+                <div className="service-card">
+                  <div className="service-icon">🔬</div>
+                  <h3>Full ICH Q2(R2) Validation</h3>
+                  <p>Complete validation package following ICH guidelines</p>
+                  <ul className="service-features">
+                    <li>Specificity/Selectivity</li>
+                    <li>Linearity & Range</li>
+                    <li>Accuracy & Precision</li>
+                    <li>Detection & Quantitation Limits</li>
+                    <li>Robustness Testing</li>
+                    <li>System Suitability</li>
+                  </ul>
                 </div>
-              )}
-              
-              <div className="consulting-badge">
-                <span className={`badge-${service.id}`}>{service.badge}</span>
-              </div>
-              
-              <div className="consulting-header">
-                <h3>{service.title}</h3>
-                <p className="consulting-subtitle">{service.subtitle}</p>
-                <p className="consulting-description">{service.description}</p>
-              </div>
-              
-              <div className="consulting-pricing">
-                <div className="price-container">
-                  <span className="consulting-price">{service.price}</span>
-                  <span className="original-price">{service.originalPrice}</span>
+                <div className="service-card">
+                  <div className="service-icon">🔄</div>
+                  <h3>Method Transfer</h3>
+                  <p>Seamless transfer of analytical methods between laboratories</p>
+                  <ul className="service-features">
+                    <li>Comparative Testing</li>
+                    <li>Co-validation Studies</li>
+                    <li>Complete Revalidation</li>
+                    <li>Transfer Waiver Assessment</li>
+                    <li>Gap Analysis</li>
+                  </ul>
                 </div>
-                <div className="savings-info">
-                  <span className="savings">{service.savings}</span>
-                  <span className="duration">{service.duration}</span>
-                </div>
-              </div>
-              
-              <div className="consulting-features">
-                <div className="included-badge">{service.included}</div>
-                <ul>
-                  {service.features.map((feature, idx) => (
-                    <li key={idx}>
-                      <svg className="check-icon" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div className="consulting-actions">
-                <Link href={`/contact?service=${service.id}`} className={`btn-consulting ${service.popular ? 'primary' : 'secondary'}`}>
-                  Get Started
-                </Link>
-                <div className="consultation-note">
-                  <svg className="phone-icon" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                  </svg>
-                  Free consultation call included
+                <div className="service-card">
+                  <div className="service-icon">✅</div>
+                  <h3>Method Verification</h3>
+                  <p>Verification of compendial and validated methods</p>
+                  <ul className="service-features">
+                    <li>Compendial Method Verification</li>
+                    <li>Specificity Confirmation</li>
+                    <li>Accuracy & Precision</li>
+                    <li>LOD/LOQ Verification</li>
+                    <li>System Suitability</li>
+                  </ul>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-        
-        <div className="consulting-guarantee">
-          <div className="guarantee-content">
-            <svg className="guarantee-icon" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            <div>
-              <h4>100% Satisfaction Guarantee</h4>
-              <p>Not satisfied with your consulting package? Get a full refund within 30 days, no questions asked.</p>
-            </div>
+            )}
+
+            {activeMethodTab === 'compendial' && (
+              <div className="services-grid">
+                <div className="service-card">
+                  <div className="service-icon">🇺🇸</div>
+                  <h3>USP Methods</h3>
+                  <p>United States Pharmacopeia method validation</p>
+                  <ul className="service-features">
+                    <li>Assay Methods</li>
+                    <li>Impurity Testing</li>
+                    <li>Dissolution Testing</li>
+                    <li>Content Uniformity</li>
+                    <li>Related Substances</li>
+                  </ul>
+                </div>
+                <div className="service-card">
+                  <div className="service-icon">🇪🇺</div>
+                  <h3>EP/BP Methods</h3>
+                  <p>European and British Pharmacopoeia compliance</p>
+                  <ul className="service-features">
+                    <li>Identification Tests</li>
+                    <li>Purity Testing</li>
+                    <li>Loss on Drying</li>
+                    <li>Heavy Metals</li>
+                    <li>Microbial Limits</li>
+                  </ul>
+                </div>
+                <div className="service-card">
+                  <div className="service-icon">🇯🇵</div>
+                  <h3>JP Methods</h3>
+                  <p>Japanese Pharmacopoeia method implementation</p>
+                  <ul className="service-features">
+                    <li>Assay Procedures</li>
+                    <li>Dissolution Testing</li>
+                    <li>Uniformity of Dosage Units</li>
+                    <li>Foreign Matter Testing</li>
+                    <li>Specific Tests</li>
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {activeMethodTab === 'cleaning' && (
+              <div className="services-grid">
+                <div className="service-card">
+                  <div className="service-icon">🧪</div>
+                  <h3>Cleaning Method Development</h3>
+                  <p>Development of robust cleaning procedures</p>
+                  <ul className="service-features">
+                    <li>Worst-Case Product Selection</li>
+                    <li>Sampling Method Development</li>
+                    <li>Recovery Studies</li>
+                    <li>Analytical Method Development</li>
+                    <li>Limit Calculations (MACO/ADE)</li>
+                  </ul>
+                </div>
+                <div className="service-card">
+                  <div className="service-icon">📋</div>
+                  <h3>Cleaning Validation</h3>
+                  <p>Complete cleaning validation protocols</p>
+                  <ul className="service-features">
+                    <li>Protocol Development</li>
+                    <li>Three Consecutive Batches</li>
+                    <li>Swab & Rinse Sampling</li>
+                    <li>Visual Inspection Criteria</li>
+                    <li>Validation Report Writing</li>
+                  </ul>
+                </div>
+                <div className="service-card">
+                  <div className="service-icon">🔍</div>
+                  <h3>Cleaning Verification</h3>
+                  <p>Ongoing verification and monitoring</p>
+                  <ul className="service-features">
+                    <li>Periodic Verification</li>
+                    <li>Campaign Changeover</li>
+                    <li>New Product Introduction</li>
+                    <li>Process Change Assessment</li>
+                    <li>Continuous Verification</li>
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Raw Data Review Services Section */}
-      <section className="raw-data-section">
+      {/* Raw Data Review Services */}
+      <section className="services alt-background">
         <div className="section-header">
-          <span className="section-badge">Data Integrity</span>
           <h2>Raw Data Review Services</h2>
-          <p>Professional data integrity assessment and compliance verification by experienced regulatory experts</p>
+          <p>Expert review and analysis of your laboratory data to ensure compliance and accuracy</p>
         </div>
         
-        <div className="raw-data-grid">
-          {rawDataServices.map((service, index) => (
-            <div key={service.id} className={`raw-data-card ${service.popular ? 'popular' : ''}`} style={{animationDelay: `${index * 0.1}s`}}>
-              {service.popular && (
-                <div className="popular-badge">
-                  <span>Most Popular</span>
+        <div className="tab-section">
+          <div className="tab-nav">
+            <button 
+              className={`tab-button ${activeRawDataTab === 'chromatography' ? 'active' : ''}`}
+              onClick={() => setActiveRawDataTab('chromatography')}
+            >
+              Chromatography
+            </button>
+            <button 
+              className={`tab-button ${activeRawDataTab === 'bioanalysis' ? 'active' : ''}`}
+              onClick={() => setActiveRawDataTab('bioanalysis')}
+            >
+              Bioanalysis
+            </button>
+            <button 
+              className={`tab-button ${activeRawDataTab === 'spectroscopy' ? 'active' : ''}`}
+              onClick={() => setActiveRawDataTab('spectroscopy')}
+            >
+              Spectroscopy
+            </button>
+            <button 
+              className={`tab-button ${activeRawDataTab === 'physical' ? 'active' : ''}`}
+              onClick={() => setActiveRawDataTab('physical')}
+            >
+              Physical Testing
+            </button>
+          </div>
+
+          <div className="tab-content">
+            {activeRawDataTab === 'chromatography' && (
+              <div className="services-grid">
+                <div className="service-card">
+                  <div className="service-icon">📊</div>
+                  <h3>HPLC/UPLC Data Review</h3>
+                  <p>Comprehensive review of liquid chromatography data</p>
+                  <ul className="service-features">
+                    <li>Integration Review & Verification</li>
+                    <li>System Suitability Compliance</li>
+                    <li>Calculation Verification</li>
+                    <li>Sequence Audit Trail Review</li>
+                    <li>Method Parameter Compliance</li>
+                    <li>Peak Purity Assessment</li>
+                  </ul>
                 </div>
-              )}
-              
-              <div className="raw-data-header">
-                <h3>{service.title}</h3>
-                <p className="raw-data-description">{service.description}</p>
-              </div>
-              
-              <div className="raw-data-pricing">
-                <span className="raw-data-price">{service.price}</span>
-                <div className="service-details">
-                  <div className="detail-item">
-                    <svg className="clock-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                    </svg>
-                    <span>{service.duration}</span>
-                  </div>
-                  <div className="detail-item">
-                    <svg className="document-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
-                    </svg>
-                    <span>{service.studies}</span>
-                  </div>
+                <div className="service-card">
+                  <div className="service-icon">🔥</div>
+                  <h3>GC Data Review</h3>
+                  <p>Gas chromatography data analysis and verification</p>
+                  <ul className="service-features">
+                    <li>Chromatogram Integration Check</li>
+                    <li>Retention Time Verification</li>
+                    <li>Internal Standard Calculations</li>
+                    <li>Headspace Analysis Review</li>
+                    <li>Method Compliance Check</li>
+                    <li>Data Integrity Assessment</li>
+                  </ul>
+                </div>
+                <div className="service-card">
+                  <div className="service-icon">⚡</div>
+                  <h3>IC & CE Review</h3>
+                  <p>Ion chromatography and capillary electrophoresis</p>
+                  <ul className="service-features">
+                    <li>Ion Chromatography Data</li>
+                    <li>Capillary Electrophoresis</li>
+                    <li>Peak Resolution Verification</li>
+                    <li>Calibration Curve Review</li>
+                    <li>Sample Preparation Check</li>
+                    <li>Result Trending Analysis</li>
+                  </ul>
                 </div>
               </div>
-              
-              <div className="raw-data-features">
-                <h4>What's Included:</h4>
-                <ul>
-                  {service.features.map((feature, idx) => (
-                    <li key={idx}>
-                      <svg className="check-icon" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div className="raw-data-actions">
-                <Link href={`/contact?service=raw-data-${service.id}`} className={`btn-raw-data ${service.popular ? 'primary' : 'secondary'}`}>
-                  Get Started
-                </Link>
-                <div className="compliance-note">
-                  <svg className="shield-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  FDA/EMA compliance verified
+            )}
+
+            {activeRawDataTab === 'bioanalysis' && (
+              <div className="services-grid">
+                <div className="service-card">
+                  <div className="service-icon">💉</div>
+                  <h3>Pharmacokinetics (PK)</h3>
+                  <p>PK assay data review for drug concentration analysis</p>
+                  <ul className="service-features">
+                    <li>PK Parameter Calculations</li>
+                    <li>Concentration-Time Profile Review</li>
+                    <li>LLOQ/ULOQ Verification</li>
+                    <li>Dilution Linearity Assessment</li>
+                    <li>ISR (Incurred Sample Reanalysis)</li>
+                    <li>Matrix Effect Evaluation</li>
+                    <li>Stability Data Review</li>
+                    <li>Cross-validation Between Methods</li>
+                  </ul>
+                </div>
+                <div className="service-card">
+                  <div className="service-icon">🔬</div>
+                  <h3>Anti-Drug Antibody (ADA)</h3>
+                  <p>Immunogenicity assessment and ADA assay validation</p>
+                  <ul className="service-features">
+                    <li>Screening Cut Point Verification</li>
+                    <li>Confirmatory Cut Point Analysis</li>
+                    <li>Titer Cut Point Assessment</li>
+                    <li>Drug Tolerance Review</li>
+                    <li>Selectivity & Specificity</li>
+                    <li>Sample Normalization Factors</li>
+                    <li>False Positive Rate Analysis</li>
+                    <li>Positive Control Tracking</li>
+                  </ul>
+                </div>
+                <div className="service-card">
+                  <div className="service-icon">🛡️</div>
+                  <h3>Neutralizing Antibody (nAb)</h3>
+                  <p>Cell-based and competitive ligand binding nAb assays</p>
+                  <ul className="service-features">
+                    <li>Cell-Based Assay Performance</li>
+                    <li>Neutralization Curve Analysis</li>
+                    <li>IC50/EC50 Calculations</li>
+                    <li>Cell Viability Assessment</li>
+                    <li>Positive Control Monitoring</li>
+                    <li>Signal-to-Noise Ratio</li>
+                    <li>Assay Interference Testing</li>
+                    <li>Cross-reactivity Evaluation</li>
+                  </ul>
                 </div>
               </div>
-            </div>
-          ))}
+            )}
+
+            {activeRawDataTab === 'spectroscopy' && (
+              <div className="services-grid">
+                <div className="service-card">
+                  <div className="service-icon">💡</div>
+                  <h3>UV-Vis Spectroscopy</h3>
+                  <p>UV-Visible spectroscopy data validation</p>
+                  <ul className="service-features">
+                    <li>Wavelength Accuracy Check</li>
+                    <li>Absorbance Verification</li>
+                    <li>Standard Curve Validation</li>
+                    <li>Blank Correction Review</li>
+                    <li>Dilution Factor Calculations</li>
+                    <li>Beer&apos;s Law Compliance</li>
+                  </ul>
+                </div>
+                <div className="service-card">
+                  <div className="service-icon">📡</div>
+                  <h3>IR/FTIR Analysis</h3>
+                  <p>Infrared spectroscopy data review</p>
+                  <ul className="service-features">
+                    <li>Spectrum Quality Assessment</li>
+                    <li>Peak Assignment Verification</li>
+                    <li>Library Match Review</li>
+                    <li>Background Correction</li>
+                    <li>Sample Preparation Review</li>
+                    <li>Quantitative Analysis Check</li>
+                  </ul>
+                </div>
+                <div className="service-card">
+                  <div className="service-icon">🧬</div>
+                  <h3>MS & NMR Data</h3>
+                  <p>Mass spectrometry and NMR analysis</p>
+                  <ul className="service-features">
+                    <li>Mass Accuracy Verification</li>
+                    <li>Fragmentation Pattern Review</li>
+                    <li>NMR Peak Integration</li>
+                    <li>Structure Elucidation Support</li>
+                    <li>Purity Assessment</li>
+                    <li>Isotope Pattern Analysis</li>
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {activeRawDataTab === 'physical' && (
+              <div className="services-grid">
+                <div className="service-card">
+                  <div className="service-icon">💊</div>
+                  <h3>Dissolution Testing</h3>
+                  <p>Dissolution profile analysis and verification</p>
+                  <ul className="service-features">
+                    <li>Dissolution Profile Review</li>
+                    <li>f2 Similarity Calculations</li>
+                    <li>Media Preparation Verification</li>
+                    <li>Sampling Time Compliance</li>
+                    <li>Apparatus Suitability</li>
+                    <li>Result Acceptance Criteria</li>
+                  </ul>
+                </div>
+                <div className="service-card">
+                  <div className="service-icon">🔬</div>
+                  <h3>Particle Analysis</h3>
+                  <p>Comprehensive particle characterization</p>
+                  <ul className="service-features">
+                    <li>Particle Size Distribution</li>
+                    <li>Laser Diffraction Data</li>
+                    <li>Microscopy Image Analysis</li>
+                    <li>Sieve Analysis Review</li>
+                    <li>Surface Area (BET) Data</li>
+                    <li>Zeta Potential Measurements</li>
+                  </ul>
+                </div>
+                <div className="service-card">
+                  <div className="service-icon">⚖️</div>
+                  <h3>Physical Properties</h3>
+                  <p>Physical property testing and verification</p>
+                  <ul className="service-features">
+                    <li>Karl Fischer Moisture</li>
+                    <li>Loss on Drying Review</li>
+                    <li>pH Measurement Verification</li>
+                    <li>Viscosity Data Analysis</li>
+                    <li>Density Determinations</li>
+                    <li>Melting Point Verification</li>
+                  </ul>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-        
-        <div className="raw-data-info">
-          <div className="info-content">
-            <div className="info-item">
-              <svg className="expertise-icon" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <div>
-                <h4>Expert Review Team</h4>
-                <p>Our data reviewers have 15+ years of regulatory experience across FDA, EMA, and ICH guidelines</p>
+      </section>
+
+      {/* Compliance Services */}
+      <section className="about">
+        <div className="about-content">
+          <div className="about-text">
+            <h2>Compliance & Quality Services</h2>
+            <p>Ensure your laboratory meets the highest standards of regulatory compliance with our comprehensive quality services. We help you build robust systems that stand up to the most rigorous audits.</p>
+            <div className="stats">
+              <div className="stat">
+                <div className="stat-number">ALCOA+</div>
+                <div className="stat-label">Data Integrity</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">21 CFR</div>
+                <div className="stat-label">Part 11 Compliance</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">EU GMP</div>
+                <div className="stat-label">Annex 11</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">100%</div>
+                <div className="stat-label">Audit Success</div>
               </div>
             </div>
-            <div className="info-item">
-              <svg className="security-icon" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-              </svg>
-              <div>
-                <h4>Secure Data Handling</h4>
-                <p>All data transfers use encrypted channels with signed confidentiality agreements</p>
-              </div>
+          </div>
+          <div className="compliance-services">
+            <div className="compliance-card">
+              <h3>Data Integrity</h3>
+              <ul className="service-features">
+                <li>Audit Trail Review</li>
+                <li>Electronic Records Compliance</li>
+                <li>User Access Controls</li>
+                <li>Data Lifecycle Management</li>
+              </ul>
             </div>
-            <div className="info-item">
-              <svg className="speed-icon" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
-              </svg>
-              <div>
-                <h4>Fast Turnaround</h4>
-                <p>Rapid review process with detailed findings and actionable recommendations</p>
-              </div>
+            <div className="compliance-card">
+              <h3>Quality Systems</h3>
+              <ul className="service-features">
+                <li>SOP Development & Review</li>
+                <li>CAPA Management</li>
+                <li>Change Control Processes</li>
+                <li>Training Program Development</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Detailed Product Information */}
-      <section className="product-details-section">
-        {products.map((product, index) => (
-          <div 
-            key={product.id} 
-            id={`product-detail-${product.id}`}
-            className={`product-detail-wrapper ${index % 2 === 1 ? 'reverse' : ''} ${index % 2 === 1 ? 'gray-bg' : ''}`}
-          >
-            <div className="product-detail-container">
-              <div className="product-detail-content">
-                <div className="product-detail-text">
-                  <span className="detail-label">Package Details</span>
-                  <h2>{product.title}</h2>
-                  <p className="detail-description">
-                    {product.id === 1 && 'This downloadable package includes all the SOPs you need to ensure GLP compliance from day one.'}
-                    {product.id === 2 && 'Designed for manufacturing operations, this package helps you build a robust, compliant GMP foundation.'}
-                    {product.id === 3 && 'A practical kit for preparing your team, documents, and lab space for regulatory inspections.'}
-                  </p>
-                  
-                  <div className="features-list">
-                    <h4>What's Included:</h4>
-                    <ul>
-                      {product.features.map((feature, idx) => (
-                        <li key={idx}>
-                          <svg className="check-icon" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div className="detail-actions">
-                    <Link href={`/checkout/${product.id}`} className="btn-gradient">
-                      Purchase Now - {product.price}
-                    </Link>
-                    <div className="guarantee">
-                      <svg className="guarantee-icon" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      30-Day Money Back Guarantee
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="product-detail-image">
-                  <Image 
-                    src={
-                      product.id === 1 ? glpSopPackage :
-                      product.id === 2 ? gmpSopPackage :
-                      auditToolkit
-                    }
-                    alt={`${product.title} preview`} 
-                    quality={90} 
-                    sizes="(max-width: 768px) 100vw, 500px" 
-                    placeholder="blur"
-                    className="detail-image"
-                  />
-                </div>
+      {/* SOP Template Packages */}
+      <section className="sop-packages">
+        <div className="section-header">
+          <h2>SOP Template Packages</h2>
+          <p>Ready-to-implement Standard Operating Procedures tailored for GLP/GMP laboratories</p>
+        </div>
+        
+        <div className="packages-grid">
+          <div className="package-card">
+            <div className="package-badge">Most Popular</div>
+            <div className="package-header">
+              <h3>Essential Package</h3>
+              <div className="package-price">
+                <span className="price">$1,499</span>
+                <span className="price-period">one-time</span>
               </div>
             </div>
+            <p className="package-description">Perfect for small laboratories starting their compliance journey</p>
+            <ul className="package-features">
+              <li><strong>15 Core SOPs</strong></li>
+              <li>Equipment Qualification</li>
+              <li>Sample Management</li>
+              <li>Data Review Procedures</li>
+              <li>Training Records</li>
+              <li>Document Control</li>
+              <li>Basic Templates & Forms</li>
+              <li>Implementation Guide</li>
+              <li>30-day Email Support</li>
+            </ul>
+            <button className="package-btn">Purchase Package</button>
           </div>
-        ))}
+
+          <div className="package-card featured">
+            <div className="package-badge">Best Value</div>
+            <div className="package-header">
+              <h3>Professional Package</h3>
+              <div className="package-price">
+                <span className="price">$2,999</span>
+                <span className="price-period">one-time</span>
+              </div>
+            </div>
+            <p className="package-description">Comprehensive solution for established laboratories</p>
+            <ul className="package-features">
+              <li><strong>35 SOPs</strong></li>
+              <li>Everything in Essential</li>
+              <li>Method Validation SOPs</li>
+              <li>CAPA Procedures</li>
+              <li>Change Control System</li>
+              <li>Investigation Procedures</li>
+              <li>Audit Trail Review</li>
+              <li>Advanced Templates</li>
+              <li>Customization Guide</li>
+              <li>90-day Priority Support</li>
+            </ul>
+            <button className="package-btn featured-btn">Purchase Package</button>
+          </div>
+
+          <div className="package-card">
+            <div className="package-badge">Enterprise</div>
+            <div className="package-header">
+              <h3>Complete Package</h3>
+              <div className="package-price">
+                <span className="price">$4,999</span>
+                <span className="price-period">one-time</span>
+              </div>
+            </div>
+            <p className="package-description">Full documentation suite for enterprise laboratories</p>
+            <ul className="package-features">
+              <li><strong>50+ SOPs</strong></li>
+              <li>Everything in Professional</li>
+              <li>Data Integrity Package</li>
+              <li>Computer System Validation</li>
+              <li>Vendor Qualification</li>
+              <li>Risk Assessment Tools</li>
+              <li>Regulatory Filing Support</li>
+              <li>All Templates & Forms</li>
+              <li>Custom Branding Options</li>
+              <li>6-month Premium Support</li>
+            </ul>
+            <button className="package-btn">Purchase Package</button>
+          </div>
+        </div>
+
+        <div className="custom-sop-section">
+          <div className="custom-sop-content">
+            <h3>Need Custom SOPs?</h3>
+            <p>We can develop SOPs specifically tailored to your laboratory's unique processes and requirements</p>
+            <Link href="/contact" className="btn btn-primary">Request Custom Quote</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Training Services */}
+      <section className="training-section">
+        <div className="section-header">
+          <h2>Training & Development</h2>
+          <p>Empower your team with comprehensive training programs</p>
+        </div>
+        <div className="services-grid">
+          <div className="service-card">
+            <div className="service-icon">📚</div>
+            <h3>Technical Training</h3>
+            <p>Hands-on training for laboratory personnel on analytical techniques and instrumentation</p>
+          </div>
+          <div className="service-card">
+            <div className="service-icon">📋</div>
+            <h3>Compliance Training</h3>
+            <p>Comprehensive training on regulatory requirements and quality standards</p>
+          </div>
+          <div className="service-card">
+            <div className="service-icon">💡</div>
+            <h3>Best Practices</h3>
+            <p>Industry best practices for method validation and data review processes</p>
+          </div>
+          <div className="service-card">
+            <div className="service-icon">🎯</div>
+            <h3>Custom Programs</h3>
+            <p>Tailored training programs designed to meet your specific organizational needs</p>
+          </div>
+        </div>
       </section>
 
       {/* CTA Section */}
-      <section className="products-cta">
-        <div className="cta-content">
-          <h2>Questions About Our Solutions?</h2>
-          <p>Not sure which package is right for your lab? Schedule a free consultation to discuss your specific needs.</p>
-          <div className="cta-buttons">
-            <Link href="/contact" className="btn btn-primary">Schedule Free Consultation</Link>
-            <Link href="/#services" className="btn btn-secondary">View All Services</Link>
+      <section className="contact">
+        <div className="contact-content">
+          <h2>Ready to Get Started?</h2>
+          <p>Let&apos;s discuss how our services can support your laboratory&apos;s success</p>
+          <div className="hero-buttons">
+            <Link href="/contact" className="btn btn-primary">Contact Us</Link>
+            <Link href="/#contact" className="btn btn-secondary">Request Quote</Link>
           </div>
         </div>
       </section>
@@ -574,15 +616,15 @@ export default function Products() {
       <footer>
         <div className="footer-content">
           <ul className="footer-links">
-            <li><Link href="/#services">Services</Link></li>
-            <li><Link href="/products">Products</Link></li>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/products">Services</Link></li>
             <li><Link href="/about">About</Link></li>
-            <li><Link href="/#contact">Contact</Link></li>
+            <li><Link href="/contact">Contact</Link></li>
             <li><Link href="#">Privacy Policy</Link></li>
           </ul>
-          <p>&copy; {new Date().getFullYear()} Lab Integrity Pro. All rights reserved.</p>
+          <p>&copy; 2024 Lab Integrity Pro. All rights reserved.</p>
         </div>
       </footer>
     </>
-  );
+  )
 }
