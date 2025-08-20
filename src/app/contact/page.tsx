@@ -146,7 +146,7 @@ export default function Contact() {
       <section className="contact-hero">
         <div className="contact-hero-content">
           <h1>Get in Touch</h1>
-          <p className="hero-subtitle">Let's discuss how we can help elevate your laboratory's compliance</p>
+          <p className="hero-subtitle">Let&apos;s discuss how we can help elevate your laboratory&apos;s compliance</p>
         </div>
       </section>
 
@@ -179,12 +179,12 @@ export default function Contact() {
             {/* Contact Form */}
             <div className="contact-form-wrapper">
               <h2>Send Us a Message</h2>
-              <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+              <p>Fill out the form below and we&apos;ll get back to you within 24 hours.</p>
               
               {submitStatus === 'success' && (
                 <div className="alert alert-success">
                   <span className="alert-icon">✓</span>
-                  Thank you for your message! We'll be in touch soon.
+                  Thank you for your message! We&apos;ll be in touch soon.
                 </div>
               )}
               

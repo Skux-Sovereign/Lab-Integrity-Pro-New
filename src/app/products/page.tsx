@@ -564,7 +564,7 @@ export default function Products() {
         <div className="custom-sop-section">
           <div className="custom-sop-content">
             <h3>Need Custom SOPs?</h3>
-            <p>We can develop SOPs specifically tailored to your laboratory's unique processes and requirements</p>
+            <p>We can develop SOPs specifically tailored to your laboratory&apos;s unique processes and requirements</p>
             <Link href="/contact" className="btn btn-primary">Request Custom Quote</Link>
           </div>
         </div>

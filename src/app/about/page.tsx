@@ -132,7 +132,7 @@ export default function About() {
               <p>
                 We understand the challenges modern laboratories face: evolving regulations, complex 
                 documentation requirements, and the constant pressure to maintain quality while meeting 
-                deadlines. That's why we've developed streamlined solutions that don't just meet compliance 
+                deadlines. That&apos;s why we&apos;ve developed streamlined solutions that don&apos;t just meet compliance 
                 standards—they enhance your operational efficiency.
               </p>
             </div>
@@ -170,7 +170,7 @@ export default function About() {
               <h3>Industry Veterans</h3>
               <p>
                 Our team consists of professionals with extensive experience at leading organizations 
-                including major pharmaceutical companies, CROs, and biotech firms. We've been in your 
+                including major pharmaceutical companies, CROs, and biotech firms. We&apos;ve been in your 
                 shoes and understand your challenges.
               </p>
             </div>
@@ -190,8 +190,8 @@ export default function About() {
               <h3>Active Practitioners</h3>
               <p>
                 Our team members maintain active roles in the industry, ensuring our knowledge stays 
-                current with the latest regulations, guidelines, and best practices. We're not just 
-                consultants—we're practitioners.
+                current with the latest regulations, guidelines, and best practices. We&apos;re not just 
+                consultants—we&apos;re practitioners.
               </p>
             </div>
             
