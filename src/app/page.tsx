@@ -100,7 +100,7 @@ export default function Home() {
             <div className="service-card">
               <div className="service-icon">📊</div>
               <h3>Data Review Consulting</h3>
-              <p>Expert QC data review services with over 10 years of experience in GLP and GMP environments.</p>
+              <p>Expert QA/QC data review services with over 10 years of experience in GLP and GMP environments.</p>
               <ul className="service-features">
                 <li>Risk-based review strategies</li>
                 <li>Audit trail analysis</li>
