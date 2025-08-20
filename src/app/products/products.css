@@ -54,6 +54,37 @@
   background: var(--light);
 }
 
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border-radius: 25px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--dark);
+}
+
+.section-header p {
+  font-size: 1.125rem;
+  color: var(--gray);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .products-grid {
   max-width: 1200px;
   margin: 0 auto;
@@ -252,6 +283,322 @@
   color: white;
 }
 
+/* Consulting Services Section */
+.consulting-section {
+  padding: 6rem 2rem;
+  background: white;
+  position: relative;
+}
+
+.consulting-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
+}
+
+.consulting-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Consulting Card */
+.consulting-card {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  position: relative;
+  border: 2px solid #f1f5f9;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.6s ease backwards;
+  height: fit-content;
+}
+
+.consulting-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(8, 145, 178, 0.15);
+  border-color: var(--primary);
+}
+
+.consulting-card.popular {
+  border: 3px solid var(--primary);
+  background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%);
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(8, 145, 178, 0.2);
+}
+
+.consulting-card.popular:hover {
+  transform: scale(1.05) translateY(-8px);
+}
+
+/* Popular Ribbon */
+.popular-ribbon {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 0 0 16px 16px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+}
+
+/* Consulting Badges */
+.consulting-badge {
+  margin-bottom: 1.5rem;
+}
+
+.badge-essential,
+.badge-professional,
+.badge-enterprise {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-essential {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.badge-professional {
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: white;
+}
+
+.badge-enterprise {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+}
+
+/* Consulting Header */
+.consulting-header h3 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+  font-weight: 700;
+}
+
+.consulting-subtitle {
+  font-size: 1rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.consulting-description {
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Consulting Pricing */
+.consulting-pricing {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--light);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.price-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.consulting-price {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.original-price {
+  font-size: 1.25rem;
+  color: var(--gray);
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.savings-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.savings {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.duration {
+  color: var(--gray);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Consulting Features */
+.consulting-features {
+  margin-bottom: 2rem;
+}
+
+.included-badge {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.consulting-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.consulting-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  color: var(--gray);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  line-height: 1.5;
+}
+
+.consulting-features li:last-child {
+  border-bottom: none;
+}
+
+.check-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--success);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Consulting Actions */
+.consulting-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.btn-consulting {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.125rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-consulting.primary {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  box-shadow: 0 8px 20px rgba(8, 145, 178, 0.3);
+}
+
+.btn-consulting.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(8, 145, 178, 0.4);
+}
+
+.btn-consulting.secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-consulting.secondary:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.consultation-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--gray);
+  font-size: 0.875rem;
+  justify-content: center;
+}
+
+.phone-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--success);
+}
+
+/* Consulting Guarantee */
+.consulting-guarantee {
+  max-width: 800px;
+  margin: 4rem auto 0;
+  text-align: center;
+}
+
+.guarantee-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border-radius: 20px;
+  border: 2px solid #bbf7d0;
+}
+
+.guarantee-content .guarantee-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--success);
+  flex-shrink: 0;
+}
+
+.guarantee-content h4 {
+  font-size: 1.25rem;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+}
+
+.guarantee-content p {
+  color: var(--gray);
+  margin: 0;
+}
+
 /* Product Details Section */
 .product-details-section {
   background: white;
@@ -336,13 +683,6 @@
   border-bottom: none;
 }
 
-.check-icon {
-  width: 20px;
-  height: 20px;
-  color: var(--success);
-  flex-shrink: 0;
-}
-
 /* Detail Actions */
 .detail-actions {
   margin-top: 2rem;
@@ -377,7 +717,7 @@
   font-size: 0.875rem;
 }
 
-.guarantee-icon {
+.guarantee .guarantee-icon {
   width: 20px;
   height: 20px;
   color: var(--success);
@@ -428,6 +768,25 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .consulting-grid {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+  }
+  
+  .consulting-card.popular {
+    transform: none;
+  }
+  
+  .consulting-card.popular:hover {
+    transform: translateY(-8px);
+  }
+
+  .raw-data-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
 @media (max-width: 968px) {
   .product-detail-content {
     grid-template-columns: 1fr;
@@ -441,6 +800,11 @@
     max-width: 500px;
     margin: 2rem auto;
   }
+  
+  .guarantee-content {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 @media (max-width: 768px) {
@@ -450,6 +814,22 @@
   
   .products-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .consulting-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .raw-data-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .consulting-card {
+    padding: 2rem;
+  }
+
+  .raw-data-card {
+    padding: 1.5rem;
   }
   
   .product-detail-text h2 {
@@ -467,5 +847,70 @@
   .btn-gradient {
     width: 100%;
     text-align: center;
+  }
+  
+  .consulting-pricing {
+    padding: 1rem;
+  }
+  
+  .consulting-price {
+    font-size: 2rem;
+  }
+
+  .raw-data-pricing {
+    padding: 1rem;
+  }
+
+  .raw-data-price {
+    font-size: 1.75rem;
+  }
+  
+  .savings-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .info-content {
+    grid-template-columns: 1fr;
+  }
+
+  .info-item {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .consulting-card {
+    padding: 1.5rem;
+  }
+
+  .raw-data-card {
+    padding: 1.25rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .consulting-header h3 {
+    font-size: 1.5rem;
+  }
+
+  .raw-data-header h3 {
+    font-size: 1.25rem;
+  }
+
+  .info-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .expertise-icon,
+  .security-icon,
+  .speed-icon {
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
   }
 }
