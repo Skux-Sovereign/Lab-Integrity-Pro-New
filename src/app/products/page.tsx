@@ -4,6 +4,99 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import './products.css'
 
+// SOP Packages Configuration with Updated Pricing
+const sopPackages = [
+  {
+    id: 'starter',
+    name: 'Starter Package',
+    price: '$197',
+    originalPrice: null,
+    badge: 'Great Start',
+    description: 'Essential SOPs for laboratories beginning their compliance journey',
+    features: [
+      '5 Essential SOPs',
+      'Equipment Qualification',
+      'Sample Management',
+      'Basic Data Review',
+      'Document Control',
+      'Essential Templates',
+      'Quick Start Guide',
+      '14-day Email Support'
+    ],
+    // Replace 'xxxxx' with your actual Gumroad product ID
+    gumroadId: 'xxxxx', // e.g., 'starter-sop'
+    featured: false
+  },
+  {
+    id: 'essential',
+    name: 'Essential Package',
+    price: '$497',
+    originalPrice: '$997',
+    badge: 'Most Popular',
+    description: 'Comprehensive foundation for small to mid-size laboratories',
+    features: [
+      '15 Core SOPs',
+      'Everything in Starter',
+      'Training Records Management',
+      'Advanced Data Review Procedures',
+      'Calibration & Maintenance',
+      'Deviation Management',
+      'Basic Templates & Forms',
+      'Implementation Guide',
+      '30-day Email Support'
+    ],
+    // Replace 'xxxxx' with your actual Gumroad product ID
+    gumroadId: 'xxxxx', // e.g., 'essential-sop'
+    featured: false
+  },
+  {
+    id: 'professional',
+    name: 'Professional Package',
+    price: '$997',
+    originalPrice: '$1,997',
+    badge: 'Best Value',
+    description: 'Complete solution for established laboratories',
+    features: [
+      '35 SOPs',
+      'Everything in Essential',
+      'Method Validation SOPs',
+      'CAPA Procedures',
+      'Change Control System',
+      'Investigation Procedures',
+      'Audit Trail Review',
+      'Advanced Templates',
+      'Customization Guide',
+      '90-day Priority Support'
+    ],
+    // Replace 'xxxxx' with your actual Gumroad product ID
+    gumroadId: 'xxxxx', // e.g., 'professional-sop'
+    featured: true
+  },
+  {
+    id: 'complete',
+    name: 'Complete Package',
+    price: '$1,997',
+    originalPrice: '$3,997',
+    badge: 'Enterprise',
+    description: 'Full documentation suite for enterprise laboratories',
+    features: [
+      '50+ SOPs',
+      'Everything in Professional',
+      'Data Integrity Package',
+      'Computer System Validation',
+      'Vendor Qualification',
+      'Risk Assessment Tools',
+      'Regulatory Filing Support',
+      'All Templates & Forms',
+      'Custom Branding Options',
+      '6-month Premium Support'
+    ],
+    // Replace 'xxxxx' with your actual Gumroad product ID
+    gumroadId: 'xxxxx', // e.g., 'complete-sop'
+    featured: false
+  }
+];
+
 export default function Products() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -21,6 +114,30 @@ export default function Products() {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  // Track purchase button clicks (optional - for analytics)
+  const handlePurchaseClick = (pkg: typeof sopPackages[0]) => {
+    // Open Gumroad in new tab
+    window.open(`https://gumroad.com/l/${pkg.gumroadId}`, '_blank')
+    
+    // Google Analytics tracking (if you have it set up)
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'begin_checkout', {
+        currency: 'USD',
+        value: pkg.name === 'Starter Package' ? 197 :
+               pkg.name === 'Essential Package' ? 497 : 
+               pkg.name === 'Professional Package' ? 997 : 1997,
+        items: [{
+          item_name: pkg.name,
+          item_category: 'SOP Package',
+          quantity: 1
+        }]
+      });
+    }
+    
+    // You can also add other tracking here (Facebook Pixel, etc.)
+    console.log(`Purchase clicked: ${pkg.name}`);
   }
 
   return (
@@ -98,7 +215,7 @@ export default function Products() {
                   </ul>
                 </div>
                 <div className="service-card">
-                  <div className="service-icon">🔄</div>
+                  <div className="service-icon">📄</div>
                   <h3>Method Transfer</h3>
                   <p>Seamless transfer of analytical methods between laboratories</p>
                   <ul className="service-features">
@@ -478,86 +595,84 @@ export default function Products() {
         </div>
       </section>
 
-      {/* SOP Template Packages */}
+      {/* SOP Template Packages - Updated with New Pricing */}
       <section className="sop-packages">
         <div className="section-header">
           <h2>SOP Template Packages</h2>
           <p>Ready-to-implement Standard Operating Procedures tailored for GLP/GMP laboratories</p>
+          <div className="pricing-notice">
+            <span className="pricing-badge">🎉 Launch Pricing</span>
+            <span className="pricing-text">Save up to 50% - Limited Time Offer</span>
+          </div>
         </div>
         
         <div className="packages-grid">
-          <div className="package-card">
-            <div className="package-badge">Most Popular</div>
-            <div className="package-header">
-              <h3>Essential Package</h3>
-              <div className="package-price">
-                <span className="price">$1,499</span>
-                <span className="price-period">one-time</span>
+          {sopPackages.map((pkg) => (
+            <div key={pkg.id} className={`package-card ${pkg.featured ? 'featured' : ''}`}>
+              <div className="package-badge">{pkg.badge}</div>
+              <div className="package-header">
+                <h3>{pkg.name}</h3>
+                <div className="package-price">
+                  <span className="price">{pkg.price}</span>
+                  {pkg.originalPrice && (
+                    <span className="original-price">{pkg.originalPrice}</span>
+                  )}
+                  <span className="price-period">one-time</span>
+                </div>
+              </div>
+              <p className="package-description">{pkg.description}</p>
+              <ul className="package-features">
+                {pkg.features.map((feature, idx) => (
+                  <li key={idx}>
+                    {idx === 0 ? <strong>{feature}</strong> : feature}
+                  </li>
+                ))}
+              </ul>
+              
+              {/* Value Proposition */}
+              <div className="package-value">
+                {pkg.id === 'starter' && '💰 Save 50+ hours of development'}
+                {pkg.id === 'essential' && '💰 Save $5,000+ in consultant fees'}
+                {pkg.id === 'professional' && '💰 Save $15,000+ in consultant fees'}
+                {pkg.id === 'complete' && '💰 Save $30,000+ in consultant fees'}
+              </div>
+              
+              {/* Gumroad Purchase Button - Opens in New Tab */}
+              <button 
+                className={`package-btn ${pkg.featured ? 'featured-btn' : ''}`}
+                onClick={() => handlePurchaseClick(pkg)}
+              >
+                Purchase Package
+              </button>
+              <div className="package-trust">
+                <span className="package-trust-item">
+                  🔒 Secure Checkout
+                </span>
+                <span className="package-trust-item">
+                  ⚡ Instant Download
+                </span>
               </div>
             </div>
-            <p className="package-description">Perfect for small laboratories starting their compliance journey</p>
-            <ul className="package-features">
-              <li><strong>15 Core SOPs</strong></li>
-              <li>Equipment Qualification</li>
-              <li>Sample Management</li>
-              <li>Data Review Procedures</li>
-              <li>Training Records</li>
-              <li>Document Control</li>
-              <li>Basic Templates & Forms</li>
-              <li>Implementation Guide</li>
-              <li>30-day Email Support</li>
-            </ul>
-            <button className="package-btn">Purchase Package</button>
-          </div>
+          ))}
+        </div>
 
-          <div className="package-card featured">
-            <div className="package-badge">Best Value</div>
-            <div className="package-header">
-              <h3>Professional Package</h3>
-              <div className="package-price">
-                <span className="price">$2,999</span>
-                <span className="price-period">one-time</span>
-              </div>
-            </div>
-            <p className="package-description">Comprehensive solution for established laboratories</p>
-            <ul className="package-features">
-              <li><strong>35 SOPs</strong></li>
-              <li>Everything in Essential</li>
-              <li>Method Validation SOPs</li>
-              <li>CAPA Procedures</li>
-              <li>Change Control System</li>
-              <li>Investigation Procedures</li>
-              <li>Audit Trail Review</li>
-              <li>Advanced Templates</li>
-              <li>Customization Guide</li>
-              <li>90-day Priority Support</li>
-            </ul>
-            <button className="package-btn featured-btn">Purchase Package</button>
+        {/* Security Badges */}
+        <div className="security-badges">
+          <div className="security-badge">
+            <span className="security-badge-icon">🔒</span>
+            <span>256-bit SSL Encryption</span>
           </div>
-
-          <div className="package-card">
-            <div className="package-badge">Enterprise</div>
-            <div className="package-header">
-              <h3>Complete Package</h3>
-              <div className="package-price">
-                <span className="price">$4,999</span>
-                <span className="price-period">one-time</span>
-              </div>
-            </div>
-            <p className="package-description">Full documentation suite for enterprise laboratories</p>
-            <ul className="package-features">
-              <li><strong>50+ SOPs</strong></li>
-              <li>Everything in Professional</li>
-              <li>Data Integrity Package</li>
-              <li>Computer System Validation</li>
-              <li>Vendor Qualification</li>
-              <li>Risk Assessment Tools</li>
-              <li>Regulatory Filing Support</li>
-              <li>All Templates & Forms</li>
-              <li>Custom Branding Options</li>
-              <li>6-month Premium Support</li>
-            </ul>
-            <button className="package-btn">Purchase Package</button>
+          <div className="security-badge">
+            <span className="security-badge-icon">💳</span>
+            <span>Powered by Gumroad</span>
+          </div>
+          <div className="security-badge">
+            <span className="security-badge-icon">📧</span>
+            <span>Instant Email Delivery</span>
+          </div>
+          <div className="security-badge">
+            <span className="security-badge-icon">✅</span>
+            <span>30-Day Money Back Guarantee</span>
           </div>
         </div>
 
@@ -565,6 +680,7 @@ export default function Products() {
           <div className="custom-sop-content">
             <h3>Need Custom SOPs?</h3>
             <p>We can develop SOPs specifically tailored to your laboratory&apos;s unique processes and requirements</p>
+            <p className="custom-pricing">Custom packages starting at $5,000</p>
             <Link href="/contact" className="btn btn-primary">Request Custom Quote</Link>
           </div>
         </div>

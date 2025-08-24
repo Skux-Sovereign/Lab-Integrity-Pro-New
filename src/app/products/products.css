@@ -1,4 +1,4 @@
-/* Products Page Styles - Inherits from main page.css */
+/* Products Page Styles - Complete CSS File */
 
 * {
   margin: 0;
@@ -28,7 +28,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Navigation - Same as main page */
+/* Navigation */
 .navbar {
   position: fixed;
   width: 100%;
@@ -203,7 +203,7 @@ body {
   animation: fadeInUp 0.5s ease;
 }
 
-/* Services Section - Same as main page */
+/* Services Section */
 .services {
   padding: 5rem 2rem;
   background: var(--light);
@@ -334,13 +334,39 @@ body {
   background: var(--light);
 }
 
+/* Pricing Notice */
+.pricing-notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, rgba(8, 145, 178, 0.1), rgba(6, 182, 212, 0.1));
+  border-radius: 50px;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pricing-badge {
+  font-size: 1.25rem;
+  animation: pulse 2s infinite;
+}
+
+.pricing-text {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Packages Grid - Adjusted for 4 items */
 .packages-grid {
-  max-width: 1200px;
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  margin-bottom: 3rem;
+  max-width: 1400px;
+  margin: 0 auto 3rem;
 }
 
 .package-card {
@@ -355,8 +381,8 @@ body {
 }
 
 .package-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .package-card.featured {
@@ -401,15 +427,24 @@ body {
 
 .package-price {
   display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .price {
   font-size: 2.5rem;
   font-weight: bold;
   color: var(--primary);
+}
+
+/* Original Price with Strikethrough */
+.original-price {
+  text-decoration: line-through;
+  color: var(--gray);
+  font-size: 1.25rem;
+  opacity: 0.7;
+  margin-left: 0.5rem;
 }
 
 .price-period {
@@ -457,6 +492,20 @@ body {
   margin-bottom: 0.25rem;
 }
 
+/* Value Proposition */
+.package-value {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+  color: var(--success);
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 1rem 0;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* Enhanced Purchase Button */
 .package-btn {
   width: 100%;
   padding: 1rem 2rem;
@@ -468,6 +517,39 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add external link indicator */
+.package-btn::after {
+  content: '↗';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: right 0.3s ease;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.package-btn:hover::after {
+  right: 20px;
+}
+
+/* Add shopping cart icon on hover */
+.package-btn::before {
+  content: '🛒';
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: left 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.package-btn:hover::before {
+  left: 20px;
 }
 
 .package-btn:hover {
@@ -475,6 +557,13 @@ body {
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(8, 145, 178, 0.3);
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+/* Active/Click state */
+.package-btn:active {
+  transform: scale(0.98);
 }
 
 .featured-btn {
@@ -487,6 +576,49 @@ body {
   border-color: var(--primary-dark);
 }
 
+/* Package Trust Indicators */
+.package-trust {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 0.75rem;
+  color: var(--gray);
+}
+
+.package-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Security Badges */
+.security-badges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.security-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--gray);
+  font-size: 0.875rem;
+}
+
+.security-badge-icon {
+  font-size: 1.25rem;
+}
+
+/* Custom SOP Section */
 .custom-sop-section {
   max-width: 800px;
   margin: 4rem auto 0;
@@ -508,13 +640,22 @@ body {
   opacity: 0.95;
 }
 
+/* Custom Pricing Text */
+.custom-pricing {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  opacity: 0.9;
+}
+
 /* Training Section */
 .training-section {
   padding: 5rem 2rem;
   background: linear-gradient(135deg, rgba(8, 145, 178, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);
 }
 
-/* About Section - Same as main page */
+/* About Section */
 .about {
   padding: 5rem 2rem;
   background: white;
@@ -566,7 +707,7 @@ body {
   margin-top: 0.5rem;
 }
 
-/* Contact Section - Same as main page */
+/* Contact Section */
 .contact {
   padding: 5rem 2rem;
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -629,7 +770,7 @@ body {
   color: var(--primary);
 }
 
-/* Footer - Same as main page */
+/* Footer */
 footer {
   padding: 3rem 2rem;
   background: var(--dark);
@@ -673,7 +814,38 @@ footer {
   }
 }
 
-/* Responsive */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes purchaseClick {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.package-btn.clicking {
+  animation: purchaseClick 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .packages-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -748,5 +920,39 @@ footer {
   .hero-buttons {
     flex-direction: column;
     align-items: center;
+  }
+  
+  .pricing-notice {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .original-price {
+    font-size: 1rem;
+  }
+  
+  .package-value {
+    font-size: 0.75rem;
+  }
+  
+  .package-btn {
+    font-size: 1rem;
+    padding: 0.875rem 1.5rem;
+  }
+  
+  .package-btn::after,
+  .package-btn::before {
+    display: none; /* Hide icons on mobile for cleaner look */
+  }
+  
+  .package-btn:hover {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .security-badges {
+    flex-direction: column;
+    gap: 1rem;
   }
 }
