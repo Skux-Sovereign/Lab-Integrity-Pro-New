@@ -30,8 +30,8 @@ const sopPackages = [
   {
     id: 'essential',
     name: 'Essential Package',
-    price: '$497',
-    originalPrice: '$997',
+    price: '$449',
+    originalPrice: '$899',
     badge: 'Most Popular',
     description: 'Comprehensive foundation for small to mid-size laboratories',
     features: [
@@ -52,8 +52,8 @@ const sopPackages = [
   {
     id: 'professional',
     name: 'Professional Package',
-    price: '$997',
-    originalPrice: '$1,997',
+    price: '$899',
+    originalPrice: '$1,497',
     badge: 'Best Value',
     description: 'Complete solution for established laboratories',
     features: [
@@ -75,8 +75,8 @@ const sopPackages = [
   {
     id: 'complete',
     name: 'Complete Package',
-    price: '$1,997',
-    originalPrice: '$3,997',
+    price: '$1,199',
+    originalPrice: '$1,997',
     badge: 'Enterprise',
     description: 'Full documentation suite for enterprise laboratories',
     features: [
@@ -126,8 +126,8 @@ export default function Products() {
       (window as any).gtag('event', 'begin_checkout', {
         currency: 'USD',
         value: pkg.name === 'Starter Package' ? 197 :
-               pkg.name === 'Essential Package' ? 497 : 
-               pkg.name === 'Professional Package' ? 997 : 1997,
+               pkg.name === 'Essential Package' ? 449 : 
+               pkg.name === 'Professional Package' ? 899 : 1497,
         items: [{
           item_name: pkg.name,
           item_category: 'SOP Package',
@@ -680,7 +680,7 @@ export default function Products() {
           <div className="custom-sop-content">
             <h3>Need Custom SOPs?</h3>
             <p>We can develop SOPs specifically tailored to your laboratory&apos;s unique processes and requirements</p>
-            <p className="custom-pricing">Custom packages starting at $5,000</p>
+            <p className="custom-pricing">Custom packages starting at $500</p>
             <Link href="/contact" className="btn btn-primary">Request Custom Quote</Link>
           </div>
         </div>
