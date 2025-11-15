@@ -2,12 +2,11 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import Navigation from '../components/Navigation';
 import '../page.css';
 import './contact.css';
 
 export default function Contact() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,17 +18,29 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
+  // Check URL params for pre-filled data
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const params = new URLSearchParams(window.location.search);
+    const interest = params.get('interest');
+    const packageType = params.get('package');
+    
+    if (interest) {
+      setFormData(prev => ({
+        ...prev,
+        service: interest === 'automation-pilot' ? 'automation-demo' : 
+                 interest === 'pilot-program' ? 'pilot-program' : 
+                 interest
+      }));
+    }
+    
+    if (packageType) {
+      setFormData(prev => ({
+        ...prev,
+        service: `sop-${packageType}`,
+        message: `I'm interested in the ${packageType} SOP package.`
+      }));
+    }
   }, []);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -43,24 +54,37 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        service: '',
-        message: ''
+    try {
+      // Call your API route
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
       });
-      
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          phone: '',
+          service: '',
+          message: ''
+        });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
       // Reset status after 5 seconds
       setTimeout(() => {
         setSubmitStatus('idle');
       }, 5000);
-    }, 1500);
+    }
   };
 
   const contactMethods = [
@@ -72,75 +96,59 @@ export default function Contact() {
       actionText: 'Send Email'
     },
     {
-      icon: '📱',
-      title: 'Phone',
-      details: '1-800-LAB-INTG',
-      action: 'tel:1-800-522-4684',
-      actionText: 'Call Now'
+      icon: '💼',
+      title: 'LinkedIn',
+      details: 'Connect for quick responses',
+      action: 'https://linkedin.com/company/lab-integrity-pro',
+      actionText: 'Connect on LinkedIn'
     },
     {
-      icon: '📍',
-      title: 'Location',
-      details: 'Serving clients globally from the USA',
-      action: '#',
-      actionText: 'View Map'
+      icon: '📅',
+      title: 'Schedule a Demo',
+      details: 'See our automation solution in action',
+      action: 'https://calendly.com/labintegritypro/demo',
+      actionText: 'Book Demo'
     },
     {
       icon: '🕐',
       title: 'Business Hours',
       details: 'Mon-Fri: 8AM-6PM EST',
       action: '#',
-      actionText: 'Schedule Call'
+      actionText: 'Available Now'
     }
   ];
 
   const faqs = [
     {
-      question: "How quickly can you implement compliance solutions?",
-      answer: "Our SOP templates are available for immediate download. Custom consulting projects typically begin within 1-2 weeks of initial contact, with implementation timelines varying based on scope."
+      question: "How much time can automation save on data review?",
+      answer: "Our clients typically see 60-80% reduction in manual review time, especially for handwritten laboratory notebooks and PCR data sheets. This translates to hours saved daily for QC teams."
     },
     {
-      question: "Do you provide remote consulting services?",
-      answer: "Yes, we offer both remote and on-site consulting services globally. Our remote services include virtual audits, training sessions, and implementation support via video conferencing."
+      question: "Is your automation solution 21 CFR Part 11 compliant?",
+      answer: "Yes, our solution maintains complete audit trails, electronic signatures, and data integrity throughout the automated review process, fully compliant with 21 CFR Part 11 requirements."
     },
     {
-      question: "Are your templates customizable?",
-      answer: "Absolutely. All our SOP templates and toolkits are provided in editable formats (Word/Excel) and are designed to be easily customized to match your laboratory's specific needs and branding."
+      question: "Can you automate our existing paper-based processes?",
+      answer: "Absolutely. We specialize in digitizing and automating paper-based workflows, particularly handwritten notebooks that are common in PCR and bioanalytical teams."
     },
     {
-      question: "What industries do you specialize in?",
-      answer: "We serve pharmaceutical, biotechnology, CRO/CMO, clinical diagnostics, academic research, and government laboratories. Our expertise spans both small molecule and large molecule (biologics) environments."
+      question: "What's included in the pilot program?",
+      answer: "Pilot participants get hands-on implementation of our automation tools, customized to your specific workflows, with 30 days of support and optimization. Limited to 5 laboratories."
     },
     {
-      question: "Do you offer training with your products?",
-      answer: "Yes, we provide comprehensive training options including implementation guides with our products, virtual training sessions, and on-site workshops tailored to your team's needs."
+      question: "Do you still offer SOP templates?",
+      answer: "Yes! We offer streamlined SOP packages from $197-$1,199 that work with any lab size and can be customized to your systems. Instant download available."
     },
     {
-      question: "What makes Lab Integrity Pro different?",
-      answer: "Our team brings over 10 years of hands-on experience in GxP environments, currently active in the industry, ensuring our solutions are practical, current, and immediately applicable."
+      question: "How do you handle data security?",
+      answer: "All data processing happens within your secure environment. We never store or transmit your proprietary data outside your controlled systems."
     }
   ];
 
   return (
     <>
-      {/* Navigation */}
-      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="nav-container">
-          <Link href="/" className="logo">Lab Integrity Pro</Link>
-          <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/#services">Services</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/contact" className="active">Contact</Link></li>
-          </ul>
-          <div className="mobile-menu" onClick={toggleMobileMenu}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-      </nav>
+      {/* Navigation - Using shared component */}
+      <Navigation />
 
       {/* Hero Section */}
       <section className="contact-hero">
@@ -160,7 +168,9 @@ export default function Contact() {
                 <h3>{method.title}</h3>
                 <p>{method.details}</p>
                 {method.action !== '#' ? (
-                  <a href={method.action} className="method-link">
+                  <a href={method.action} className="method-link" 
+                     target={method.action.startsWith('http') ? '_blank' : undefined}
+                     rel={method.action.startsWith('http') ? 'noopener noreferrer' : undefined}>
                     {method.actionText} →
                   </a>
                 ) : (
@@ -191,7 +201,7 @@ export default function Contact() {
               {submitStatus === 'error' && (
                 <div className="alert alert-error">
                   <span className="alert-icon">✕</span>
-                  There was an error sending your message. Please try again.
+                  There was an error sending your message. Please try again or email us directly.
                 </div>
               )}
               
@@ -256,12 +266,16 @@ export default function Contact() {
                     value={formData.service}
                     onChange={handleInputChange}
                   >
-                    <option value="">Select a service...</option>
-                    <option value="data-review">Data Review Consulting</option>
-                    <option value="sop-templates">SOP Templates</option>
-                    <option value="audit-prep">Audit Preparation</option>
-                    <option value="training">Training Services</option>
-                    <option value="custom">Custom Solutions</option>
+                    <option value="">Select area of interest...</option>
+                    <option value="automation-demo">Data Review Automation Demo</option>
+                    <option value="pilot-program">Join Pilot Program</option>
+                    <option value="paper-to-digital">Paper-to-Digital Transition</option>
+                    <option value="pcr-automation">PCR Data Automation</option>
+                    <option value="sop-starter">SOP Starter Package ($197)</option>
+                    <option value="sop-essential">SOP Essential Package ($449)</option>
+                    <option value="sop-professional">SOP Professional Package ($899)</option>
+                    <option value="sop-complete">SOP Complete Package ($1,199)</option>
+                    <option value="consultation">Custom Consultation</option>
                     <option value="other">Other</option>
                   </select>
                 </div>
@@ -292,8 +306,9 @@ export default function Contact() {
             {/* Additional Info */}
             <div className="contact-info-wrapper">
               <div className="info-card">
-                <h3>Quick Response Time</h3>
-                <p>We typically respond to all inquiries within 24 business hours. For urgent matters, please call us directly.</p>
+                <h3>🚀 Pilot Program Open</h3>
+                <p className="pilot-alert">Only 3 spots remaining! Join our exclusive pilot program for hands-on implementation of our automation solution.</p>
+                <Link href="/contact?interest=pilot-program" className="pilot-link">Apply Now →</Link>
               </div>
               
               <div className="info-card">
@@ -302,43 +317,42 @@ export default function Contact() {
                   <div className="process-step">
                     <span className="step-number">1</span>
                     <div>
-                      <h4>Initial Contact</h4>
-                      <p>Share your needs via form or phone</p>
+                      <h4>Pain Point Discovery</h4>
+                      <p>15-min call to understand your challenges</p>
                     </div>
                   </div>
                   <div className="process-step">
                     <span className="step-number">2</span>
                     <div>
-                      <h4>Discovery Call</h4>
-                      <p>30-minute consultation to understand your requirements</p>
+                      <h4>Workflow Analysis</h4>
+                      <p>Identify automation opportunities</p>
                     </div>
                   </div>
                   <div className="process-step">
                     <span className="step-number">3</span>
                     <div>
-                      <h4>Custom Proposal</h4>
-                      <p>Tailored solution and implementation plan</p>
+                      <h4>Pilot Implementation</h4>
+                      <p>Test with your actual data</p>
                     </div>
                   </div>
                   <div className="process-step">
                     <span className="step-number">4</span>
                     <div>
-                      <h4>Implementation</h4>
-                      <p>Expert guidance through execution</p>
+                      <h4>ROI Validation</h4>
+                      <p>Measure time savings & compliance</p>
                     </div>
                   </div>
                 </div>
               </div>
               
               <div className="info-card">
-                <h3>Connect on LinkedIn</h3>
-                <p>Follow Lab Integrity Pro for industry insights, regulatory updates, and compliance tips.</p>
-                <a href="#" className="linkedin-button">
-                  <svg className="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                  </svg>
-                  Follow on LinkedIn
-                </a>
+                <h3>Why Lab Integrity Pro?</h3>
+                <ul className="benefits-list">
+                  <li>Active QC Supervisor at major CROs</li>
+                  <li>10+ years GxP experience</li>
+                  <li>Specialization in ADC & biologics</li>
+                  <li>Real-world automation solutions</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -372,7 +386,7 @@ export default function Contact() {
             <p>Download our templates instantly or schedule a consultation to discuss custom solutions</p>
             <div className="cta-buttons">
               <Link href="/products" className="btn btn-primary">View Products</Link>
-              <a href="#contact-form" className="btn btn-secondary">Contact Form ↑</a>
+              <Link href="#contact-form" className="btn btn-secondary">Contact Form ↑</Link>
             </div>
           </div>
         </div>

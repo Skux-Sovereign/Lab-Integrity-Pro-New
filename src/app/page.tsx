@@ -1,54 +1,32 @@
-// src/app/page.tsx
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
+import Navigation from './components/Navigation'
 import './page.css'
+import labNotebook from './assets/lab-notebook2.jpg';
+import scientistLab from './assets/scientist-lab.jpg';
 
 export default function Home() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    alert('Thank you for your interest! We will contact you soon.')
+    
     const form = e.target as HTMLFormElement
-    form.reset()
-  }
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
+    const formData = new FormData(form)
+    
+    // Send to your contact page with form data
+    const params = new URLSearchParams()
+    params.append('name', formData.get('name') as string)
+    params.append('email', formData.get('email') as string)
+    params.append('message', 'Quick contact from homepage')
+    
+    window.location.href = `/contact?${params.toString()}`
   }
 
   return (
     <>
-      {/* Navigation */}
-      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="nav-container">
-          <a href="#home" className="logo">Lab Integrity Pro</a>
-          <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/#services">Services</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
-          </ul>
-          <div className="mobile-menu" onClick={toggleMobileMenu}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-      </nav>
+      {/* Navigation - Now using the shared component */}
+      <Navigation />
 
       {/* Hero Section */}
       <section className="hero" id="home">
@@ -89,28 +67,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Services Section - Updated with Automation Focus */}
       <section className="services" id="services">
         <div className="section-header">
           <h2>Our Services</h2>
           <p>Comprehensive solutions for laboratory compliance and data integrity</p>
         </div>
         <div className="services-grid">
-          <Link href="/products" className="service-card-link">
-            <div className="service-card">
-              <div className="service-icon">📊</div>
-              <h3>Data Review Consulting</h3>
-              <p>Expert QA/QC data review services with over 10 years of experience in GLP and GMP environments.</p>
+          <Link href="/products#automation" className="service-card-link">
+            <div className="service-card featured">
+              <div className="service-badge">NEW</div>
+              <div className="service-icon">🤖</div>
+              <h3>Data Review Automation</h3>
+              <p>Transform paper-based QC processes with our cutting-edge automation solution designed for pharmaceutical laboratories.</p>
               <ul className="service-features">
-                <li>Risk-based review strategies</li>
-                <li>Audit trail analysis</li>
-                <li>Investigation support</li>
-                <li>Training and mentoring</li>
+                <li>Handwritten notebook digitization</li>
+                <li>Automated compliance checks</li>
+                <li>80% time reduction</li>
+                <li>21 CFR Part 11 compliant</li>
               </ul>
-              <span className="service-cta">Learn More →</span>
+              <span className="service-cta">See Demo →</span>
             </div>
           </Link>
-          <Link href="/products" className="service-card-link">
+          <Link href="/products#sop-packages" className="service-card-link">
             <div className="service-card">
               <div className="service-icon">📋</div>
               <h3>SOP Packages</h3>
@@ -124,16 +103,16 @@ export default function Home() {
               <span className="service-cta">Learn More →</span>
             </div>
           </Link>
-          <Link href="/products" className="service-card-link">
+          <Link href="/products#consulting" className="service-card-link">
             <div className="service-card">
-              <div className="service-icon">💻</div>
-              <h3>LIMS System (Coming Soon)</h3>
-              <p>Advanced Laboratory Information Management System designed for modern bioanalytical labs.</p>
+              <div className="service-icon">📊</div>
+              <h3>Data Review Consulting</h3>
+              <p>Expert QA/QC data review services with over 10 years of experience in GLP and GMP environments.</p>
               <ul className="service-features">
-                <li>21 CFR Part 11 compliant</li>
-                <li>Automated workflows</li>
-                <li>Real-time data tracking</li>
-                <li>Integrated reporting</li>
+                <li>Bioanalytical assay review</li>
+                <li>PK/PD and ADA analysis</li>
+                <li>Audit trail analysis</li>
+                <li>Training and mentoring</li>
               </ul>
               <span className="service-cta">Learn More →</span>
             </div>
@@ -146,20 +125,20 @@ export default function Home() {
         <div className="about-content">
           <div className="about-text">
             <h2>Expertise You Can Trust</h2>
-            <p>With over a decade of experience as a QC Supervisor in bioanalytical laboratories, specializing in large molecule antibody drug conjugate treatments for cancer, Lab Integrity Pro brings unparalleled expertise to your compliance needs.</p>
-            <p>Currently serving in a CRO environment, we understand the unique challenges of maintaining data integrity and regulatory compliance in fast-paced, high-stakes laboratory settings.</p>
+            <p>With over a decade of experience as a QC Supervisor in bioanalytical laboratories at leading CROs including PPD and QPS, Lab Integrity Pro brings unparalleled expertise to your compliance needs.</p>
+            <p>Specializing in large molecule antibody drug conjugate treatments for cancer, we understand the unique challenges of maintaining data integrity and regulatory compliance in fast-paced, high-stakes laboratory settings.</p>
             <div className="stats">
               <div className="stat">
                 <div className="stat-number">10+</div>
                 <div className="stat-label">Years Experience</div>
               </div>
               <div className="stat">
-                <div className="stat-number">100%</div>
-                <div className="stat-label">Audit Success</div>
+                <div className="stat-number">1000+</div>
+                <div className="stat-label">Data Reviews</div>
               </div>
               <div className="stat">
-                <div className="stat-number">GLP/GMP</div>
-                <div className="stat-label">Certified Expert</div>
+                <div className="stat-number">2</div>
+                <div className="stat-label">Major CROs</div>
               </div>
               <div className="stat">
                 <div className="stat-number">ADC</div>
@@ -183,6 +162,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonial Section */}
+      <section className="testimonials">
+        <div className="section-header">
+          <h2>What QC Professionals Are Saying</h2>
+        </div>
+        <div className="testimonial-grid">
+          <div className="testimonial-card">
+            <p>&ldquo;Finally, someone who understands the pain of reviewing handwritten PCR notebooks day after day. This automation solution is exactly what our industry needs.&rdquo;</p>
+            <cite>— QC Manager, Top 5 CRO</cite>
+          </div>
+          <div className="testimonial-card">
+            <p>&ldquo;The SOP templates saved us weeks of documentation work. They&apos;re comprehensive, compliant, and easy to customize for our specific needs.&rdquo;</p>
+            <cite>— Quality Director, Biotech Startup</cite>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section className="contact" id="contact">
         <div className="contact-content">
@@ -190,14 +186,14 @@ export default function Home() {
           <p>Let&apos;s discuss how Lab Integrity Pro can support your laboratory&apos;s success</p>
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <input type="text" placeholder="Your Name" required />
-              <input type="email" placeholder="Your Email" required />
+              <input type="text" name="name" placeholder="Your Name" required />
+              <input type="email" name="email" placeholder="Your Email" required />
             </div>
             <div className="form-group">
-              <input type="text" placeholder="Company" />
-              <input type="tel" placeholder="Phone" />
+              <input type="text" name="company" placeholder="Company" />
+              <input type="tel" name="phone" placeholder="Phone" />
             </div>
-            <textarea placeholder="Tell us about your needs..." required></textarea>
+            <textarea name="message" placeholder="Tell us about your needs..." required></textarea>
             <button type="submit" className="submit-btn">Send Message</button>
           </form>
         </div>
@@ -207,9 +203,10 @@ export default function Home() {
       <footer>
         <div className="footer-content">
           <ul className="footer-links">
-            <li><a href="#services">Services</a></li>
+            <li><Link href="#services">Services</Link></li>
+            <li><Link href="/products">Products</Link></li>
             <li><Link href="/about">About</Link></li>
-            <li><Link href="/#contact">Contact</Link></li>
+            <li><Link href="/contact">Contact</Link></li>
             <li><Link href="#">Privacy Policy</Link></li>
           </ul>
           <p>&copy; 2024 Lab Integrity Pro. All rights reserved.</p>

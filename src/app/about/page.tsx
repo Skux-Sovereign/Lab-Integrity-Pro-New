@@ -2,25 +2,13 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import '../page.css';
+import Image from 'next/image';
+import Navigation from '../components/Navigation';
+import womanScientist from '../assets/scientist-woman.jpg';
+import '../page.css';  // For base styles
 import './about.css';
 
 export default function About() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
   const values = [
     {
       icon: "🎯",
@@ -65,24 +53,8 @@ export default function About() {
 
   return (
     <>
-      {/* Navigation */}
-      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="nav-container">
-          <Link href="/" className="logo">Lab Integrity Pro</Link>
-          <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/#services">Services</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/about" className="active">About</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
-          </ul>
-          <div className="mobile-menu" onClick={toggleMobileMenu}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-      </nav>
+      {/* Navigation - Now using shared component */}
+      <Navigation />
 
       {/* Hero Section */}
       <section className="about-hero">
@@ -105,8 +77,8 @@ export default function About() {
                 <span className="stat-label">Audit Success Rate</span>
               </div>
               <div className="stat-item">
-                <span className="stat-value">50+</span>
-                <span className="stat-label">Labs Supported</span>
+                <span className="stat-value">2</span>
+                <span className="stat-label">Major CROs</span>
               </div>
             </div>
           </div>
@@ -136,22 +108,18 @@ export default function About() {
                 standards—they enhance your operational efficiency.
               </p>
             </div>
-            <div className="mission-image">
-              <div className="image-placeholder">
-                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="200" cy="200" r="150" fill="url(#grad1)" opacity="0.2"/>
-                  <circle cx="200" cy="200" r="100" fill="url(#grad1)" opacity="0.3"/>
-                  <circle cx="200" cy="200" r="50" fill="url(#grad1)" opacity="0.4"/>
-                  <defs>
-                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style={{stopColor: '#0891b2', stopOpacity: 1}} />
-                      <stop offset="100%" style={{stopColor: '#06b6d4', stopOpacity: 1}} />
-                    </linearGradient>
-                  </defs>
-                  <text x="200" y="200" textAnchor="middle" fill="#0891b2" fontSize="48" fontWeight="bold" dy=".3em">LIP</text>
-                </svg>
-              </div>
-            </div>
+<div className="mission-image">
+  <Image 
+    src={womanScientist}
+    alt="Lab Integrity Pro consultant"
+    width={450}   // Natural portrait width
+    height={675}  // Natural portrait height (3:4.5 ratio)
+    className="mission-photo"
+    quality={100}
+    priority
+    // Remove the style prop - let CSS handle it
+  />
+</div>
           </div>
         </div>
       </section>
@@ -167,41 +135,37 @@ export default function About() {
           <div className="differentiators-grid">
             <div className="diff-card">
               <div className="diff-icon">🏭</div>
-              <h3>Industry Veterans</h3>
+              <h3>Active CRO Experience</h3>
               <p>
-                Our team consists of professionals with extensive experience at leading organizations 
-                including major pharmaceutical companies, CROs, and biotech firms. We&apos;ve been in your 
-                shoes and understand your challenges.
+                Currently serving as QC Supervisor at major CROs (PPD & QPS), bringing real-time 
+                insights from the field, not outdated consulting knowledge.
               </p>
             </div>
             
             <div className="diff-card">
-              <div className="diff-icon">📊</div>
-              <h3>Data Integrity Specialists</h3>
+              <div className="diff-icon">🤖</div>
+              <h3>Automation Pioneer</h3>
               <p>
-                With over 10 years focused specifically on GxP data integrity, we bring deep expertise 
-                in ALCOA+ principles, electronic records management, and audit trail review that goes 
-                beyond surface-level compliance.
+                Developed PowerShell and automation scripts that colleagues loved (even when management 
+                had concerns), proving the value of smart automation in GxP environments.
               </p>
             </div>
             
             <div className="diff-card">
-              <div className="diff-icon">🔬</div>
-              <h3>Active Practitioners</h3>
+              <div className="diff-icon">🧬</div>
+              <h3>ADC Specialization</h3>
               <p>
-                Our team members maintain active roles in the industry, ensuring our knowledge stays 
-                current with the latest regulations, guidelines, and best practices. We&apos;re not just 
-                consultants—we&apos;re practitioners.
+                Deep expertise in large molecule antibody drug conjugate treatments for cancer - 
+                one of the most complex and regulated areas of bioanalysis.
               </p>
             </div>
             
             <div className="diff-card">
-              <div className="diff-icon">✅</div>
-              <h3>Proven Track Record</h3>
+              <div className="diff-icon">🔍</div>
+              <h3>From Manual to Digital</h3>
               <p>
-                Our solutions have helped laboratories achieve significant improvements: 80% reduction 
-                in findings, 99% on-time delivery rates, and successful navigation of FDA and EMA 
-                inspections.
+                Personally reviewed thousands of handwritten notebooks, understanding exactly 
+                where automation can save hours without compromising compliance.
               </p>
             </div>
           </div>
