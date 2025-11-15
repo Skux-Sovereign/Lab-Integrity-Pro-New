@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Navigation from './components/Navigation'
 import './page.css'
-import labNotebook from './assets/lab-notebook2.jpg';
 import scientistLab from './assets/scientist-lab.jpg';
 
 export default function Home() {
@@ -120,12 +120,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Section */}
+      {/* About Section - Updated with scientist-lab.jpg */}
       <section className="about" id="about">
         <div className="about-content">
           <div className="about-text">
             <h2>Expertise You Can Trust</h2>
-            <p>With over a decade of experience as a QC Supervisor in bioanalytical laboratories at leading CROs including PPD and QPS, Lab Integrity Pro brings unparalleled expertise to your compliance needs.</p>
+            <p>With over a decade of experience in quality roles in bioanalytical laboratories at leading CROs and biotech companies, Lab Integrity Pro brings unparalleled expertise to your compliance needs.</p>
             <p>Specializing in large molecule antibody drug conjugate treatments for cancer, we understand the unique challenges of maintaining data integrity and regulatory compliance in fast-paced, high-stakes laboratory settings.</p>
             <div className="stats">
               <div className="stat">
@@ -147,17 +147,22 @@ export default function Home() {
             </div>
           </div>
           <div className="about-image">
-            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-              <rect x="50" y="100" width="300" height="200" rx="10" fill="#e0f2fe" stroke="#0891b2" strokeWidth="2"/>
-              <rect x="70" y="120" width="260" height="30" fill="#0891b2" opacity="0.2"/>
-              <text x="200" y="140" textAnchor="middle" fill="#0891b2" fontWeight="bold" fontSize="16">Quality Certificate</text>
-              <circle cx="100" cy="200" r="30" fill="#14b8a6" opacity="0.3"/>
-              <path d="M85 200 L95 210 L115 185" stroke="#14b8a6" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-              <rect x="150" y="180" width="150" height="8" fill="#cbd5e1" rx="4"/>
-              <rect x="150" y="200" width="120" height="8" fill="#cbd5e1" rx="4"/>
-              <rect x="150" y="220" width="140" height="8" fill="#cbd5e1" rx="4"/>
-              <rect x="150" y="240" width="100" height="8" fill="#cbd5e1" rx="4"/>
-            </svg>
+            <Image 
+              src={scientistLab}
+              alt="Laboratory professional performing precise pipetting"
+              width={500}
+              height={400}
+              className="about-photo"
+              quality={100}
+              priority
+              style={{
+                width: '100%',
+                height: 'auto',
+                maxWidth: '500px',
+                borderRadius: '16px',
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.15)'
+              }}
+            />
           </div>
         </div>
       </section>
@@ -165,7 +170,7 @@ export default function Home() {
       {/* Testimonial Section */}
       <section className="testimonials">
         <div className="section-header">
-          <h2>What QC Professionals Are Saying</h2>
+          <h2>What Lab Professionals Are Saying</h2>
         </div>
         <div className="testimonial-grid">
           <div className="testimonial-card">
@@ -209,7 +214,7 @@ export default function Home() {
             <li><Link href="/contact">Contact</Link></li>
             <li><Link href="#">Privacy Policy</Link></li>
           </ul>
-          <p>&copy; 2024 Lab Integrity Pro. All rights reserved.</p>
+          <p>&copy; 2025 Lab Integrity Pro. All rights reserved.</p>
         </div>
       </footer>
     </>
