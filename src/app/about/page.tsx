@@ -146,8 +146,7 @@ export default function About() {
               <div className="diff-icon">🤖</div>
               <h3>Automation Pioneer</h3>
               <p>
-                Developed PowerShell and automation scripts that colleagues loved (even when management 
-                had concerns), proving the value of smart automation in GxP environments.
+                Transforming paper-based processes into fast, compliant digital workflows. Our AI-supported automation tools eliminate bottlenecks, enhance data integrity, and give your lab the efficiency edge required in regulated GxP environments.
               </p>
             </div>
             
