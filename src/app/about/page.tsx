@@ -35,7 +35,7 @@ export default function About() {
   const expertise = [
     {
       category: "Regulatory Compliance",
-      items: ["FDA 21 CFR Part 11/58", "EMA Guidelines", "ICH M10 2022", "ALCOA+ Principles", "GLP/GMP Standards"]
+      items: ["FDA 21 CFR Parts 11/58/210/211", "EMA Guidelines", "ICH M10 2022", "ALCOA+ Principles", "GLP/GMP Standards"]
     },
     {
       category: "Data Integrity",
@@ -65,7 +65,7 @@ export default function About() {
             <p className="hero-description">
               Led by experts with over a decade of experience in GxP environments, 
               we specialize in data integrity, regulatory compliance, and quality systems 
-              for bioanalytical laboratories worldwide.
+              for laboratories worldwide.
             </p>
             <div className="hero-stats">
               <div className="stat-item">
@@ -77,7 +77,7 @@ export default function About() {
                 <span className="stat-label">Audit Success Rate</span>
               </div>
               <div className="stat-item">
-                <span className="stat-value">2</span>
+                <span className="stat-value">3</span>
                 <span className="stat-label">Major CROs</span>
               </div>
             </div>
@@ -135,9 +135,9 @@ export default function About() {
           <div className="differentiators-grid">
             <div className="diff-card">
               <div className="diff-icon">🏭</div>
-              <h3>Active CRO Experience</h3>
+              <h3>Pharma Experience</h3>
               <p>
-                Currently serving as QC Supervisor at major CROs (PPD & QPS), bringing real-time 
+                Our quality consultants have a minimum of ten years' experience working in pharmaceutical GLP and GMP labs, bringing real-time 
                 insights from the field, not outdated consulting knowledge.
               </p>
             </div>

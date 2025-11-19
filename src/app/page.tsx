@@ -33,7 +33,7 @@ export default function Home() {
         <div className="hero-content">
           <div className="hero-text">
             <h1>Excellence in Laboratory Compliance</h1>
-            <p>Expert GLP/GMP consulting services for bioanalytical laboratories. Ensuring data integrity, regulatory compliance, and operational excellence.</p>
+            <p>Expert cGLP/cGMP consulting services for pharmaceutical laboratories. Ensuring data integrity, regulatory compliance, and operational excellence.</p>
             <div className="hero-buttons">
               <Link href="/products" className="btn btn-primary">Get Started</Link>
               <Link href="/products" className="btn btn-secondary">Our Services</Link>
@@ -78,12 +78,12 @@ export default function Home() {
             <div className="service-card featured">
               <div className="service-badge">NEW</div>
               <div className="service-icon">🤖</div>
-              <h3>Data Review Automation</h3>
+              <h3>AI-Supported Automation</h3>
               <p>Transform paper-based QC processes with our cutting-edge automation solution designed for pharmaceutical laboratories.</p>
               <ul className="service-features">
                 <li>Handwritten notebook digitization</li>
-                <li>Automated compliance checks</li>
-                <li>80% time reduction</li>
+                <li>AI-assisted compliance checks</li>
+                <li>50% time reduction</li>
                 <li>21 CFR Part 11 compliant</li>
               </ul>
               <span className="service-cta">See Demo →</span>
@@ -107,11 +107,11 @@ export default function Home() {
             <div className="service-card">
               <div className="service-icon">📊</div>
               <h3>Data Review Consulting</h3>
-              <p>Expert QA/QC data review services with over 10 years of experience in GLP and GMP environments.</p>
+              <p>Expert QA/QC data review services with over 10 years of experience in cGLP and cGMP environments.</p>
               <ul className="service-features">
                 <li>Bioanalytical assay review</li>
-                <li>PK/PD and ADA analysis</li>
-                <li>Audit trail analysis</li>
+                <li>PK/ADA/nAb analysis</li>
+                <li>GMP QC testing</li>
                 <li>Training and mentoring</li>
               </ul>
               <span className="service-cta">Learn More →</span>
@@ -125,7 +125,7 @@ export default function Home() {
         <div className="about-content">
           <div className="about-text">
             <h2>Expertise You Can Trust</h2>
-            <p>With over a decade of experience in quality roles in bioanalytical laboratories at leading CROs and biotech companies, Lab Integrity Pro brings unparalleled expertise to your compliance needs.</p>
+            <p>With over a decade of experience in quality roles in bioanalytical laboratories at leading CROs, pharma and biotech companies, Lab Integrity Pro brings unparalleled expertise to your compliance needs.</p>
             <p>Specializing in large molecule antibody drug conjugate treatments for cancer, we understand the unique challenges of maintaining data integrity and regulatory compliance in fast-paced, high-stakes laboratory settings.</p>
             <div className="stats">
               <div className="stat">
@@ -137,7 +137,7 @@ export default function Home() {
                 <div className="stat-label">Data Reviews</div>
               </div>
               <div className="stat">
-                <div className="stat-number">2</div>
+                <div className="stat-number">3</div>
                 <div className="stat-label">Major CROs</div>
               </div>
               <div className="stat">

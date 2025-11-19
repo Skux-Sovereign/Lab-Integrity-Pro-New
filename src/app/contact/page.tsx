@@ -121,7 +121,7 @@ export default function Contact() {
   const faqs = [
     {
       question: "How much time can automation save on data review?",
-      answer: "Our clients typically see 60-80% reduction in manual review time, especially for handwritten laboratory notebooks and PCR data sheets. This translates to hours saved daily for QC teams."
+      answer: "Our clients typically see 50-60% reduction in manual review time, especially for handwritten laboratory notebooks and PCR data sheets. This translates to hours saved daily for QA and QC teams."
     },
     {
       question: "Is your automation solution 21 CFR Part 11 compliant?",
@@ -137,7 +137,7 @@ export default function Contact() {
     },
     {
       question: "Do you still offer SOP templates?",
-      answer: "Yes! We offer streamlined SOP packages from $197-$1,199 that work with any lab size and can be customized to your systems. Instant download available."
+      answer: "Yes! We offer streamlined SOP packages from $197-$997 that work with any lab size and can be customized to your systems. Instant download available."
     },
     {
       question: "How do you handle data security?",
