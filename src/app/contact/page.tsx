@@ -348,7 +348,7 @@ export default function Contact() {
               <div className="info-card">
                 <h3>Why Lab Integrity Pro?</h3>
                 <ul className="benefits-list">
-                  <li>Active QC Supervisor at major CROs</li>
+                  <li>Blending scientific expertise with software, automation, and AI innovation</li>
                   <li>10+ years GxP experience</li>
                   <li>Specialization in ADC & biologics</li>
                   <li>Real-world automation solutions</li>
