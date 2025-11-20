@@ -79,7 +79,7 @@ export default function Products() {
                 <ul className="service-highlights">
                   <li>AI-assisted QC checks</li>
                   <li>Workflow automation design</li>
-                  <li>Pilot projects</li>
+                  <li>Data package assembly</li>
                 </ul>
                 <button 
                   className="expand-btn"
@@ -482,7 +482,12 @@ export default function Products() {
             </div>
           </section>
 
-          {/* Final CTA Section - Updated */}
+
+          
+        </div>
+      </section>
+
+                        {/* Final CTA Section - Updated */}
           <section className="final-cta">
             <h2>Not Sure Where to Start?</h2>
             <p>Let's discuss your specific challenges and find the right solution for your laboratory</p>
@@ -490,9 +495,6 @@ export default function Products() {
               Book a Strategy Call
             </Link>
           </section>
-          
-        </div>
-      </section>
 
       {/* Footer */}
       <footer>

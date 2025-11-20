@@ -15,6 +15,7 @@ export default function Contact() {
     service: '',
     message: ''
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -23,16 +24,79 @@ export default function Contact() {
     const params = new URLSearchParams(window.location.search);
     const interest = params.get('interest');
     const packageType = params.get('package');
+    const service = params.get('service');
+    const product = params.get('product');
+    const training = params.get('training');
+    const intent = params.get('intent');
     
     if (interest) {
       setFormData(prev => ({
         ...prev,
-        service: interest === 'automation-pilot' ? 'automation-demo' : 
+        service: interest === 'automation-pilot' ? 'automation-pilot' : 
                  interest === 'pilot-program' ? 'pilot-program' : 
                  interest
       }));
     }
     
+    // Handle product links from products page (SOP packages)
+    if (product) {
+      const productMap: Record<string, string> = {
+        'Essential GLP': 'sop-essential',
+        'Professional GLP': 'sop-professional', 
+        'Enterprise GLP': 'sop-enterprise'
+      };
+      
+      setFormData(prev => ({
+        ...prev,
+        service: productMap[product] || 'other',
+        message: `I'm interested in the ${product} package.`
+      }));
+    }
+
+    // Handle service links from products page
+    if (service) {
+      const serviceMap: Record<string, string> = {
+        'data-review': 'data-review-study',
+        'automation': 'automation-pilot',
+        'lims': 'lims-config',
+        'Compliance Audit': 'compliance-audit',
+        'Custom SOP Development': 'custom-sop',
+        'Regulatory Support': 'regulatory-support'
+      };
+      
+      setFormData(prev => ({
+        ...prev,
+        service: serviceMap[service] || service.toLowerCase().replace(/\s+/g, '-'),
+        message: `I'm interested in learning more about ${service.replace(/-/g, ' ')} services.`
+      }));
+    }
+
+    // Handle training links from products page
+    if (training) {
+      const trainingMap: Record<string, string> = {
+        'Data Integrity': 'training-data-integrity',
+        'GLP/GMP': 'training-glp-gmp',
+        'QC Review': 'training-qc-review',
+        'Automation': 'training-automation'
+      };
+      
+      setFormData(prev => ({
+        ...prev,
+        service: trainingMap[training] || 'other',
+        message: `I'm interested in ${training} training for our team.`
+      }));
+    }
+
+    // Handle strategy call intent
+    if (intent === 'strategy-call') {
+      setFormData(prev => ({
+        ...prev,
+        service: 'strategy-call',
+        message: `I'd like to schedule a strategy call to discuss our laboratory needs.`
+      }));
+    }
+
+    // Legacy support for old package parameter format
     if (packageType) {
       setFormData(prev => ({
         ...prev,
@@ -42,24 +106,83 @@ export default function Contact() {
     }
   }, []);
 
+  const validateForm = (): boolean => {
+    const newErrors: Record<string, string> = {};
+    
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    
+    // Phone validation (optional but if provided, check format)
+    if (formData.phone) {
+      const phoneRegex = /^[\d\s\-\+\(\)\.]+$/;
+      if (!phoneRegex.test(formData.phone)) {
+        newErrors.phone = 'Please enter a valid phone number';
+      }
+    }
+    
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
+    
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
-      // Call your API route
-      const response = await fetch('/api/contact', {
+      // Using Formspree for email handling
+      // Replace 'YOUR_FORM_ID' with your actual Formspree form ID
+      // Sign up at https://formspree.io to get your form ID
+      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          ...formData,
+          _subject: `Lab Integrity Pro Contact: ${formData.service || 'General Inquiry'}`,
+        })
       });
 
       if (response.ok) {
@@ -72,6 +195,7 @@ export default function Contact() {
           service: '',
           message: ''
         });
+        setErrors({});
       } else {
         setSubmitStatus('error');
       }
@@ -201,11 +325,11 @@ export default function Contact() {
               {submitStatus === 'error' && (
                 <div className="alert alert-error">
                   <span className="alert-icon">✕</span>
-                  There was an error sending your message. Please try again or email us directly.
+                  There was an error sending your message. Please try again or email us directly at info@labintegritypro.com.
                 </div>
               )}
               
-              <form className="contact-form" onSubmit={handleSubmit}>
+              <form className="contact-form" onSubmit={handleSubmit} noValidate>
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="name">Name *</label>
@@ -215,9 +339,10 @@ export default function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      required
+                      className={errors.name ? 'error' : ''}
                       placeholder="John Smith"
                     />
+                    {errors.name && <span className="error-message">{errors.name}</span>}
                   </div>
                   <div className="form-group">
                     <label htmlFor="email">Email *</label>
@@ -227,9 +352,10 @@ export default function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      required
+                      className={errors.email ? 'error' : ''}
                       placeholder="john@company.com"
                     />
+                    {errors.email && <span className="error-message">{errors.email}</span>}
                   </div>
                 </div>
                 
@@ -253,8 +379,10 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
+                      className={errors.phone ? 'error' : ''}
                       placeholder="(555) 123-4567"
                     />
+                    {errors.phone && <span className="error-message">{errors.phone}</span>}
                   </div>
                 </div>
                 
@@ -267,16 +395,43 @@ export default function Contact() {
                     onChange={handleInputChange}
                   >
                     <option value="">Select area of interest...</option>
-                    <option value="automation-demo">Data Review Automation Demo</option>
-                    <option value="pilot-program">Join Pilot Program</option>
-                    <option value="paper-to-digital">Paper-to-Digital Transition</option>
-                    <option value="pcr-automation">PCR Data Automation</option>
-                    <option value="sop-starter">SOP Starter Package ($197)</option>
-                    <option value="sop-essential">SOP Essential Package ($449)</option>
-                    <option value="sop-professional">SOP Professional Package ($899)</option>
-                    <option value="sop-complete">SOP Complete Package ($1,199)</option>
-                    <option value="consultation">Custom Consultation</option>
-                    <option value="other">Other</option>
+                    
+                    <optgroup label="Quick Actions">
+                      <option value="strategy-call">Book a Strategy Call</option>
+                      <option value="automation-demo">See Automation Demo</option>
+                      <option value="pilot-program">Join Automation Pilot Program ($5K-$15K)</option>
+                    </optgroup>
+                    
+                    <optgroup label="Core Services">
+                      <option value="data-review-monthly">cGLP/cGMP Data Review - Monthly Retainer ($2,500+/month)</option>
+                      <option value="data-review-study">cGLP/cGMP Data Review - Per Study ($1,500-$5,000)</option>
+                      <option value="automation-pilot">AI-Supported Automation - Pilot Program</option>
+                      <option value="automation-custom">AI-Supported Automation - Custom Solution</option>
+                      <option value="lims-config">LIMS & ELN Configuration ($15K-$50K)</option>
+                      <option value="lims-assessment">LIMS & ELN Assessment ($5K)</option>
+                      <option value="lims-optimization">LIMS & ELN Optimization ($10K-$25K)</option>
+                    </optgroup>
+                    
+                    <optgroup label="SOP Packages">
+                      <option value="sop-essential">Essential GxP Package - 5 SOPs ($197)</option>
+                      <option value="sop-professional">Professional GxP Package - 15 SOPs ($497)</option>
+                      <option value="sop-enterprise">Enterprise GxP Package - 25+ SOPs ($997)</option>
+                    </optgroup>
+                    
+                    <optgroup label="Consulting Services">
+                      <option value="compliance-audit">Compliance Audit ($5,000)</option>
+                      <option value="custom-sop">Custom SOP Development ($1,500+)</option>
+                      <option value="regulatory-support">Regulatory Support (Custom Quote)</option>
+                    </optgroup>
+                    
+                    <optgroup label="Training Programs">
+                      <option value="training-data-integrity">Data Integrity Fundamentals ($1,200/session)</option>
+                      <option value="training-glp-gmp">cGLP/cGMP Best Practices ($1,500/session)</option>
+                      <option value="training-qc-review">QC Data Review Mastery ($1,800/session)</option>
+                      <option value="training-automation">Laboratory Automation ($2,000/session)</option>
+                    </optgroup>
+                    
+                    <option value="other">Other / General Inquiry</option>
                   </select>
                 </div>
                 
@@ -287,10 +442,11 @@ export default function Contact() {
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    required
+                    className={errors.message ? 'error' : ''}
                     rows={6}
                     placeholder="Tell us about your needs and how we can help..."
                   />
+                  {errors.message && <span className="error-message">{errors.message}</span>}
                 </div>
                 
                 <button 
@@ -386,7 +542,7 @@ export default function Contact() {
             <p>Download our templates instantly or schedule a consultation to discuss custom solutions</p>
             <div className="cta-buttons">
               <Link href="/products" className="btn btn-primary">View Products</Link>
-              <Link href="#contact-form" className="btn btn-secondary">Contact Form ↑</Link>
+              <a href="#contact" className="btn btn-secondary">Contact Form ↑</a>
             </div>
           </div>
         </div>
