@@ -137,7 +137,7 @@ export default function About() {
               <div className="diff-icon">🏭</div>
               <h3>Pharma Experience</h3>
               <p>
-                Our quality consultants have a minimum of ten years' experience working in pharmaceutical GLP and GMP labs, bringing real-time 
+                Our quality consultants each have a minimum of ten years' experience working in various GLP and GMP labs, bringing real-time 
                 insights from the field, not outdated consulting knowledge.
               </p>
             </div>

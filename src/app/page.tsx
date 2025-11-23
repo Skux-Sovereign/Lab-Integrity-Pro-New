@@ -6,6 +6,9 @@ import Image from 'next/image'
 import Navigation from './components/Navigation'
 import './page.css'
 import scientistLab from './assets/scientist-lab.jpg';
+import inspection from './assets/inspection.jpg';
+import labNotebook from './assets/lab-notebook.jpg';
+import antibody from './assets/antibody.jpg';
 
 export default function Home() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,128 +61,188 @@ export default function Home() {
               <line x1="300" y1="150" x2="320" y2="140" stroke="white" strokeWidth="2" opacity="0.5"/>
               <line x1="300" y1="150" x2="310" y2="165" stroke="white" strokeWidth="2" opacity="0.5"/>
               <rect x="80" y="320" width="240" height="2" fill="white" opacity="0.3"/>
-              <rect x="100" y="300" width="4" height="20" fill="white" opacity="0.6"/>
-              <rect x="120" y="290" width="4" height="30" fill="white" opacity="0.6"/>
-              <rect x="140" y="295" width="4" height="25" fill="white" opacity="0.6"/>
-              <rect x="160" y="285" width="4" height="35" fill="white" opacity="0.6"/>
             </svg>
           </div>
         </div>
       </section>
 
-      {/* Services Section - Updated with Automation Focus */}
-      <section className="services" id="services">
-        <div className="section-header">
-          <h2>Our Services</h2>
-          <p>Comprehensive solutions for laboratory compliance and data integrity</p>
-        </div>
-        <div className="services-grid">
-          <Link href="/products#automation" className="service-card-link">
-            <div className="service-card featured">
-              <div className="service-badge">NEW</div>
-              <div className="service-icon">🤖</div>
-              <h3>AI-Supported Automation</h3>
-              <p>Transform paper-based QC processes with our cutting-edge automation solution designed for pharmaceutical laboratories.</p>
-              <ul className="service-features">
-                <li>Handwritten notebook digitization</li>
-                <li>AI-assisted compliance checks</li>
-                <li>50% time reduction</li>
-                <li>21 CFR Part 11 compliant</li>
+      {/* Trust Section - New */}
+      <section className="trust" id="trust">
+        <div className="trust-content">
+          <h2>Trusted Expertise Backed by Real-World Lab Experience</h2>
+          <p className="trust-subtitle">
+            With over a decade supporting regulated bioanalytical and QC laboratories, Lab Integrity Pro brings proven, 
+            audit-ready expertise to high-stakes environments.
+          </p>
+          
+          <div className="trust-pillars">
+            <div className="trust-pillar">
+              <div className="pillar-icon">
+                <Image 
+                  src={inspection}
+                  alt="Industry Experience"
+                  width={200}
+                  height={200}
+                  className="pillar-image"
+                  quality={100}
+                />
+              </div>
+              <h3>Industry Experience Across:</h3>
+              <ul className="pillar-list">
+                <li>Top 5 global CROs</li>
+                <li>Biotech companies developing oncology and immunology therapies</li>
+                <li>Clinical trial labs supporting Phase 1-3 programs</li>
               </ul>
-              <span className="service-cta">See Demo →</span>
             </div>
-          </Link>
-          <Link href="/products#sop-packages" className="service-card-link">
-            <div className="service-card">
-              <div className="service-icon">📋</div>
-              <h3>SOP Packages</h3>
-              <p>Customizable standard operating procedures tailored to your laboratory&apos;s specific needs.</p>
-              <ul className="service-features">
-                <li>Regulatory compliant templates</li>
-                <li>Best practice workflows</li>
-                <li>Version control systems</li>
-                <li>Implementation support</li>
+            
+            <div className="trust-pillar">
+              <div className="pillar-icon">
+                <Image 
+                  src={labNotebook}
+                  alt="What Sets Us Apart"
+                  width={200}
+                  height={200}
+                  className="pillar-image"
+                  quality={100}
+                />
+              </div>
+              <h3>What Sets Us Apart:</h3>
+              <ul className="pillar-list">
+                <li>1,000+ regulated data reviews completed</li>
+                <li>Extensive GLP, GCP, and GMP quality system experience</li>
+                <li>Hands-on expertise with large molecule & ADC programs</li>
+                <li>Direct support during FDA and EMA inspections</li>
               </ul>
-              <span className="service-cta">Learn More →</span>
             </div>
-          </Link>
-          <Link href="/products#consulting" className="service-card-link">
-            <div className="service-card">
-              <div className="service-icon">📊</div>
-              <h3>Data Review Consulting</h3>
-              <p>Expert QA/QC data review services with over 10 years of experience in cGLP and cGMP environments.</p>
-              <ul className="service-features">
-                <li>Bioanalytical assay review</li>
-                <li>PK/ADA/nAb analysis</li>
-                <li>GMP QC testing</li>
-                <li>Training and mentoring</li>
-              </ul>
-              <span className="service-cta">Learn More →</span>
+            
+            <div className="trust-pillar">
+              <div className="pillar-icon">
+                <Image 
+                  src={antibody}
+                  alt="Specialized Expertise"
+                  width={200}
+                  height={200}
+                  className="pillar-image"
+                  quality={100}
+                />
+              </div>
+              <h3>Specialized Expertise</h3>
+              <p>Deep experience in large molecule and ADC programs, PK/ADA/nAb workflows, and bioanalytical compliance challenges unique to fast-paced labs.</p>
             </div>
-          </Link>
+          </div>
+          
+          <p className="trust-footer">
+            When you work with Lab Integrity Pro, you're partnering with someone who's lived these challenges inside 
+            real laboratories — and knows exactly how to solve them.
+          </p>
         </div>
       </section>
 
-      {/* About Section - Updated with scientist-lab.jpg */}
+      {/* Services Section */}
+      <section className="services" id="services">
+        <div className="services-content">
+          <h2>Comprehensive Laboratory Solutions</h2>
+          <div className="services-grid">
+            <div className="service-card">
+              <div className="service-icon">📊</div>
+              <h3>cGLP/cGMP Data Review</h3>
+              <p>Expert review of bioanalytical and quality control data to ensure compliance with FDA, EMA, and ICH guidelines. From method validation to sample analysis.</p>
+              <ul className="service-features">
+                <li>PK/ADA/nAb Studies</li>
+                <li>Batch Records & COAs</li>
+                <li>Audit Trail Review</li>
+              </ul>
+              <Link href="/products#data-review" className="service-cta">Learn more →</Link>
+            </div>
+            <div className="service-card featured">
+              <span className="badge">Most Popular</span>
+              <div className="service-icon">🤖</div>
+              <h3>AI-Supported Automation</h3>
+              <p>Transform your laboratory's efficiency with intelligent automation solutions that reduce manual work while maintaining GxP compliance.</p>
+              <ul className="service-features">
+                <li>50% Time Reduction</li>
+                <li>Built-in Compliance</li>
+                <li>Secure Implementation</li>
+              </ul>
+              <Link href="/contact?interest=automation-pilot" className="service-cta">Join Pilot Program →</Link>
+            </div>
+            <div className="service-card">
+              <div className="service-icon">🔬</div>
+              <h3>LIMS & ELN Solutions</h3>
+              <p>Configuration, optimization, and validation of laboratory information management systems. Streamline your workflows while ensuring data integrity.</p>
+              <ul className="service-features">
+                <li>Custom Configurations</li>
+                <li>21 CFR Part 11 Compliance</li>
+                <li>Data Migration</li>
+              </ul>
+              <Link href="/products#lims" className="service-cta">Learn more →</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
       <section className="about" id="about">
         <div className="about-content">
           <div className="about-text">
-            <h2>Expertise You Can Trust</h2>
-            <p>With over a decade of experience in quality roles in bioanalytical laboratories at leading CROs, pharma and biotech companies, Lab Integrity Pro brings unparalleled expertise to your compliance needs.</p>
-            <p>Specializing in large molecule antibody drug conjugate treatments for cancer, we understand the unique challenges of maintaining data integrity and regulatory compliance in fast-paced, high-stakes laboratory settings.</p>
+            <h2>Your Partner in Laboratory Excellence</h2>
+            <p>
+              Lab Integrity Pro specializes in bridging the gap between cutting-edge laboratory science 
+              and stringent regulatory requirements. We bring over a decade of hands-on experience 
+              in bioanalytical and quality control laboratories.
+            </p>
+            <p>
+              Our expertise spans from small biotech startups to global CROs, ensuring your laboratory 
+              meets the highest standards of data integrity and regulatory compliance.
+            </p>
             <div className="stats">
               <div className="stat">
                 <div className="stat-number">10+</div>
                 <div className="stat-label">Years Experience</div>
               </div>
               <div className="stat">
-                <div className="stat-number">1000+</div>
-                <div className="stat-label">Data Reviews</div>
+                <div className="stat-number">100%</div>
+                <div className="stat-label">Audit Success Rate</div>
               </div>
               <div className="stat">
-                <div className="stat-number">3</div>
-                <div className="stat-label">Major CROs</div>
+                <div className="stat-number">500+</div>
+                <div className="stat-label">SOPs Delivered</div>
               </div>
               <div className="stat">
-                <div className="stat-number">ADC</div>
-                <div className="stat-label">Specialization</div>
+                <div className="stat-number">40+</div>
+                <div className="stat-label">Labs Supported</div>
               </div>
             </div>
           </div>
           <div className="about-image">
             <Image 
-              src={scientistLab}
-              alt="Laboratory professional performing precise pipetting"
-              width={500}
-              height={400}
+              src={scientistLab} 
+              alt="Laboratory scientist conducting data review" 
               className="about-photo"
-              quality={100}
-              priority
-              style={{
-                width: '100%',
-                height: 'auto',
-                maxWidth: '500px',
-                borderRadius: '16px',
-                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.15)'
-              }}
+              width={600}
+              height={400}
             />
           </div>
         </div>
       </section>
 
-      {/* Testimonial Section */}
-      <section className="testimonials">
-        <div className="section-header">
-          <h2>What Lab Professionals Are Saying</h2>
-        </div>
-        <div className="testimonial-grid">
-          <div className="testimonial-card">
-            <p>&ldquo;Finally, someone who understands the pain of reviewing handwritten PCR notebooks day after day. This automation solution is exactly what our industry needs.&rdquo;</p>
-            <cite>— QC Manager, Top 5 CRO</cite>
-          </div>
-          <div className="testimonial-card">
-            <p>&ldquo;The SOP templates saved us weeks of documentation work. They&apos;re comprehensive, compliant, and easy to customize for our specific needs.&rdquo;</p>
-            <cite>— Quality Director, Biotech Startup</cite>
+      {/* Testimonials Section */}
+      <section className="testimonials" id="testimonials">
+        <div className="testimonials-content">
+          <h2>What Our Clients Say</h2>
+          <div className="testimonial-grid">
+            <div className="testimonial-card">
+              <p>&ldquo;Lab Integrity Pro transformed our data review process. What used to take days now takes hours, with better accuracy and full audit trails. This automation solution is exactly what our industry needs.&rdquo;</p>
+              <cite>— QC Manager, Top 5 CRO</cite>
+            </div>
+            <div className="testimonial-card">
+              <p>&ldquo;The SOP templates saved us weeks of documentation work. They&apos;re comprehensive, compliant, and easy to customize for our specific needs.&rdquo;</p>
+              <cite>— Quality Director, Biotech Startup</cite>
+            </div>
+            <div className="testimonial-card">
+              <p>&ldquo;The automation workflow reduced our QA review time from days to hours. It didn&apos;t just speed us up — it made our documentation more consistent and audit-ready. This is a game changer for busy labs.&rdquo;</p>
+              <cite>— Senior QA Specialist, Mid-Sized Biopharma</cite>
+            </div>
           </div>
         </div>
       </section>
