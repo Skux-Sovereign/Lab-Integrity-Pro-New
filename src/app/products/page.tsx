@@ -336,56 +336,144 @@ export default function Products() {
         </div>
       </section>
 
-      {/* Additional Consulting Services */}
-      <section className="additional-services">
+      {/* AI Transformation Flowchart Section */}
+      <section className="ai-transformation-section">
         <div className="section-header">
-          <h2>Additional Expert Services</h2>
-          <p>Specialized consulting for comprehensive laboratory support</p>
+          <h2>How We Transform Your Data</h2>
+          <p>From handwritten notebooks to AI-verified digital records in four seamless steps</p>
         </div>
-        
-        <div className="services-grid">
-          <div className="consulting-card">
-            <h3>Compliance Audit</h3>
-            <div className="price">$5,000</div>
-            <p className="description">Comprehensive laboratory compliance assessment</p>
-            <ul className="features-list">
-              <li>Full lab audit</li>
-              <li>Gap analysis</li>
-              <li>Action plan</li>
-              <li>Follow-up consultation</li>
-            </ul>
-            <Link href="/contact?service=Compliance Audit" className="service-cta">
-              Learn More →
-            </Link>
+
+        <div className="flowchart-container">
+          <div className="flowchart-steps">
+            {/* Step 1: Paper Input */}
+            <div className="flowchart-step">
+              <div className="step-icon-container">
+                <span className="step-number">1</span>
+                <div className="step-visual">
+                  <div className="paper-visual"></div>
+                </div>
+              </div>
+              <div className="step-content">
+                <h3>Paper Records</h3>
+                <p>Handwritten lab notebooks, batch records, and raw data sheets</p>
+              </div>
+            </div>
+
+            {/* Arrow */}
+            <span className="flow-arrow">→</span>
+
+            {/* Step 2: Scanning/Digitization */}
+            <div className="flowchart-step">
+              <div className="step-icon-container">
+                <span className="step-number">2</span>
+                <div className="step-visual">
+                  <div className="scanning-visual">
+                    <div className="doc-preview"></div>
+                  </div>
+                </div>
+              </div>
+              <div className="step-content">
+                <h3>Smart Capture</h3>
+                <p>AI-powered OCR extracts and interprets handwritten data accurately</p>
+              </div>
+            </div>
+
+            {/* Arrow */}
+            <span className="flow-arrow">→</span>
+
+            {/* Step 3: Digital Structured Data */}
+            <div className="flowchart-step">
+              <div className="step-icon-container">
+                <span className="step-number">3</span>
+                <div className="step-visual">
+                  <div className="digital-visual">
+                    <div className="data-row">
+                      <div className="data-cell"></div>
+                      <div className="data-cell"></div>
+                      <div className="data-cell"></div>
+                    </div>
+                    <div className="data-row">
+                      <div className="data-cell"></div>
+                      <div className="data-cell"></div>
+                      <div className="data-cell"></div>
+                    </div>
+                    <div className="data-row">
+                      <div className="data-cell"></div>
+                      <div className="data-cell"></div>
+                      <div className="data-cell"></div>
+                    </div>
+                    <div className="data-row">
+                      <div className="data-cell"></div>
+                      <div className="data-cell"></div>
+                      <div className="data-cell"></div>
+                    </div>
+                    <div className="data-row">
+                      <div className="data-cell"></div>
+                      <div className="data-cell"></div>
+                      <div className="data-cell"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="step-content">
+                <h3>Structured Data</h3>
+                <p>Clean, organized digital records ready for analysis</p>
+              </div>
+            </div>
+
+            {/* Arrow */}
+            <span className="flow-arrow">→</span>
+
+            {/* Step 4: AI QC Review */}
+            <div className="flowchart-step">
+              <div className="step-icon-container">
+                <span className="step-number">4</span>
+                <div className="step-visual">
+                  <div className="ai-review-visual">
+                    <div className="checkmark-circle">
+                      <svg viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <div className="compliance-badges">
+                      <span className="compliance-badge">21 CFR 11</span>
+                      <span className="compliance-badge">ALCOA+</span>
+                      <span className="compliance-badge">GxP</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="step-content">
+                <h3>AI-Verified</h3>
+                <p>Automated compliance checks and audit-ready documentation</p>
+              </div>
+            </div>
           </div>
 
-          <div className="consulting-card">
-            <h3>Custom SOP Development</h3>
-            <div className="price">Starting at $1,500</div>
-            <p className="description">SOPs tailored to your specific processes</p>
-            <ul className="features-list">
-              <li>Process analysis</li>
-              <li>Custom writing</li>
-              <li>Staff training</li>
-              <li>Implementation support</li>
-            </ul>
-            <Link href="/contact?service=Custom SOP Development" className="service-cta">
-              Learn More →
-            </Link>
+          {/* Results Stats */}
+          <div className="transformation-stats">
+            <div className="stat-box">
+              <span className="stat-value">95%</span>
+              <span className="stat-label">Time Saved</span>
+            </div>
+            <div className="stat-box">
+              <span className="stat-value">99.9%</span>
+              <span className="stat-label">Accuracy Rate</span>
+            </div>
+            <div className="stat-box">
+              <span className="stat-value">100%</span>
+              <span className="stat-label">Audit Ready</span>
+            </div>
+            <div className="stat-box">
+              <span className="stat-value">24hr</span>
+              <span className="stat-label">Turnaround</span>
+            </div>
           </div>
 
-          <div className="consulting-card">
-            <h3>Regulatory Support</h3>
-            <div className="price">Custom Quote</div>
-            <p className="description">Guidance for FDA, EMA, and other regulatory submissions</p>
-            <ul className="features-list">
-              <li>Pre-submission review</li>
-              <li>Response to deficiencies</li>
-              <li>Inspection readiness</li>
-              <li>Regulatory strategy</li>
-            </ul>
-            <Link href="/contact?service=Regulatory Support" className="service-cta">
-              Learn More →
+          {/* CTA */}
+          <div className="transformation-cta">
+            <Link href="/contact?service=automation-demo" className="btn">
+              See It In Action →
             </Link>
           </div>
         </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Navigation from '../components/Navigation';
 import womanScientist from '../assets/scientist-woman.jpg';
@@ -98,7 +97,7 @@ export default function About() {
                 Lab Integrity Pro was founded on a bold vision: that artificial intelligence can transform how laboratories manage compliance—making it faster, more accurate, and dramatically more cost-effective. We combine over a decade of hands-on pharmaceutical experience with cutting-edge AI to deliver solutions that were impossible just years ago.
               </p>
               <p>
-                We understand the pressures modern laboratories face: shrinking budgets, expanding regulatory requirements, and the urgent need to bring life-saving therapies to patients faster. Traditional compliance approaches can't keep pace. That's why we've developed AI-driven solutions that don't just meet compliance standards—they fundamentally reimagine how quality work gets done.
+                We understand the pressures modern laboratories face: shrinking budgets, expanding regulatory requirements, and the urgent need to bring life-saving therapies to patients faster. Traditional compliance approaches can&apost keep pace. That&aposs why we've developed AI-driven solutions that don'&apos just meet compliance standards—they fundamentally reimagine how quality work gets done.
 
               </p>
             </div>

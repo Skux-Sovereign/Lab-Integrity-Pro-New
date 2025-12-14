@@ -827,73 +827,531 @@ body {
   box-shadow: 0 10px 20px rgba(8, 145, 178, 0.3);
 }
 
-/* Additional Services Section */
-.additional-services {
+/* ========================================
+   AI TRANSFORMATION FLOWCHART SECTION
+   ======================================== */
+
+.ai-transformation-section {
+  position: relative;
   margin-top: 0;
-  margin-bottom: 3rem;
-  padding: 5rem 2rem;
-  background: white;
+  margin-bottom: 0;
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+  overflow: hidden;
 }
 
-.additional-services .section-header {
-  max-width: 1200px;
-  margin: 0 auto 3rem;
+/* Subtle grid background */
+.ai-transformation-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(8, 145, 178, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8, 145, 178, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
 }
 
-.additional-services .services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
+.ai-transformation-section .section-header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+}
+
+.ai-transformation-section .section-header h2 {
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ai-transformation-section .section-header p {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.125rem;
+}
+
+/* Flowchart Container */
+.flowchart-container {
+  position: relative;
+  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 2rem 0;
 }
 
-.additional-services .consulting-card {
-  background: white;
-  border-radius: 12px;
-  padding: 2.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border-top: 4px solid var(--accent);
+/* Flowchart Steps Row */
+.flowchart-steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+}
+
+/* Connection Line Behind Steps */
+.flowchart-steps::before {
+  content: '';
+  position: absolute;
+  top: 80px;
+  left: 10%;
+  right: 10%;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    var(--primary) 0%, 
+    var(--secondary) 33%, 
+    var(--accent) 66%, 
+    var(--success) 100%
+  );
+  z-index: 0;
+  border-radius: 2px;
+}
+
+/* Animated data flow on connection line */
+.flowchart-steps::after {
+  content: '';
+  position: absolute;
+  top: 76px;
+  left: 10%;
+  width: 40px;
+  height: 12px;
+  background: linear-gradient(90deg, transparent, white, transparent);
+  border-radius: 6px;
+  z-index: 1;
+  animation: dataFlow 3s ease-in-out infinite;
+}
+
+@keyframes dataFlow {
+  0% {
+    left: 10%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(90% - 40px);
+    opacity: 0;
+  }
+}
+
+/* Individual Step */
+.flowchart-step {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  max-width: 280px;
 }
 
-.additional-services .consulting-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-}
-
-.additional-services .consulting-card h3 {
-  font-size: 1.5rem;
-  color: var(--dark);
-  margin-bottom: 1rem;
-}
-
-.additional-services .consulting-card .price {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent);
-  margin-bottom: 0.75rem;
-}
-
-.additional-services .consulting-card .description {
-  color: var(--gray);
+/* Step Icon Container */
+.step-icon-container {
+  width: 160px;
+  height: 160px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 1.5rem;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  transition: all 0.4s ease;
+  overflow: visible;
 }
 
-.additional-services .service-cta {
-  display: inline-block;
-  color: var(--accent);
+.flowchart-step:hover .step-icon-container {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 
+    0 20px 60px rgba(8, 145, 178, 0.4),
+    0 0 30px rgba(8, 145, 178, 0.2);
+}
+
+/* Step Number Badge - Specific to transformation flowchart */
+.ai-transformation-section .step-number,
+.flowchart-step .step-number {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(8, 145, 178, 0.5);
+  z-index: 10;
+  border: 3px solid rgba(15, 23, 42, 1);
+}
+
+/* Step Icons - Visual representations */
+.step-visual {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+/* Paper notebook visual */
+.paper-visual {
+  width: 100%;
+  height: 100%;
+  background: 
+    repeating-linear-gradient(
+      transparent,
+      transparent 19px,
+      #e0e7ff 19px,
+      #e0e7ff 20px
+    );
+  background-color: #fefce8;
+  border: 2px solid #d4d4d8;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.paper-visual::before {
+  content: '';
+  position: absolute;
+  left: 25px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #fca5a5;
+}
+
+/* Handwritten text simulation */
+.paper-visual::after {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 35px;
+  right: 15px;
+  height: 60%;
+  background: 
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 8px,
+      rgba(100, 116, 139, 0.4) 8px,
+      rgba(100, 116, 139, 0.4) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+}
+
+/* Scanning animation visual */
+.scanning-visual {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.scanning-visual::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+  animation: scanLine 2s ease-in-out infinite;
+}
+
+@keyframes scanLine {
+  0%, 100% {
+    top: 10%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  50% {
+    top: 85%;
+  }
+}
+
+.scanning-visual .doc-preview {
+  width: 70%;
+  height: 75%;
+  background: white;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.scanning-visual .doc-preview::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  right: 15%;
+  height: 50%;
+  background: 
+    repeating-linear-gradient(
+      180deg,
+      rgba(100, 116, 139, 0.3) 0px,
+      rgba(100, 116, 139, 0.3) 3px,
+      transparent 3px,
+      transparent 10px
+    );
+}
+
+/* Digital data visual */
+.digital-visual {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0f172a, #1e3a5f);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.data-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.data-cell {
+  height: 14px;
+  background: rgba(6, 182, 212, 0.3);
+  border-radius: 3px;
+  animation: dataPulse 2s ease-in-out infinite;
+}
+
+.data-cell:nth-child(1) { width: 25%; animation-delay: 0s; }
+.data-cell:nth-child(2) { width: 35%; animation-delay: 0.2s; }
+.data-cell:nth-child(3) { width: 20%; animation-delay: 0.4s; }
+
+.data-row:nth-child(even) .data-cell {
+  background: rgba(20, 184, 166, 0.3);
+}
+
+@keyframes dataPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Header row */
+.digital-visual .data-row:first-child .data-cell {
+  background: rgba(8, 145, 178, 0.6);
+  height: 16px;
+}
+
+/* AI Review visual */
+.ai-review-visual {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #064e3b, #065f46);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.checkmark-circle {
+  width: 50px;
+  height: 50px;
+  background: var(--success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: checkPop 2s ease-in-out infinite;
+}
+
+.checkmark-circle svg {
+  width: 28px;
+  height: 28px;
+  stroke: white;
+  stroke-width: 3;
+  fill: none;
+}
+
+@keyframes checkPop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.compliance-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.compliance-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.65rem;
   font-weight: 600;
-  text-decoration: none;
-  margin-top: auto;
-  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.additional-services .service-cta:hover {
-  transform: translateX(5px);
-  color: var(--primary);
+/* Step Content */
+.step-content {
+  color: white;
+}
+
+.step-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.step-content p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+/* Arrow indicators between steps */
+.flow-arrow {
+  position: absolute;
+  top: 70px;
+  font-size: 2rem;
+  color: var(--secondary);
+  animation: arrowPulse 1.5s ease-in-out infinite;
+  z-index: 3;
+}
+
+.flow-arrow:nth-of-type(1) { left: 22%; }
+.flow-arrow:nth-of-type(2) { left: 47%; }
+.flow-arrow:nth-of-type(3) { left: 72%; }
+
+@keyframes arrowPulse {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50% { transform: translateX(5px); opacity: 1; }
+}
+
+/* Stats/Results Row */
+.transformation-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-box .stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--secondary);
+  display: block;
+}
+
+.stat-box .stat-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* CTA Button */
+.transformation-cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.transformation-cta .btn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(8, 145, 178, 0.4);
+}
+
+.transformation-cta .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(8, 145, 178, 0.6);
+}
+
+/* ========================================
+   END AI TRANSFORMATION FLOWCHART
+   ======================================== */
+
+/* Responsive */
+@media (max-width: 968px) {
+  .flowchart-steps {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .flowchart-steps::before {
+    display: none;
+  }
+  
+  .flowchart-steps::after {
+    display: none;
+  }
+  
+  .flow-arrow {
+    display: none;
+  }
+  
+  .flowchart-step {
+    max-width: 100%;
+  }
+  
+  .step-icon-container {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .transformation-stats {
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
 
 /* Training Programs Section */
@@ -1282,6 +1740,8 @@ body {
   background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,133.3C960,128,1056,96,1152,90.7C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
   background-size: cover;
   opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .final-cta h2 {
@@ -1313,6 +1773,9 @@ body {
   font-weight: 600;
   transition: all 0.3s ease;
   display: inline-block;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
 }
 
 .final-cta .btn-primary:hover {
