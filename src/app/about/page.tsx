@@ -92,20 +92,14 @@ export default function About() {
             <div className="mission-text">
               <h2>Our Mission</h2>
               <p className="lead">
-                To empower laboratories with the knowledge, tools, and expertise needed to achieve 
-                and maintain the highest standards of data integrity and regulatory compliance.
+                To revolutionize pharmaceutical compliance through AI-powered automation, reducing costs and accelerating the journey from drug discovery to FDA approval.
               </p>
               <p>
-                Lab Integrity Pro was founded on the principle that every laboratory, regardless of size 
-                or resources, deserves access to expert-level compliance guidance. Our team brings together 
-                decades of collective experience from leading pharmaceutical companies, CROs, and biotech 
-                organizations to deliver practical, implementable solutions.
+                Lab Integrity Pro was founded on a bold vision: that artificial intelligence can transform how laboratories manage compliance—making it faster, more accurate, and dramatically more cost-effective. We combine over a decade of hands-on pharmaceutical experience with cutting-edge AI to deliver solutions that were impossible just years ago.
               </p>
               <p>
-                We understand the challenges modern laboratories face: evolving regulations, complex 
-                documentation requirements, and the constant pressure to maintain quality while meeting 
-                deadlines. That&apos;s why we&apos;ve developed streamlined solutions that don&apos;t just meet compliance 
-                standards—they enhance your operational efficiency.
+                We understand the pressures modern laboratories face: shrinking budgets, expanding regulatory requirements, and the urgent need to bring life-saving therapies to patients faster. Traditional compliance approaches can't keep pace. That's why we've developed AI-driven solutions that don't just meet compliance standards—they fundamentally reimagine how quality work gets done.
+
               </p>
             </div>
 <div className="mission-image">

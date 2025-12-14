@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Navigation from './components/Navigation'
@@ -11,62 +11,144 @@ import labNotebook from './assets/lab-notebook.jpg';
 import antibody from './assets/antibody.jpg';
 
 export default function Home() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  
+  // Animated counter state
+  const [countersVisible, setCountersVisible] = useState(false)
+  const [counts, setCounts] = useState({ years: 0, audit: 0, sops: 0, labs: 0 })
+  const statsRef = useRef<HTMLDivElement>(null)
+  
+  // Target values for counters
+  const targetCounts = { years: 10, audit: 100, sops: 500, labs: 40 }
+  
+  // Intersection Observer to trigger animation when stats come into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !countersVisible) {
+          setCountersVisible(true)
+        }
+      },
+      { threshold: 0.3 }
+    )
+    
+    if (statsRef.current) {
+      observer.observe(statsRef.current)
+    }
+    
+    return () => observer.disconnect()
+  }, [countersVisible])
+  
+  // Animate counters when visible
+  useEffect(() => {
+    if (!countersVisible) return
+    
+    const duration = 2000 // 2 seconds
+    const steps = 60
+    const stepTime = duration / steps
+    
+    let currentStep = 0
+    
+    const timer = setInterval(() => {
+      currentStep++
+      const progress = currentStep / steps
+      // Easing function for smooth animation
+      const easeOut = 1 - Math.pow(1 - progress, 3)
+      
+      setCounts({
+        years: Math.round(targetCounts.years * easeOut),
+        audit: Math.round(targetCounts.audit * easeOut),
+        sops: Math.round(targetCounts.sops * easeOut),
+        labs: Math.round(targetCounts.labs * easeOut)
+      })
+      
+      if (currentStep >= steps) {
+        clearInterval(timer)
+        setCounts(targetCounts) // Ensure we hit exact targets
+      }
+    }, stepTime)
+    
+    return () => clearInterval(timer)
+  }, [countersVisible])
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsSubmitting(true)
     
     const form = e.target as HTMLFormElement
     const formData = new FormData(form)
     
-    // Send to your contact page with form data
-    const params = new URLSearchParams()
-    params.append('name', formData.get('name') as string)
-    params.append('email', formData.get('email') as string)
-    params.append('message', 'Quick contact from homepage')
-    
-    window.location.href = `/contact?${params.toString()}`
+    try {
+      // Replace YOUR_FORM_ID with your actual Formspree form ID
+      const response = await fetch('https://formspree.io/f/manrkqoe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          company: formData.get('company'),
+          phone: formData.get('phone'),
+          message: formData.get('message'),
+          _subject: 'New inquiry from Lab Integrity Pro homepage'
+        })
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        form.reset()
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+      setTimeout(() => setSubmitStatus('idle'), 5000)
+    }
   }
 
   return (
     <>
-      {/* Navigation - Now using the shared component */}
+      {/* Navigation */}
       <Navigation />
 
-      {/* Hero Section */}
+      {/* Hero Section - AI Focused */}
       <section className="hero" id="home">
         <div className="hero-content">
           <div className="hero-text">
-            <h1>Excellence in Laboratory Compliance</h1>
-            <p>Expert cGLP/cGMP consulting services for pharmaceutical laboratories. Ensuring data integrity, regulatory compliance, and operational excellence.</p>
+            <p className="hero-tagline">AI-Powered Compliance Solutions</p>
+            <h1>The Future of Laboratory Compliance is Here</h1>
+            <p>Combining decade-deep pharmaceutical expertise with cutting-edge AI to transform how labs manage data integrity, regulatory compliance, and quality operations.</p>
             <div className="hero-buttons">
-              <Link href="/products" className="btn btn-primary">Get Started</Link>
-              <Link href="/products" className="btn btn-secondary">Our Services</Link>
+              <Link href="/contact?interest=automation-pilot" className="btn btn-primary">Start Your AI Journey</Link>
+              <Link href="/products" className="btn btn-secondary">Explore Solutions</Link>
             </div>
           </div>
           <div className="hero-image">
-            <svg className="lab-graphic" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style={{stopColor: '#ffffff', stopOpacity: 0.3}} />
-                  <stop offset="100%" style={{stopColor: '#ffffff', stopOpacity: 0.1}} />
-                </linearGradient>
-              </defs>
-              <path d="M150 100 L150 180 L100 280 L200 280 Z" fill="url(#grad1)" stroke="white" strokeWidth="3"/>
-              <rect x="140" y="80" width="20" height="30" fill="white" opacity="0.8"/>
-              <path d="M140 200 L120 250 L180 250 Z" fill="rgba(255,255,255,0.4)"/>
-              <path d="M250 120 L250 200 L220 260 L280 260 Z" fill="url(#grad1)" stroke="white" strokeWidth="2"/>
-              <rect x="245" y="100" width="10" height="25" fill="white" opacity="0.8"/>
-              <circle cx="300" cy="150" r="8" fill="white" opacity="0.6"/>
-              <circle cx="320" cy="140" r="6" fill="white" opacity="0.5"/>
-              <circle cx="310" cy="165" r="5" fill="white" opacity="0.7"/>
-              <line x1="300" y1="150" x2="320" y2="140" stroke="white" strokeWidth="2" opacity="0.5"/>
-              <line x1="300" y1="150" x2="310" y2="165" stroke="white" strokeWidth="2" opacity="0.5"/>
-              <rect x="80" y="320" width="240" height="2" fill="white" opacity="0.3"/>
-            </svg>
+            <div className="hero-stats-float">
+              <div className="float-stat">
+                <span className="float-number">50%</span>
+                <span className="float-label">Time Saved</span>
+              </div>
+              <div className="float-stat">
+                <span className="float-number">100%</span>
+                <span className="float-label">Audit Ready</span>
+              </div>
+              <div className="float-stat">
+                <span className="float-number">24/7</span>
+                <span className="float-label">AI Support</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Trust Section - New */}
+      {/* Trust Section */}
       <section className="trust" id="trust">
         <div className="trust-content">
           <h2>Trusted Expertise Backed by Real-World Lab Experience</h2>
@@ -132,13 +214,13 @@ export default function Home() {
           </div>
           
           <p className="trust-footer">
-            When you work with Lab Integrity Pro, you're partnering with someone who's lived these challenges inside 
+            When you work with Lab Integrity Pro, you&apos;re partnering with someone who&apos;s lived these challenges inside 
             real laboratories — and knows exactly how to solve them.
           </p>
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Services Section - Enhanced with Wave */}
       <section className="services" id="services">
         <div className="services-content">
           <h2>Comprehensive Laboratory Solutions</h2>
@@ -158,7 +240,7 @@ export default function Home() {
               <span className="badge">Most Popular</span>
               <div className="service-icon">🤖</div>
               <h3>AI-Supported Automation</h3>
-              <p>Transform your laboratory's efficiency with intelligent automation solutions that reduce manual work while maintaining GxP compliance.</p>
+              <p>Transform your laboratory&apos;s efficiency with intelligent automation solutions that reduce manual work while maintaining GxP compliance.</p>
               <ul className="service-features">
                 <li>50% Time Reduction</li>
                 <li>Built-in Compliance</li>
@@ -179,6 +261,36 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Organic Wave SVG */}
+        <svg 
+          className="services-wave" 
+          viewBox="0 0 1440 200" 
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id="servicesWaveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#0891b2" />
+              <stop offset="50%" stopColor="#0e7490" />
+              <stop offset="100%" stopColor="#065f73" />
+            </linearGradient>
+          </defs>
+          <path 
+            fill="url(#servicesWaveGradient)"
+            opacity="0.3"
+            d="M0,120 C180,180 360,100 540,120 C720,140 900,180 1080,140 C1260,100 1380,130 1440,120 L1440,200 L0,200 Z"
+          />
+          <path 
+            fill="url(#servicesWaveGradient)"
+            opacity="0.6"
+            d="M0,140 C240,100 360,160 600,130 C840,100 960,150 1200,120 C1320,105 1400,140 1440,130 L1440,200 L0,200 Z"
+          />
+          <path 
+            fill="url(#servicesWaveGradient)"
+            d="M0,160 C144,140 288,180 432,150 C576,120 720,160 864,140 C1008,120 1152,150 1296,130 C1368,120 1416,145 1440,150 L1440,200 L0,200 Z"
+          />
+        </svg>
       </section>
 
       {/* About Section */}
@@ -195,21 +307,21 @@ export default function Home() {
               Our expertise spans from small biotech startups to global CROs, ensuring your laboratory 
               meets the highest standards of data integrity and regulatory compliance.
             </p>
-            <div className="stats">
+            <div className="stats" ref={statsRef}>
               <div className="stat">
-                <div className="stat-number">10+</div>
+                <div className="stat-number">{counts.years}+</div>
                 <div className="stat-label">Years Experience</div>
               </div>
               <div className="stat">
-                <div className="stat-number">100%</div>
+                <div className="stat-number">{counts.audit}%</div>
                 <div className="stat-label">Audit Success Rate</div>
               </div>
               <div className="stat">
-                <div className="stat-number">500+</div>
+                <div className="stat-number">{counts.sops}+</div>
                 <div className="stat-label">SOPs Delivered</div>
               </div>
               <div className="stat">
-                <div className="stat-number">40+</div>
+                <div className="stat-number">{counts.labs}+</div>
                 <div className="stat-label">Labs Supported</div>
               </div>
             </div>
@@ -252,6 +364,35 @@ export default function Home() {
         <div className="contact-content">
           <h2>Ready to Ensure Compliance?</h2>
           <p>Let&apos;s discuss how Lab Integrity Pro can support your laboratory&apos;s success</p>
+          
+          {submitStatus === 'success' && (
+            <div style={{ 
+              background: '#d4edda', 
+              color: '#155724', 
+              padding: '1rem', 
+              borderRadius: '8px', 
+              marginBottom: '1rem',
+              textAlign: 'center',
+              fontWeight: 500
+            }}>
+              ✓ Thank you for your message! We&apos;ll be in touch soon.
+            </div>
+          )}
+          
+          {submitStatus === 'error' && (
+            <div style={{ 
+              background: '#f8d7da', 
+              color: '#721c24', 
+              padding: '1rem', 
+              borderRadius: '8px', 
+              marginBottom: '1rem',
+              textAlign: 'center',
+              fontWeight: 500
+            }}>
+              ✕ There was an error sending your message. Please try again or email us at info@labintegritypro.com
+            </div>
+          )}
+          
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <input type="text" name="name" placeholder="Your Name" required />
@@ -262,7 +403,9 @@ export default function Home() {
               <input type="tel" name="phone" placeholder="Phone" />
             </div>
             <textarea name="message" placeholder="Tell us about your needs..." required></textarea>
-            <button type="submit" className="submit-btn">Send Message</button>
+            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
           </form>
         </div>
       </section>

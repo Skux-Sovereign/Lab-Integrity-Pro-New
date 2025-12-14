@@ -173,7 +173,7 @@ export default function Contact() {
       // Using Formspree for email handling
       // Replace 'YOUR_FORM_ID' with your actual Formspree form ID
       // Sign up at https://formspree.io to get your form ID
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const response = await fetch('https://formspree.io/f/manrkqoe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
