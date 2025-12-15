@@ -58,6 +58,7 @@ export default function Contact() {
       const serviceMap: Record<string, string> = {
         'data-review': 'data-review-study',
         'automation': 'automation-pilot',
+        'automation-demo': 'automation-demo',
         'lims': 'lims-config',
         'Compliance Audit': 'compliance-audit',
         'Custom SOP Development': 'custom-sop',
@@ -170,9 +171,6 @@ export default function Contact() {
     setIsSubmitting(true);
     
     try {
-      // Using Formspree for email handling
-      // Replace 'YOUR_FORM_ID' with your actual Formspree form ID
-      // Sign up at https://formspree.io to get your form ID
       const response = await fetch('https://formspree.io/f/manrkqoe', {
         method: 'POST',
         headers: {
@@ -220,18 +218,22 @@ export default function Contact() {
       actionText: 'Send Email'
     },
     {
-      icon: '💼',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#0077b5">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+        </svg>
+      ),
       title: 'LinkedIn',
-      details: 'Connect for quick responses',
-      action: 'https://linkedin.com/company/lab-integrity-pro',
-      actionText: 'Connect on LinkedIn'
+      details: 'Connect for updates & insights',
+      action: 'https://www.linkedin.com/in/labintegritypro',
+      actionText: 'View Profile'
     },
     {
       icon: '📅',
-      title: 'Schedule a Demo',
-      details: 'See our automation solution in action',
-      action: 'https://calendly.com/labintegritypro/demo',
-      actionText: 'Book Demo'
+      title: 'Schedule a Call',
+      details: 'Book a free 30-minute strategy call',
+      action: 'https://calendly.com/labintegritypro/30min',
+      actionText: 'Schedule Now'
     },
     {
       icon: '🕐',
@@ -288,7 +290,9 @@ export default function Contact() {
           <div className="methods-grid">
             {contactMethods.map((method, index) => (
               <div key={index} className="method-card">
-                <div className="method-icon">{method.icon}</div>
+                <div className="method-icon">
+                  {typeof method.icon === 'string' ? method.icon : method.icon}
+                </div>
                 <h3>{method.title}</h3>
                 <p>{method.details}</p>
                 {method.action !== '#' ? (
@@ -461,6 +465,19 @@ export default function Contact() {
             
             {/* Additional Info */}
             <div className="contact-info-wrapper">
+              <div className="info-card schedule-highlight">
+                <h3>📅 Book a Free Strategy Call</h3>
+                <p>Skip the form! Schedule a 30-minute call directly to discuss your laboratory&apos;s compliance challenges.</p>
+                <a 
+                  href="https://calendly.com/labintegritypro/30min" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="schedule-btn"
+                >
+                  Schedule Now →
+                </a>
+              </div>
+              
               <div className="info-card">
                 <h3>🚀 Pilot Program Open</h3>
                 <p className="pilot-alert">Only 3 spots remaining! Join our exclusive pilot program for hands-on implementation of our automation solution.</p>
@@ -542,7 +559,14 @@ export default function Contact() {
             <p>Download our templates instantly or schedule a consultation to discuss custom solutions</p>
             <div className="cta-buttons">
               <Link href="/products" className="btn btn-primary">View Products</Link>
-              <a href="#contact" className="btn btn-secondary">Contact Form ↑</a>
+              <a 
+                href="https://calendly.com/labintegritypro/30min" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+              >
+                Schedule a Call
+              </a>
             </div>
           </div>
         </div>

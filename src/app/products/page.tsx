@@ -453,7 +453,7 @@ export default function Products() {
           {/* Results Stats */}
           <div className="transformation-stats">
             <div className="stat-box">
-              <span className="stat-value">95%</span>
+              <span className="stat-value">50%</span>
               <span className="stat-label">Time Saved</span>
             </div>
             <div className="stat-box">

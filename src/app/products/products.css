@@ -283,18 +283,17 @@ body {
 .particle {
   position: absolute;
   border-radius: 50%;
-  opacity: 0;
   animation: floatInSolution linear infinite;
 }
 
-/* Different particle sizes and colors */
+/* Different particle sizes and colors - using negative delays to start mid-animation */
 .particle:nth-child(1) {
   width: 6px;
   height: 6px;
   background: rgba(6, 182, 212, 0.7);
   left: 5%;
   animation-duration: 22s;
-  animation-delay: 0s;
+  animation-delay: -2s;
 }
 
 .particle:nth-child(2) {
@@ -303,7 +302,7 @@ body {
   background: rgba(255, 255, 255, 0.6);
   left: 12%;
   animation-duration: 18s;
-  animation-delay: 2s;
+  animation-delay: -8s;
 }
 
 .particle:nth-child(3) {
@@ -312,7 +311,7 @@ body {
   background: rgba(8, 145, 178, 0.6);
   left: 22%;
   animation-duration: 25s;
-  animation-delay: 1s;
+  animation-delay: -15s;
 }
 
 .particle:nth-child(4) {
@@ -321,7 +320,7 @@ body {
   background: rgba(20, 184, 166, 0.7);
   left: 32%;
   animation-duration: 20s;
-  animation-delay: 3s;
+  animation-delay: -5s;
 }
 
 .particle:nth-child(5) {
@@ -330,7 +329,7 @@ body {
   background: rgba(255, 255, 255, 0.5);
   left: 42%;
   animation-duration: 24s;
-  animation-delay: 0s;
+  animation-delay: -18s;
 }
 
 .particle:nth-child(6) {
@@ -339,7 +338,7 @@ body {
   background: rgba(6, 182, 212, 0.8);
   left: 52%;
   animation-duration: 19s;
-  animation-delay: 4s;
+  animation-delay: -10s;
 }
 
 .particle:nth-child(7) {
@@ -348,7 +347,7 @@ body {
   background: rgba(8, 145, 178, 0.7);
   left: 62%;
   animation-duration: 21s;
-  animation-delay: 2s;
+  animation-delay: -14s;
 }
 
 .particle:nth-child(8) {
@@ -357,7 +356,7 @@ body {
   background: rgba(255, 255, 255, 0.6);
   left: 72%;
   animation-duration: 23s;
-  animation-delay: 1s;
+  animation-delay: -3s;
 }
 
 .particle:nth-child(9) {
@@ -366,7 +365,7 @@ body {
   background: rgba(20, 184, 166, 0.6);
   left: 82%;
   animation-duration: 20s;
-  animation-delay: 3s;
+  animation-delay: -12s;
 }
 
 .particle:nth-child(10) {
@@ -375,7 +374,7 @@ body {
   background: rgba(6, 182, 212, 0.7);
   left: 92%;
   animation-duration: 22s;
-  animation-delay: 0s;
+  animation-delay: -7s;
 }
 
 /* Second wave of particles */
@@ -385,7 +384,7 @@ body {
   background: rgba(255, 255, 255, 0.55);
   left: 8%;
   animation-duration: 26s;
-  animation-delay: 5s;
+  animation-delay: -20s;
 }
 
 .particle:nth-child(12) {
@@ -394,7 +393,7 @@ body {
   background: rgba(8, 145, 178, 0.65);
   left: 28%;
   animation-duration: 21s;
-  animation-delay: 7s;
+  animation-delay: -9s;
 }
 
 .particle:nth-child(13) {
@@ -403,7 +402,7 @@ body {
   background: rgba(20, 184, 166, 0.75);
   left: 48%;
   animation-duration: 23s;
-  animation-delay: 6s;
+  animation-delay: -16s;
 }
 
 .particle:nth-child(14) {
@@ -412,7 +411,7 @@ body {
   background: rgba(6, 182, 212, 0.6);
   left: 68%;
   animation-duration: 19s;
-  animation-delay: 8s;
+  animation-delay: -4s;
 }
 
 .particle:nth-child(15) {
@@ -421,7 +420,7 @@ body {
   background: rgba(255, 255, 255, 0.65);
   left: 88%;
   animation-duration: 25s;
-  animation-delay: 4s;
+  animation-delay: -22s;
 }
 
 /* Third wave - smaller particles */
@@ -431,7 +430,7 @@ body {
   background: rgba(8, 145, 178, 0.8);
   left: 15%;
   animation-duration: 28s;
-  animation-delay: 2s;
+  animation-delay: -11s;
 }
 
 .particle:nth-child(17) {
@@ -440,7 +439,7 @@ body {
   background: rgba(255, 255, 255, 0.7);
   left: 35%;
   animation-duration: 26s;
-  animation-delay: 4s;
+  animation-delay: -19s;
 }
 
 .particle:nth-child(18) {
@@ -449,7 +448,7 @@ body {
   background: rgba(6, 182, 212, 0.75);
   left: 55%;
   animation-duration: 30s;
-  animation-delay: 6s;
+  animation-delay: -6s;
 }
 
 .particle:nth-child(19) {
@@ -458,7 +457,7 @@ body {
   background: rgba(20, 184, 166, 0.8);
   left: 75%;
   animation-duration: 27s;
-  animation-delay: 1s;
+  animation-delay: -24s;
 }
 
 .particle:nth-child(20) {
@@ -467,19 +466,20 @@ body {
   background: rgba(255, 255, 255, 0.6);
   left: 95%;
   animation-duration: 29s;
-  animation-delay: 5s;
+  animation-delay: -13s;
 }
 
 @keyframes floatInSolution {
   0% {
     transform: translateY(100vh) translateX(0) rotate(0deg);
-    opacity: 0;
+    opacity: 0.9;
   }
   5% {
     opacity: 0.9;
   }
   25% {
     transform: translateY(75vh) translateX(20px) rotate(90deg);
+    opacity: 1;
   }
   50% {
     transform: translateY(50vh) translateX(-15px) rotate(180deg);
@@ -487,6 +487,7 @@ body {
   }
   75% {
     transform: translateY(25vh) translateX(25px) rotate(270deg);
+    opacity: 1;
   }
   95% {
     opacity: 0.8;
