@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
-import Navigation from '../components/Navigation';
 import './products.css';
 
 // Import benefit card images
@@ -21,7 +20,6 @@ export default function Products() {
 
   return (
     <>
-      <Navigation />
 
       {/* Hero Section - Updated */}
       <section className="products-hero">
@@ -597,19 +595,6 @@ export default function Products() {
         </Link>
       </section>
 
-      {/* Footer */}
-      <footer>
-        <div className="footer-content">
-          <ul className="footer-links">
-            <li><Link href="/#services">Services</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
-            <li><Link href="#">Privacy Policy</Link></li>
-          </ul>
-          <p>&copy; {new Date().getFullYear()} Lab Integrity Pro. All rights reserved.</p>
-        </div>
-      </footer>
     </>
   );
 }

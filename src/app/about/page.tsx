@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import Navigation from '../components/Navigation';
 import womanScientist from '../assets/scientist-woman.jpg';
 import '../page.css';  // For base styles
 import './about.css';
@@ -52,8 +51,6 @@ export default function About() {
 
   return (
     <>
-      {/* Navigation - Now using shared component */}
-      <Navigation />
 
       {/* Hero Section */}
       <section className="about-hero">
@@ -313,19 +310,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer>
-        <div className="footer-content">
-          <ul className="footer-links">
-            <li><Link href="/#services">Services</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/#contact">Contact</Link></li>
-            <li><Link href="#">Privacy Policy</Link></li>
-          </ul>
-          <p>&copy; {new Date().getFullYear()} Lab Integrity Pro. All rights reserved.</p>
-        </div>
-      </footer>
     </>
   );
 }

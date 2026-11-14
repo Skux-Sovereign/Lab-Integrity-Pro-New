@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import Navigation from './components/Navigation'
 import './page.css'
 import scientistLab from './assets/scientist-lab.jpg';
 import inspection from './assets/inspection.jpg';
@@ -114,8 +113,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Navigation */}
-      <Navigation />
 
       {/* Hero Section - AI Focused */}
       <section className="hero" id="home">
@@ -410,19 +407,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer>
-        <div className="footer-content">
-          <ul className="footer-links">
-            <li><Link href="#services">Services</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
-            <li><Link href="#">Privacy Policy</Link></li>
-          </ul>
-          <p>&copy; 2025 Lab Integrity Pro. All rights reserved.</p>
-        </div>
-      </footer>
     </>
   )
 }
