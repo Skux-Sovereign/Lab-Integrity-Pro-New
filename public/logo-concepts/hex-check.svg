@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <title>Lab Integrity Pro — concept A: Verified Hex</title>
+  <defs>
+    <linearGradient id="lip-hex-g" x1="9" y1="5" x2="55" y2="59" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6ee7b7"/>
+      <stop offset="0.5" stop-color="#10b981"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+  </defs>
+  <!-- Hexagon: a molecular ring -->
+  <path d="M32 5.5 54.9 18.75v26.5L32 58.5 9.1 45.25v-26.5Z" stroke="url(#lip-hex-g)" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Check: verified data -->
+  <path d="m21.5 32.5 7 7 14-15" stroke="url(#lip-hex-g)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Bond node -->
+  <circle cx="54.9" cy="18.75" r="5" fill="#6ee7b7"/>
+</svg>

@@ -1,590 +1,121 @@
-"use client";
+import type { Metadata } from 'next'
+import styles from './contact.module.css'
+import Icon from '../components/Icon'
+import ContactForm from './ContactForm'
+import { BUSINESS_HOURS, CONTACT_EMAIL, LINKEDIN_URL } from '../lib/site'
 
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import Navigation from '../components/Navigation';
-import '../page.css';
-import './contact.css';
+export const metadata: Metadata = {
+  title: 'Book a consultation',
+  description:
+    'Book a 30-minute consultation with Lab Integrity Pro about data review, QC automation or GLP/GMP compliance for your lab.',
+}
 
-export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-    service: '',
-    message: ''
-  });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+const NEXT_STEPS = [
+  { title: 'Send the form', body: 'A few lines about your lab and what you’d like to improve.' },
+  { title: 'We reply within 24 hours', body: 'To find a time that works for your team.' },
+  { title: '30-minute call', body: 'Your lab, your review process and where it slows down. No obligation.' },
+]
 
-  // Check URL params for pre-filled data
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const interest = params.get('interest');
-    const packageType = params.get('package');
-    const service = params.get('service');
-    const product = params.get('product');
-    const training = params.get('training');
-    const intent = params.get('intent');
-    
-    if (interest) {
-      setFormData(prev => ({
-        ...prev,
-        service: interest === 'automation-pilot' ? 'automation-pilot' : 
-                 interest === 'pilot-program' ? 'pilot-program' : 
-                 interest
-      }));
-    }
-    
-    // Handle product links from products page (SOP packages)
-    if (product) {
-      const productMap: Record<string, string> = {
-        'Essential GLP': 'sop-essential',
-        'Professional GLP': 'sop-professional', 
-        'Enterprise GLP': 'sop-enterprise'
-      };
-      
-      setFormData(prev => ({
-        ...prev,
-        service: productMap[product] || 'other',
-        message: `I'm interested in the ${product} package.`
-      }));
-    }
+const FAQS = [
+  {
+    q: 'What happens on the consultation call?',
+    a: 'We talk through how data is reviewed in your lab today, where it slows down or creates risk, and which of our services, if any, would help. You leave with a clear next step either way.',
+  },
+  {
+    q: 'Does the automation support 21 CFR Part 11?',
+    a: 'Yes. It is designed around Part 11 and ALCOA+ principles, with complete audit trails and electronic signatures, and a qualified reviewer confirms every flag.',
+  },
+  {
+    q: 'How do you handle data security?',
+    a: 'All data processing happens within your secure environment. We never store or transmit your proprietary data outside your controlled systems.',
+  },
+  {
+    q: 'Do you still offer SOP templates?',
+    a: 'Yes. Our SOP packages work with any lab size and can be customized to your systems. Choose “SOP template packages” in the form and we’ll send the details.',
+  },
+]
 
-    // Handle service links from products page
-    if (service) {
-      const serviceMap: Record<string, string> = {
-        'data-review': 'data-review-study',
-        'automation': 'automation-pilot',
-        'automation-demo': 'automation-demo',
-        'lims': 'lims-config',
-        'Compliance Audit': 'compliance-audit',
-        'Custom SOP Development': 'custom-sop',
-        'Regulatory Support': 'regulatory-support'
-      };
-      
-      setFormData(prev => ({
-        ...prev,
-        service: serviceMap[service] || service.toLowerCase().replace(/\s+/g, '-'),
-        message: `I'm interested in learning more about ${service.replace(/-/g, ' ')} services.`
-      }));
-    }
-
-    // Handle training links from products page
-    if (training) {
-      const trainingMap: Record<string, string> = {
-        'Data Integrity': 'training-data-integrity',
-        'GLP/GMP': 'training-glp-gmp',
-        'QC Review': 'training-qc-review',
-        'Automation': 'training-automation'
-      };
-      
-      setFormData(prev => ({
-        ...prev,
-        service: trainingMap[training] || 'other',
-        message: `I'm interested in ${training} training for our team.`
-      }));
-    }
-
-    // Handle strategy call intent
-    if (intent === 'strategy-call') {
-      setFormData(prev => ({
-        ...prev,
-        service: 'strategy-call',
-        message: `I'd like to schedule a strategy call to discuss our laboratory needs.`
-      }));
-    }
-
-    // Legacy support for old package parameter format
-    if (packageType) {
-      setFormData(prev => ({
-        ...prev,
-        service: `sop-${packageType}`,
-        message: `I'm interested in the ${packageType} SOP package.`
-      }));
-    }
-  }, []);
-
-  const validateForm = (): boolean => {
-    const newErrors: Record<string, string> = {};
-    
-    // Name validation
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = 'Name must be at least 2 characters';
-    }
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
-    
-    // Phone validation (optional but if provided, check format)
-    if (formData.phone) {
-      const phoneRegex = /^[\d\s\-\+\(\)\.]+$/;
-      if (!phoneRegex.test(formData.phone)) {
-        newErrors.phone = 'Please enter a valid phone number';
-      }
-    }
-    
-    // Message validation
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear error for this field when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    // Validate form
-    if (!validateForm()) {
-      return;
-    }
-    
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch('https://formspree.io/f/manrkqoe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          ...formData,
-          _subject: `Lab Integrity Pro Contact: ${formData.service || 'General Inquiry'}`,
-        })
-      });
-
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          company: '',
-          phone: '',
-          service: '',
-          message: ''
-        });
-        setErrors({});
-      } else {
-        setSubmitStatus('error');
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-      // Reset status after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 5000);
-    }
-  };
-
-  const contactMethods = [
-    {
-      icon: '📧',
-      title: 'Email',
-      details: 'info@labintegritypro.com',
-      action: 'mailto:info@labintegritypro.com',
-      actionText: 'Send Email'
-    },
-    {
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#0077b5">
-          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-        </svg>
-      ),
-      title: 'LinkedIn',
-      details: 'Connect for updates & insights',
-      action: 'https://www.linkedin.com/in/labintegritypro',
-      actionText: 'View Profile'
-    },
-    {
-      icon: '📅',
-      title: 'Schedule a Call',
-      details: 'Book a free 30-minute strategy call',
-      action: 'https://calendly.com/labintegritypro/30min',
-      actionText: 'Schedule Now'
-    },
-    {
-      icon: '🕐',
-      title: 'Business Hours',
-      details: 'Mon-Fri: 8AM-6PM EST',
-      action: '#',
-      actionText: 'Available Now'
-    }
-  ];
-
-  const faqs = [
-    {
-      question: "How much time can automation save on data review?",
-      answer: "Our clients typically see 50-60% reduction in manual review time, especially for handwritten laboratory notebooks and PCR data sheets. This translates to hours saved daily for QA and QC teams."
-    },
-    {
-      question: "Is your automation solution 21 CFR Part 11 compliant?",
-      answer: "Yes, our solution maintains complete audit trails, electronic signatures, and data integrity throughout the automated review process, fully compliant with 21 CFR Part 11 requirements."
-    },
-    {
-      question: "Can you automate our existing paper-based processes?",
-      answer: "Absolutely. We specialize in digitizing and automating paper-based workflows, particularly handwritten notebooks that are common in PCR and bioanalytical teams."
-    },
-    {
-      question: "What's included in the pilot program?",
-      answer: "Pilot participants get hands-on implementation of our automation tools, customized to your specific workflows, with 30 days of support and optimization. Limited to 5 laboratories."
-    },
-    {
-      question: "Do you still offer SOP templates?",
-      answer: "Yes! We offer streamlined SOP packages from $197-$997 that work with any lab size and can be customized to your systems. Instant download available."
-    },
-    {
-      question: "How do you handle data security?",
-      answer: "All data processing happens within your secure environment. We never store or transmit your proprietary data outside your controlled systems."
-    }
-  ];
-
+export default function ContactPage() {
   return (
     <>
-      {/* Navigation - Using shared component */}
-      <Navigation />
-
-      {/* Hero Section */}
-      <section className="contact-hero">
-        <div className="contact-hero-content">
-          <h1>Get in Touch</h1>
-          <p className="hero-subtitle">Let&apos;s discuss how we can help elevate your laboratory&apos;s compliance</p>
+      {/* Hero */}
+      <section className={`page-hero grid-bg ${styles.hero}`}>
+        <div className="container">
+          <div className={styles.heroText}>
+            <p className="pill">Contact</p>
+            <h1 className="display-1">
+              Book a <span className="highlight">consultation.</span>
+            </h1>
+            <p className={`lead ${styles.heroLead}`}>
+              Tell us about your lab. We’ll reply within 24 hours to set up a 30-minute call.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Contact Methods */}
-      <section className="contact-methods-section">
-        <div className="container">
-          <div className="methods-grid">
-            {contactMethods.map((method, index) => (
-              <div key={index} className="method-card">
-                <div className="method-icon">
-                  {typeof method.icon === 'string' ? method.icon : method.icon}
-                </div>
-                <h3>{method.title}</h3>
-                <p>{method.details}</p>
-                {method.action !== '#' ? (
-                  <a href={method.action} className="method-link" 
-                     target={method.action.startsWith('http') ? '_blank' : undefined}
-                     rel={method.action.startsWith('http') ? 'noopener noreferrer' : undefined}>
-                    {method.actionText} →
+      {/* Form + next steps */}
+      <section className={styles.main}>
+        <div className={`container ${styles.grid}`}>
+          <div className={`card ${styles.formCard}`}>
+            <ContactForm />
+          </div>
+
+          <aside className={styles.side}>
+            <div>
+              <p className="mono-label">What happens next</p>
+              <ol className={styles.steps}>
+                {NEXT_STEPS.map((s, i) => (
+                  <li key={s.title}>
+                    <span className={styles.stepNode}>{String(i + 1).padStart(2, '0')}</span>
+                    <div>
+                      <h2 className={styles.stepTitle}>{s.title}</h2>
+                      <p className={styles.stepBody}>{s.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className={styles.direct}>
+              <p className="mono-label">Prefer email?</p>
+              <ul>
+                <li>
+                  <Icon name="mail" size={18} />
+                  <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+                </li>
+                <li>
+                  <Icon name="link" size={18} />
+                  <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+                    LinkedIn
                   </a>
-                ) : (
-                  <span className="method-link disabled">{method.actionText}</span>
-                )}
-              </div>
+                </li>
+                <li>
+                  <Icon name="clock" size={18} />
+                  <span>{BUSINESS_HOURS}</span>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section section-alt">
+        <div className={`container ${styles.faqWrap}`}>
+          <header>
+            <p className="eyebrow">FAQ</p>
+            <h2 className="display-2">Questions before you book.</h2>
+          </header>
+          <div className={styles.faqs}>
+            {FAQS.map((f) => (
+              <details key={f.q} className={styles.faq}>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Main Contact Section */}
-      <section className="contact-main-section">
-        <div className="container">
-          <div className="contact-grid">
-            {/* Contact Form */}
-            <div className="contact-form-wrapper">
-              <h2>Send Us a Message</h2>
-              <p>Fill out the form below and we&apos;ll get back to you within 24 hours.</p>
-              
-              {submitStatus === 'success' && (
-                <div className="alert alert-success">
-                  <span className="alert-icon">✓</span>
-                  Thank you for your message! We&apos;ll be in touch soon.
-                </div>
-              )}
-              
-              {submitStatus === 'error' && (
-                <div className="alert alert-error">
-                  <span className="alert-icon">✕</span>
-                  There was an error sending your message. Please try again or email us directly at info@labintegritypro.com.
-                </div>
-              )}
-              
-              <form className="contact-form" onSubmit={handleSubmit} noValidate>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="name">Name *</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className={errors.name ? 'error' : ''}
-                      placeholder="John Smith"
-                    />
-                    {errors.name && <span className="error-message">{errors.name}</span>}
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email">Email *</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className={errors.email ? 'error' : ''}
-                      placeholder="john@company.com"
-                    />
-                    {errors.email && <span className="error-message">{errors.email}</span>}
-                  </div>
-                </div>
-                
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="company">Company</label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      placeholder="Your Company Name"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="phone">Phone</label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className={errors.phone ? 'error' : ''}
-                      placeholder="(555) 123-4567"
-                    />
-                    {errors.phone && <span className="error-message">{errors.phone}</span>}
-                  </div>
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="service">Service Interest</label>
-                  <select
-                    id="service"
-                    name="service"
-                    value={formData.service}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select area of interest...</option>
-                    
-                    <optgroup label="Quick Actions">
-                      <option value="strategy-call">Book a Strategy Call</option>
-                      <option value="automation-demo">See Automation Demo</option>
-                      <option value="pilot-program">Join Automation Pilot Program ($5K-$15K)</option>
-                    </optgroup>
-                    
-                    <optgroup label="Core Services">
-                      <option value="data-review-monthly">cGLP/cGMP Data Review - Monthly Retainer ($2,500+/month)</option>
-                      <option value="data-review-study">cGLP/cGMP Data Review - Per Study ($1,500-$5,000)</option>
-                      <option value="automation-pilot">AI-Supported Automation - Pilot Program</option>
-                      <option value="automation-custom">AI-Supported Automation - Custom Solution</option>
-                      <option value="lims-config">LIMS & ELN Configuration ($15K-$50K)</option>
-                      <option value="lims-assessment">LIMS & ELN Assessment ($5K)</option>
-                      <option value="lims-optimization">LIMS & ELN Optimization ($10K-$25K)</option>
-                    </optgroup>
-                    
-                    <optgroup label="SOP Packages">
-                      <option value="sop-essential">Essential GxP Package - 5 SOPs ($197)</option>
-                      <option value="sop-professional">Professional GxP Package - 15 SOPs ($497)</option>
-                      <option value="sop-enterprise">Enterprise GxP Package - 25+ SOPs ($997)</option>
-                    </optgroup>
-                    
-                    <optgroup label="Consulting Services">
-                      <option value="compliance-audit">Compliance Audit ($5,000)</option>
-                      <option value="custom-sop">Custom SOP Development ($1,500+)</option>
-                      <option value="regulatory-support">Regulatory Support (Custom Quote)</option>
-                    </optgroup>
-                    
-                    <optgroup label="Training Programs">
-                      <option value="training-data-integrity">Data Integrity Fundamentals ($1,200/session)</option>
-                      <option value="training-glp-gmp">cGLP/cGMP Best Practices ($1,500/session)</option>
-                      <option value="training-qc-review">QC Data Review Mastery ($1,800/session)</option>
-                      <option value="training-automation">Laboratory Automation ($2,000/session)</option>
-                    </optgroup>
-                    
-                    <option value="other">Other / General Inquiry</option>
-                  </select>
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="message">Message *</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    className={errors.message ? 'error' : ''}
-                    rows={6}
-                    placeholder="Tell us about your needs and how we can help..."
-                  />
-                  {errors.message && <span className="error-message">{errors.message}</span>}
-                </div>
-                
-                <button 
-                  type="submit" 
-                  className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
-                </button>
-              </form>
-            </div>
-            
-            {/* Additional Info */}
-            <div className="contact-info-wrapper">
-              <div className="info-card schedule-highlight">
-                <h3>📅 Book a Free Strategy Call</h3>
-                <p>Skip the form! Schedule a 30-minute call directly to discuss your laboratory&apos;s compliance challenges.</p>
-                <a 
-                  href="https://calendly.com/labintegritypro/30min" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="schedule-btn"
-                >
-                  Schedule Now →
-                </a>
-              </div>
-              
-              <div className="info-card">
-                <h3>🚀 Pilot Program Open</h3>
-                <p className="pilot-alert">Only 3 spots remaining! Join our exclusive pilot program for hands-on implementation of our automation solution.</p>
-                <Link href="/contact?interest=pilot-program" className="pilot-link">Apply Now →</Link>
-              </div>
-              
-              <div className="info-card">
-                <h3>Consultation Process</h3>
-                <div className="process-steps">
-                  <div className="process-step">
-                    <span className="step-number">1</span>
-                    <div>
-                      <h4>Pain Point Discovery</h4>
-                      <p>15-min call to understand your challenges</p>
-                    </div>
-                  </div>
-                  <div className="process-step">
-                    <span className="step-number">2</span>
-                    <div>
-                      <h4>Workflow Analysis</h4>
-                      <p>Identify automation opportunities</p>
-                    </div>
-                  </div>
-                  <div className="process-step">
-                    <span className="step-number">3</span>
-                    <div>
-                      <h4>Pilot Implementation</h4>
-                      <p>Test with your actual data</p>
-                    </div>
-                  </div>
-                  <div className="process-step">
-                    <span className="step-number">4</span>
-                    <div>
-                      <h4>ROI Validation</h4>
-                      <p>Measure time savings & compliance</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="info-card">
-                <h3>Why Lab Integrity Pro?</h3>
-                <ul className="benefits-list">
-                  <li>Blending scientific expertise with software, automation, and AI innovation</li>
-                  <li>10+ years GxP experience</li>
-                  <li>Specialization in ADC & biologics</li>
-                  <li>Real-world automation solutions</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="faq-section">
-        <div className="container">
-          <div className="section-header">
-            <h2>Frequently Asked Questions</h2>
-            <p>Find answers to common questions about our services</p>
-          </div>
-          
-          <div className="faq-grid">
-            {faqs.map((faq, index) => (
-              <div key={index} className="faq-item">
-                <h3>{faq.question}</h3>
-                <p>{faq.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="contact-cta">
-        <div className="container">
-          <div className="cta-content">
-            <h2>Ready to Get Started?</h2>
-            <p>Download our templates instantly or schedule a consultation to discuss custom solutions</p>
-            <div className="cta-buttons">
-              <Link href="/products" className="btn btn-primary">View Products</Link>
-              <a 
-                href="https://calendly.com/labintegritypro/30min" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="btn btn-secondary"
-              >
-                Schedule a Call
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer>
-        <div className="footer-content">
-          <ul className="footer-links">
-            <li><Link href="/#services">Services</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
-            <li><Link href="#">Privacy Policy</Link></li>
-          </ul>
-          <p>&copy; {new Date().getFullYear()} Lab Integrity Pro. All rights reserved.</p>
-        </div>
-      </footer>
     </>
-  );
+  )
 }
