@@ -1,0 +1,237 @@
+/* ---------- Hero ---------- */
+
+.heroText {
+  max-width: 48rem;
+}
+
+.heroLead {
+  max-width: 38rem;
+  margin-top: 1.5rem;
+}
+
+/* ---------- Mission ---------- */
+
+.mission {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 4.5rem;
+  align-items: center;
+}
+
+.prose {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 1.75rem;
+  max-width: 36rem;
+  font-size: 1.1rem;
+  color: var(--text-2);
+}
+
+.statCard {
+  padding: 2.5rem;
+  background:
+    radial-gradient(22rem 14rem at 20% 0%, var(--glow-green), transparent 70%),
+    rgba(10, 16, 32, 0.7);
+}
+
+.stat {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(4.5rem, 3.5rem + 4vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  background: var(--brand-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.statLabel {
+  margin: 1rem 0 1.25rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.statCard :global(.check-list) {
+  font-size: 0.97rem;
+}
+
+/* ---------- Expertise ---------- */
+
+.expertiseGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.expertiseCard {
+  padding: 1.75rem;
+}
+
+.expertiseTitle {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.expertiseCard ul {
+  display: grid;
+  gap: 0.6rem;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-2);
+}
+
+.expertiseCard li {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.expertiseCard li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  margin-top: 0.5rem;
+  border-radius: 50%;
+  background: var(--green-400);
+}
+
+/* ---------- Approach ---------- */
+
+.approach {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  list-style: none;
+}
+
+.approach::before {
+  content: '';
+  position: absolute;
+  top: 1.75rem;
+  left: 1.75rem;
+  right: calc(25% - 1.75rem + 0.5rem);
+  height: 2px;
+  background: linear-gradient(90deg, var(--green-400), var(--teal-500));
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.6);
+}
+
+.approachStep {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+}
+
+.approachNode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  background: var(--bg-1);
+  box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.06), 0 0 28px rgba(16, 185, 129, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--green-300);
+}
+
+.approachStep:last-child .approachNode {
+  background: var(--brand-gradient);
+  border-color: transparent;
+  color: var(--on-brand);
+}
+
+/* ---------- Industries ---------- */
+
+.industries {
+  padding: 3.5rem 0;
+}
+
+.industriesInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem 2rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  flex: 1;
+  list-style: none;
+}
+
+.chips li {
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  background: var(--surface-glass);
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
+
+.spacer {
+  height: var(--section-space);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+  .expertiseGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .mission {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .approach {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+
+  .approach::before {
+    top: 1.75rem;
+    bottom: 1.75rem;
+    left: 1.75rem;
+    right: auto;
+    width: 2px;
+    height: auto;
+    background: linear-gradient(180deg, var(--green-400), var(--teal-500));
+  }
+
+  .approachStep {
+    padding-left: 5rem;
+  }
+
+  .approachNode {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .expertiseGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .statCard {
+    padding: 2rem 1.5rem;
+  }
+}

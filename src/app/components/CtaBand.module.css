@@ -1,0 +1,30 @@
+.wrap {
+  padding: 2rem 0 var(--section-space);
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: clamp(2rem, 1.2rem + 3vw, 3.5rem);
+  border-radius: 24px;
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  background:
+    radial-gradient(36rem 18rem at 100% 0%, rgba(20, 184, 166, 0.28), transparent 65%),
+    radial-gradient(30rem 16rem at 0% 100%, rgba(16, 185, 129, 0.22), transparent 65%),
+    var(--bg-1);
+  overflow: hidden;
+}
+
+.panel h2 {
+  max-width: 32rem;
+}
+
+.body {
+  margin-top: 0.75rem;
+  max-width: 34rem;
+  color: var(--text-2);
+}

@@ -2,41 +2,49 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-
-const NAV_LINKS = [
-  { href: '/', label: 'Home' },
-  { href: '/#services', label: 'Services' },
-  { href: '/products', label: 'Products' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
-]
+import { usePathname } from 'next/navigation'
+import Logo from './Logo'
+import { CONSULT_HREF, CONSULT_LABEL, NAV_LINKS } from '../lib/site'
 
 export default function Navigation() {
+  const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50)
+    const handleScroll = () => setIsScrolled(window.scrollY > 8)
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const closeMenu = () => setIsMobileMenuOpen(false)
+  // Close the mobile menu on navigation and on Escape.
+  useEffect(() => setIsMobileMenuOpen(false), [pathname])
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setIsMobileMenuOpen(false)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [isMobileMenuOpen])
 
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+    <nav className={`navbar ${isScrolled || isMobileMenuOpen ? 'scrolled' : ''}`} aria-label="Main">
       <div className="nav-container">
-        <Link href="/" className="logo-link" onClick={closeMenu}>
-          <img src="/logo.svg" alt="Lab Integrity Pro" className="logo-image" />
-        </Link>
-        <ul id="primary-nav" className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-          {NAV_LINKS.map(({ href, label }) => (
-            <li key={href}>
-              <Link href={href} onClick={closeMenu}>{label}</Link>
-            </li>
-          ))}
-        </ul>
+        <Logo />
+        <div id="primary-nav" className={`nav-menu ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+          <ul className="nav-links">
+            {NAV_LINKS.map(({ href, label }) => (
+              <li key={href}>
+                <Link href={href} aria-current={pathname === href ? 'page' : undefined}>
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Link href={CONSULT_HREF} className="button button-primary button-sm">
+            {CONSULT_LABEL}
+          </Link>
+        </div>
         <button
           type="button"
           className="mobile-menu"

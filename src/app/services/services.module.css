@@ -1,0 +1,170 @@
+/* ---------- Hero ---------- */
+
+.heroText {
+  max-width: 50rem;
+}
+
+.heroLead {
+  max-width: 38rem;
+  margin-top: 1.5rem;
+}
+
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 3rem;
+}
+
+.jump a {
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  background: var(--surface-glass);
+  font-size: 0.9rem;
+  color: var(--text-2);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.jump a:hover {
+  border-color: rgba(52, 211, 153, 0.5);
+  color: var(--text);
+}
+
+/* ---------- Split sections ---------- */
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 4.5rem;
+  align-items: center;
+}
+
+.splitReverse {
+  grid-template-columns: 1fr 1fr;
+}
+
+.splitText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.splitText :global(.eyebrow) {
+  margin-bottom: -0.5rem;
+}
+
+.automationPoints {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  font-size: 1.05rem;
+  box-shadow: 0 0 80px -30px rgba(16, 185, 129, 0.35);
+}
+
+.consultList {
+  display: grid;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.consultList li {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.itemTitle {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.2rem;
+}
+
+/* ---------- Scope diagram ---------- */
+
+.diagram {
+  position: relative;
+  padding: 1rem;
+  border-radius: 24px;
+  border: 1px solid var(--line-soft);
+  background:
+    linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
+    var(--bg-1);
+}
+
+.diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.diagramLabel {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  fill: #e8eef7;
+}
+
+.diagramKicker {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  fill: #6ee7b7;
+}
+
+.diagramTitle {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  fill: #e8eef7;
+}
+
+/* ---------- Also available ---------- */
+
+.moreGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.moreCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.moreLink {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.ctaSpacer {
+  height: var(--section-space);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 960px) {
+  .split,
+  .splitReverse {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .moreGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- How Argus works ---------- */
+
+.argusWrap {
+  max-width: 1040px;
+  margin: 0 auto;
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <title>Lab Integrity Pro — concept C: Signal Shield</title>
+  <defs>
+    <linearGradient id="lip-shield-g" x1="11" y1="5" x2="53" y2="59" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6ee7b7"/>
+      <stop offset="0.5" stop-color="#10b981"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+  </defs>
+  <!-- Shield: protection / inspection-ready -->
+  <path d="M32 5.5 52.5 12.5v17.2c0 12.6-8.2 23.3-20.5 28.3C19.7 53 11.5 42.3 11.5 29.7V12.5Z" stroke="url(#lip-shield-g)" stroke-width="3.8" stroke-linejoin="round"/>
+  <!-- Assay peak: the data being protected -->
+  <path d="M17.5 38.5h7.2c3.6 0 4.6-17 7.3-17s3.7 17 7.3 17h7.2" stroke="url(#lip-shield-g)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
