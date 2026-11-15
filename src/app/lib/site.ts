@@ -1,5 +1,8 @@
 // Site-wide constants.
 
+// Canonical origin used for metadata, canonical URLs and the sitemap.
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://labintegritypro.com').replace(/\/$/, '')
+
 // Primary call to action used across the site.
 export const CONSULT_HREF = '/contact?interest=consultation'
 export const CONSULT_LABEL = 'Book a consultation'
@@ -11,5 +14,6 @@ export const BUSINESS_HOURS = 'Mon–Fri, 8 AM–6 PM ET'
 export const NAV_LINKS = [
   { href: '/services', label: 'Services' },
   { href: '/about', label: 'About' },
+  { href: '/insights', label: 'Insights' },
   { href: '/contact', label: 'Contact' },
 ]

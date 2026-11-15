@@ -9,9 +9,10 @@ import ScopeDiagram from './ScopeDiagram'
 import { CONSULT_HREF, CONSULT_LABEL } from '../lib/site'
 
 export const metadata: Metadata = {
-  title: 'Services',
+  title: { absolute: 'QC data review automation and GLP/GMP consulting | Lab Integrity Pro' },
   description:
-    'QC review automation and GLP/GMP compliance consulting for regulated bioanalytical and QC labs, plus SOP templates, LIMS/ELN support and training.',
+    'Automated QC data review for regulated bioanalytical labs, plus GLP/GMP compliance consulting, inspection readiness, SOP templates, LIMS/ELN support and training.',
+  alternates: { canonical: '/services' },
 }
 
 const ON_THIS_PAGE = [
@@ -98,9 +99,10 @@ export default function ServicesPage() {
         <div className={`container ${styles.split}`}>
           <div className={styles.splitText}>
             <p className="eyebrow">Core service 01</p>
-            <h2 className="display-2">QC review automation</h2>
+            <h2 className="display-2">Automated lab compliance for QC review</h2>
             <p className="lead">
-              AI-supported review that checks data as it is entered, so issues surface while they can still be fixed.
+              AI-supported review that checks data as it is entered, so lab data integrity issues surface while they
+              can still be fixed.
               Your reviewers stay in charge of every decision.
             </p>
             <Link href="/contact?interest=automation" className="text-link">
@@ -134,8 +136,8 @@ export default function ServicesPage() {
               Three sources of truth. <span className="highlight">One reconciled run.</span>
             </h2>
             <p className="lead">
-              Argus reads the method, the raw data file and the ELN bench sheet for a run, reconciles them, and
-              flags every disagreement for your reviewer.
+              Argus is a lab data integrity platform. It reads the method, the raw data file and the ELN bench sheet
+              for a run, reconciles them, and flags every disagreement for your reviewer.
             </p>
           </header>
           <div className={styles.argusWrap}>

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import styles from './home.module.css'
 import Icon from './components/Icon'
@@ -5,6 +6,13 @@ import ArgusDiagram from './components/argus/ArgusDiagram'
 import FlowDiagram from './components/FlowDiagram'
 import CtaBand from './components/CtaBand'
 import { CONSULT_HREF, CONSULT_LABEL } from './lib/site'
+
+export const metadata: Metadata = {
+  title: { absolute: 'Lab Integrity Pro | Lab data integrity and automated compliance for GLP/GMP labs' },
+  description:
+    'Lab data integrity for pharma and biotech labs: AI-supported QC data review automation and GLP/GMP compliance consulting that keep you inspection-ready.',
+  alternates: { canonical: '/' },
+}
 
 const CREDENTIALS = [
   '10+ years in regulated labs',
@@ -109,7 +117,7 @@ export default function Home() {
             <p className="eyebrow">Argus</p>
             <h2 className="display-2">A second set of eyes on every run.</h2>
             <p className="lead">
-              Argus works alongside the LIMS and ELN you already use. It reads the exports they produce, checks each
+              Argus is a lab data integrity platform that works alongside the LIMS and ELN you already use. It reads the exports they produce, checks each
               run against your method, and shows your reviewer every disagreement before the data moves on.
             </p>
             <ul className="check-list">

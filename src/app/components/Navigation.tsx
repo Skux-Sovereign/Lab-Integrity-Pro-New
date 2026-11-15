@@ -35,7 +35,7 @@ export default function Navigation() {
           <ul className="nav-links">
             {NAV_LINKS.map(({ href, label }) => (
               <li key={href}>
-                <Link href={href} aria-current={pathname === href ? 'page' : undefined}>
+                <Link href={href} aria-current={pathname === href || pathname.startsWith(`${href}/`) ? 'page' : undefined}>
                   {label}
                 </Link>
               </li>
