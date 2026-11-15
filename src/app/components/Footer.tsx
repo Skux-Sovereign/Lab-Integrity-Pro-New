@@ -18,6 +18,7 @@ export default function Footer() {
             <ul className="footer-links">
               <li><Link href="/services">Services</Link></li>
               <li><Link href="/about">About</Link></li>
+              <li><Link href="/insights">Insights</Link></li>
               <li><Link href={CONSULT_HREF}>Book a consultation</Link></li>
             </ul>
           </div>

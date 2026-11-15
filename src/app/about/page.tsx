@@ -4,9 +4,10 @@ import Icon from '../components/Icon'
 import CtaBand from '../components/CtaBand'
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: { absolute: 'About Lab Integrity Pro | 10+ years in GLP/GMP regulated labs' },
   description:
-    'Lab Integrity Pro combines more than a decade of hands-on GLP/GMP laboratory experience with AI-supported automation for regulated data review.',
+    'Lab Integrity Pro brings 10+ years of hands-on GLP/GMP lab experience at CROs and biotechs to QC data review, inspection readiness and review automation.',
+  alternates: { canonical: '/about' },
 }
 
 const EXPERIENCE = [

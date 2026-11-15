@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
+import { SITE_URL } from './lib/site'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 import SiteChrome from './components/SiteChrome'
@@ -26,8 +27,9 @@ const mono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Lab Integrity Pro | Data review & GLP/GMP compliance for regulated labs',
+    default: 'Lab Integrity Pro | Lab data integrity and automated compliance for GLP/GMP labs',
     template: '%s | Lab Integrity Pro',
   },
   description:

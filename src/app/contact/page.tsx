@@ -5,9 +5,10 @@ import ContactForm from './ContactForm'
 import { BUSINESS_HOURS, CONTACT_EMAIL, LINKEDIN_URL } from '../lib/site'
 
 export const metadata: Metadata = {
-  title: 'Book a consultation',
+  title: { absolute: 'Book a GLP/GMP compliance consultation | Lab Integrity Pro' },
   description:
-    'Book a 30-minute consultation with Lab Integrity Pro about data review, QC automation or GLP/GMP compliance for your lab.',
+    'Book a 30-minute call about QC data review, review automation or GLP/GMP compliance consulting for your lab. We reply within 24 hours.',
+  alternates: { canonical: '/contact' },
 }
 
 const NEXT_STEPS = [

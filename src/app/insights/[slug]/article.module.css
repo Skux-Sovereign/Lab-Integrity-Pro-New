@@ -1,0 +1,243 @@
+/* Single reading column, ~70 characters per line. */
+.column {
+  max-width: calc(44rem + 2 * var(--gutter));
+}
+
+.hero {
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: var(--text-2);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.back:hover {
+  color: var(--green-300);
+}
+
+.backIcon {
+  display: inline-flex;
+  transform: scaleX(-1);
+}
+
+.title {
+  text-wrap: balance;
+}
+
+.dek {
+  margin-top: 1.25rem;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+
+/* ---------- Article body ---------- */
+
+.prose {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: var(--text-2);
+}
+
+.prose > * + * {
+  margin-top: 1.4em;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose h2,
+.prose h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-wrap: balance;
+  scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
+
+.prose h2 {
+  margin-top: 2.4em;
+  font-size: 1.6rem;
+  line-height: 1.25;
+}
+
+.prose h3 {
+  margin-top: 2em;
+  font-size: 1.25rem;
+  line-height: 1.35;
+}
+
+.prose h2 + *,
+.prose h3 + * {
+  margin-top: 0.75em;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.prose a {
+  color: var(--green-300);
+  text-decoration: underline;
+  text-decoration-color: rgba(110, 231, 183, 0.4);
+  text-underline-offset: 0.2em;
+}
+
+.prose a:hover {
+  text-decoration-color: currentColor;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4em;
+}
+
+.prose li + li {
+  margin-top: 0.5em;
+}
+
+.prose li::marker {
+  color: var(--green-400);
+}
+
+.prose ol > li::marker {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.prose blockquote {
+  padding: 0.25em 0 0.25em 1.25em;
+  border-left: 3px solid var(--green-400);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.prose code {
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--text);
+}
+
+.prose pre {
+  overflow-x: auto;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.prose pre code {
+  padding: 0;
+  background: none;
+}
+
+.prose hr {
+  margin-block: 2.5em;
+  border: 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.prose img {
+  border-radius: var(--radius-sm);
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.prose th,
+.prose td {
+  padding: 0.7em 1em;
+  border-bottom: 1px solid var(--line-soft);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.prose td:first-child {
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* ---------- Author ---------- */
+
+.author {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  margin-top: 4rem;
+  padding: 1.5rem;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background: var(--surface-glass);
+}
+
+.avatar {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: var(--brand-gradient);
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #04120d;
+}
+
+.authorName {
+  margin: 0.25rem 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+@media (max-width: 600px) {
+  .prose {
+    font-size: 1.0625rem;
+  }
+
+  /* Wide tables scroll sideways instead of widening the page. */
+  .prose table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .author {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
